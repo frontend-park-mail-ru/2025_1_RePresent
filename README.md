@@ -2,10 +2,10 @@
 
 ## Авторы
 
-* [**Александр Волощук**](github.com/DeveloperMan313)
-* [**Илья Фролов**](github.com/Ifroloff)
-* [**Анатолий Сюсюкин**](github.com/kiberperdun)
-* [**Алексей Шишкин**](github.com/SH1SH4)
+* [**Александр Волощук**](https://github.com/DeveloperMan313)
+* [**Илья Фролов**](https://github.com/Ifroloff)
+* [**Анатолий Сюсюкин**](https://github.com/kiberperdun)
+* [**Алексей Шишкин**](https://github.com/SH1SH4)
 
 ## Менторы
 * **Софья Ситниченко** - *Фронтенд*
