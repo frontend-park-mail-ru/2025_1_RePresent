@@ -1,0 +1,46 @@
+.sign-in-up {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in-up .container {
+    width: 800px;
+    height: 500px;
+    background: linear-gradient(to left, var(--active-primary), var(--active-secondary));
+    border-radius: var(--corner-small);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.sign-in-up .offer-block,
+.sign-in-up .form-block {
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--margin-medium);
+}
+
+.sign-in-up .form-block {
+    background-color: var(--bg-primary);
+}
+
+.sign-in-up h1 {
+    font-family: "Oswald";
+    font-size: var(--font-large);
+}
+
+.sign-in-up button {
+    border-radius: var(--corner-big);
+}
+
+.sign-in-up .offer-block>*,
+.sign-in-up .form-block>* {
+    width: 70%;
+}
