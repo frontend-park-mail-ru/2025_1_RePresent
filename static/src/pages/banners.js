@@ -1,7 +1,7 @@
 'use strict';
 
 import { Component } from "../component.js";
-import { loadPath } from "../main.js";
+import { loadPath, isUserAuthed } from "../main.js";
 import { Button } from "../components/button.js";
 import { AdListItem } from "../components/ad-list-item.js";
 
@@ -19,13 +19,19 @@ export class BannersPage extends Component {
                 <p class="none-msg">Нет объявлений</p>
             </div>
         </div>
-
             <div class="main-section"></div>
         </div>  
         `;
     }
 
     render() {
+        isUserAuthed().then(isAuthed => {
+            if (!isAuthed) {
+                loadPath('/signin');
+                return;
+            }
+        });
+        
         this.parent.innerHTML = '';
 
         const html = this.getHTML();

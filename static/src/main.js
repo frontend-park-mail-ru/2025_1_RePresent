@@ -1,15 +1,17 @@
 'use strict';
 
-import { SignUpPage  } from './pages/sign-up.js';
-import { SignInPage  } from './pages/sign-in.js';
+import { SignUpPage } from './pages/sign-up.js';
+import { SignInPage } from './pages/sign-in.js';
 import { BannersPage } from './pages/banners.js';
+import { ProfilePage } from './pages/profile.js';
 
 const root = document.getElementById('root');
 
 const pathToJSClass = {
-    '/signup':  { class: SignUpPage,  title: 'ReTarget - Sign up'        },
-    '/signin':  { class: SignInPage,  title: 'ReTarget - Sign in'        },
+    '/signup': { class: SignUpPage, title: 'ReTarget - Sign up' },
+    '/signin': { class: SignInPage, title: 'ReTarget - Sign in' },
     '/my-banners': { class: BannersPage, title: 'ReTarget - Мои Объявления' },
+    '/profile': {class: ProfilePage, tile: 'ReTarget - Мой профиль'},
 };
 
 export function loadPath(path, ...params) {
@@ -25,6 +27,29 @@ export function loadPath(path, ...params) {
     const nextURL = window.location.origin + path;
     window.history.replaceState({}, nextTitle, nextURL);
     document.title = nextTitle;
+}
+
+export async function isUserAuthed() {
+    try {
+        const response = await fetch('http://localhost:8080/auth/me', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        });
+
+        if (response.ok) {
+            console.log(await response.json())
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
 }
 
 // TODO: remove this and show 404 page instead

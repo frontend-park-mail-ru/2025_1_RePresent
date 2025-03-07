@@ -29,6 +29,6 @@ export class InputField extends Input {
     render() {
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
-        this.inputElement = document.querySelector(`input-field #${this.#name}`);
+        this.inputElement = document.querySelector(`.input-field #${this.#name}`);
     }
 }

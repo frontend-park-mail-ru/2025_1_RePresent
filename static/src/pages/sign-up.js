@@ -47,7 +47,46 @@ export class SignUpPage extends Component {
         const passwordRepeatInput = new InputField(formBlock, 'password', 'password-repeat', 'Повторите пароль');
         passwordRepeatInput.render();
 
-        const signUpButton = new Button(formBlock, 'primary', 'Продолжить');
+        const signUpButton = new Button(formBlock, 'primary', 'Продолжить', async () => {
+            try {
+                organizationInput.validate();
+                emailInput.validate();
+                passwordInput.validate();
+
+                const username = organizationInput.getValue();
+                const email = emailInput.getValue();
+                const password = passwordInput.getValue();
+                const role = 1;
+        
+                const response = await fetch('http://localhost:8080/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username,
+                        email,
+                        password,
+                        role,
+                    }),
+                    credentials: 'include',
+                });
+        
+                if (response.ok) {
+                    const data = await response.body;
+                    console.log(data);
+                    loadPath('/my-banners');
+                } else {
+                    // TODO: Обработка ошибок
+                    const errorMessage = await response.text();
+                    console.error(errorMessage);
+                    passwordInput.inputElement.setCustomValidity('Ошибка');
+                    passwordInput.inputElement.reportValidity();
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
         signUpButton.render();
 
         const signInButton = new Button(offerBlock,'subtle', 'Войти', () => {

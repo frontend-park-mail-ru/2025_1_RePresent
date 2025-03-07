@@ -41,12 +41,48 @@ export class SignInPage extends Component {
         const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль');
         passwordInput.render();
 
-        const signInButton = new Button(formBlock, 'primary', 'Войти');
+        const signInButton = new Button(formBlock, 'primary', 'Войти', async () => {
+            try {
+                emailInput.validate();
+                passwordInput.validate();
+                const email = emailInput.getValue();
+                const password = passwordInput.getValue();
+                const role = 1;
+        
+                const response = await fetch('http://localhost:8080/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        role,
+                    }),
+                    credentials: 'include',
+                });
+        
+                if (response.ok) {
+                    const data = await response.body;
+                    console.log(data);
+                    loadPath('/my-banners');
+                } else {
+                    // TODO: Обработка ошибок
+                    const errorMessage = await response.text();
+                    console.error(errorMessage);
+                    passwordInput.inputElement.setCustomValidity('Неправильный email или пароль');
+                    passwordInput.inputElement.reportValidity();
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
         signInButton.render();
 
-        const signUpButton = new Button(offerBlock,'subtle', 'Создать', () => {
+        const signUpButton = new Button(offerBlock, 'subtle', 'Создать', () => {
             loadPath('/signup');
         });
         signUpButton.render();
+
     }
 }
