@@ -1,12 +1,9 @@
 'use strict';
 
+import { Component } from "../component.js";
 import { loadPath } from "../main.js";
 
-export class SignUpPage {
-    constructor(parent) {
-        this.parent = parent;
-    }
-
+export class SignUpPage extends Component {
     get pageRoot() {
         return document.getElementById('sign-up');
     }
