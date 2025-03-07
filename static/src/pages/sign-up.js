@@ -60,6 +60,8 @@ export class SignUpPage extends Component {
         
                 const response = await fetch('http://localhost:8080/auth/signup', {
                     method: 'POST',
+                    mode: 'cors',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -69,7 +71,6 @@ export class SignUpPage extends Component {
                         password,
                         role,
                     }),
-                    credentials: 'include',
                 });
         
                 if (response.ok) {

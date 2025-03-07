@@ -51,6 +51,8 @@ export class SignInPage extends Component {
         
                 const response = await fetch('http://localhost:8080/auth/login', {
                     method: 'POST',
+                    mode: 'cors',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -59,7 +61,6 @@ export class SignInPage extends Component {
                         password,
                         role,
                     }),
-                    credentials: 'include',
                 });
         
                 if (response.ok) {

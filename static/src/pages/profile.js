@@ -41,10 +41,11 @@ export class ProfilePage extends Component {
             try {        
                 const response = await fetch('http://localhost:8080/auth/logout', {
                     method: 'POST',
+                    mode: 'cors',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    credentials: 'include',
                 });
                 if (response.ok) {
                     const data = await response.body;
