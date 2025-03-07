@@ -3,7 +3,7 @@
 import { Component } from "./component.js";
 
 export class Input extends Component {
-    #validatedValue;
+    #validatedValue = null;
     #validateValue;
 
     inputElement;
@@ -20,6 +20,9 @@ export class Input extends Component {
         const isValid = this.#validateValue(this.inputElement.value);
         if (isValid) {
             this.#validatedValue = this.inputElement.value;
+        }
+        if (!isValid) {
+            this.#validatedValue = null;
         }
         return isValid;
     }
