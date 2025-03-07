@@ -1,13 +1,13 @@
 'use strict';
 
-import { Input } from "../input";
+import { Input } from "../input.js";
 
 export class InputField extends Input {
     #type;
     #name;
     #placeholder;
 
-    constructor(parent, type, name, placeholder, validate = none) {
+    constructor(parent, type, name, placeholder, validate) {
         super(parent, validate);
         if (!(['text', 'email', 'password'].includes(type))) {
             throw Error('Invalid type');

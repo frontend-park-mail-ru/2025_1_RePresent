@@ -2,6 +2,8 @@
 
 import { Component } from "../component.js";
 import { loadPath } from "../main.js";
+import { InputField } from "../components/input-field.js";
+import { Button } from "../components/button.js";
 
 export class SignUpPage extends Component {
     get pageRoot() {
@@ -15,27 +17,9 @@ export class SignUpPage extends Component {
                 <div class="offer-block">
                     <h1>С возвращением!</h1>
                     <p>Войдите в аккаунт, чтобы получить доступ к размещению</p>
-                    <button id="open-sign-in" class="subtle">Войти</button>
                 </div>
                 <div class="form-block">
                     <h1>Создать аккаунт Рекламодателя</h1>
-                    <div class="input-field">
-                        <input type="text" name="organization" id="organization" placeholder="Название организации">
-                        <p class="error-msg"></p>
-                    </div>
-                    <div class="input-field error">
-                        <input type="text" name="email" id="email" placeholder="Email">
-                        <p class="error-msg">Некорректный Email</p>
-                    </div>
-                    <div class="input-field error">
-                        <input type="password" name="password" id="password" placeholder="Пароль">
-                        <p class="error-msg">Не менее 8 символов</p>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" name="password-repeat" id="password-repeat" placeholder="Повторите пароль">
-                        <p class="error-msg"></p>
-                    </div>
-                    <button class="primary">Продолжить</button>
                 </div>
             </div>
         </div>
@@ -48,8 +32,27 @@ export class SignUpPage extends Component {
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
 
-        document.getElementById('open-sign-in').onclick = () => {
+        const formBlock = this.parent.querySelector('.form-block');
+        const offerBlock = this.parent.querySelector('.offer-block');;
+
+        const organizationInput = new InputField(formBlock, 'text', 'organization', 'Название организации');
+        organizationInput.render();
+
+        const emailInput = new InputField(formBlock, 'email', 'email', 'Email');
+        emailInput.render();
+
+        const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль');
+        passwordInput.render();
+
+        const passwordRepeatInput = new InputField(formBlock, 'password', 'password-repeat', 'Повторите пароль');
+        passwordRepeatInput.render();
+
+        const signUpButton = new Button(formBlock, 'primary', 'Продолжить');
+        signUpButton.render();
+
+        const signInButton = new Button(offerBlock,'subtle', 'Войти', () => {
             loadPath('/signin');
-        }
+        });
+        signInButton.render();
     }
 }

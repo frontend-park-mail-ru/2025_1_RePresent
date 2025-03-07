@@ -3,12 +3,12 @@
 import { Component } from "./component.js";
 
 export class Input extends Component {
-    #validatedValue = none;
+    #validatedValue;
     #validate;
 
     inputElement;
 
-    constructor(parent, validate = none) {
+    constructor(parent, validate) {
         super(parent);
         // TODO: init #validate
     }
