@@ -4,21 +4,30 @@ import { Component } from "./component.js";
 
 export class Input extends Component {
     #validatedValue;
-    #validate;
+    #validateValue;
 
     inputElement;
 
     constructor(parent, validate) {
         super(parent);
-        // TODO: init #validate
+        this.#validateValue = validate;
     }
 
-    validate() { // TODO: use user-defined validator
-        this.#validatedValue = this.inputElement.value;
-        return true;
+    validate() {
+        if (!this.#validateValue) {
+            return true;
+        }
+        const isValid = this.#validateValue(this.inputElement.value);
+        if (isValid) {
+            this.#validatedValue = this.inputElement.value;
+        }
+        return isValid;
     }
 
     getValue() {
+        if (!this.#validateValue) {
+            return this.inputElement.value;
+        }
         return this.#validatedValue;
     }
 }
