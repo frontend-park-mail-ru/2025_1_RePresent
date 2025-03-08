@@ -42,8 +42,7 @@ export async function isUserAuthed() {
         });
 
         if (response.ok) {
-            console.log(await response.json())
-            return true;
+            return response.json();
         }
         return false;
     } catch (error) {
