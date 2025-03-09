@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  app:
+    image: node:16
+    container_name: static_server
+    ports:
+      - "${PORT}:${PORT}"
+    command: sh -c "npm install && node index.js"

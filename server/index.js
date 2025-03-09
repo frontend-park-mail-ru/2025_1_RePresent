@@ -2,8 +2,9 @@
 
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
 const app = express();
-const port = 8000;
+const port = process.env.PORT;
 
 const rootDir = path.join(__dirname, '..');
 
