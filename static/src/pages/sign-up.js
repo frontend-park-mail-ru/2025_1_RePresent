@@ -1,10 +1,10 @@
 'use strict';
 
 import { Component } from "../component.js";
-import { API } from "../modules/api.js";
 import { loadPath } from "../main.js";
 import { InputField } from "../components/input-field.js";
 import { Button } from "../components/button.js";
+import { UserAPI } from "../api/userApi.js";
 
 export class SignUpPage extends Component {
     get pageRoot() {
@@ -58,15 +58,7 @@ export class SignUpPage extends Component {
             const password = passwordInput.getValue();
             const role = 1;
 
-            const response = await API.fetch('/auth/signup', {
-                method: 'POST',
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password,
-                    role,
-                }),
-            });
+            const response = await UserAPI.signUp({ username: username, email: email, password: password, role: role });
 
             if (response.ok) {
                 const data = response.body;

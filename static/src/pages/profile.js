@@ -3,7 +3,6 @@
 import { Component } from "../component.js";
 import { loadPath } from "../main.js";
 import { Button } from "../components/button.js";
-import { API } from "../modules/api.js";
 import { UserAPI } from "../api/userApi.js";
 
 export class ProfilePage extends Component {
@@ -42,12 +41,7 @@ export class ProfilePage extends Component {
         buttonContainer.style.height = '100vh';
 
         const logoutButton = new Button(buttonContainer, 'danger', 'Выйти в окно', async () => {
-            const response = await API.fetch('/auth/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
+            const response = await UserAPI.logOut();
             if (response.ok) {
                 const data = response.body;
                 console.log(data);

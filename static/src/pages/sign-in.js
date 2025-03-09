@@ -4,7 +4,7 @@ import { Component } from "../component.js";
 import { loadPath } from "../main.js";
 import { InputField } from "../components/input-field.js";
 import { Button } from "../components/button.js";
-import { API } from "../modules/api.js";
+import { UserAPI } from "../api/userApi.js";
 
 export class SignInPage extends Component {
     get pageRoot() {
@@ -49,17 +49,7 @@ export class SignInPage extends Component {
             const password = passwordInput.getValue();
             const role = 1;
 
-            const response = await API.fetch('/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
-                    role,
-                }),
-            });
+            const response = await UserAPI.logIn({ email: email, password: password, role: role });
 
             if (response.ok) {
                 const data = response.body;

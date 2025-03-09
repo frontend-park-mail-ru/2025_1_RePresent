@@ -3,8 +3,8 @@
 import { Component } from "../component.js";
 import { loadPath } from "../main.js";
 import { AdListItem } from "../components/ad-list-item.js";
-import { API } from "../modules/api.js";
 import { UserAPI } from "../api/userApi.js";
+import { BannerAPI } from "../api/bannerApi.js";
 
 export class BannersPage extends Component {
 
@@ -35,12 +35,7 @@ export class BannersPage extends Component {
 
         UserAPI.getCurrentUser()
             .then(async (user) => {
-                const response = await API.fetch(`/banner/user/${user.id}/all`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                });
+                const response = await BannerAPI.getAll(user.id);
                 if (response.ok) {
                     const data = await response.json();
                     data.forEach(element => {
