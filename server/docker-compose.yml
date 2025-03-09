@@ -4,6 +4,9 @@ services:
   app:
     image: node:16
     container_name: static_server
+    working_dir: /app
+    volumes:
+      - ..:/app
     ports:
       - "${PORT}:${PORT}"
-    command: sh -c "npm install && node index.js"
+    command: sh -c "cd ./server && npm install && node index.js"
