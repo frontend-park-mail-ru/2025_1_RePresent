@@ -3,7 +3,8 @@
 import { Component } from "../component.js";
 import { loadPath } from "../main.js";
 import { AdListItem } from "../components/ad-list-item.js";
-import { API } from "../api.js";
+import { API } from "../modules/api.js";
+import { UserAPI } from "../api/userApi.js";
 
 export class BannersPage extends Component {
 
@@ -32,7 +33,7 @@ export class BannersPage extends Component {
 
         const adList = this.parent.querySelector('.list');
 
-        API.getCurrentUser()
+        UserAPI.getCurrentUser()
             .then(async (user) => {
                 const response = await API.fetch(`/banner/user/${user.id}/all`, {
                     method: 'GET',

@@ -2,7 +2,7 @@
 
 export class API {
     static get API_ORIGIN() {
-        return 'http://localhost:8080';
+        return 'ENV_API_ORIGIN/api/ENV_API_VERSION';
     }
 
     static async fetch(inputRelative, init) {
@@ -16,16 +16,5 @@ export class API {
             throw new Error('Unauthorized');
         }
         return response;
-    }
-
-    static async getCurrentUser() {
-        const response = await this.fetch('/auth/me', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        });
-        return response.json();
     }
 }

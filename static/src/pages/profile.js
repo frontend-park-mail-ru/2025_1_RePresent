@@ -3,7 +3,8 @@
 import { Component } from "../component.js";
 import { loadPath } from "../main.js";
 import { Button } from "../components/button.js";
-import { API } from "../api.js";
+import { API } from "../modules/api.js";
+import { UserAPI } from "../api/userApi.js";
 
 export class ProfilePage extends Component {
     getHTML() {
@@ -19,7 +20,7 @@ export class ProfilePage extends Component {
     }
 
     render() {
-        API.getCurrentUser()
+        UserAPI.getCurrentUser()
             .catch(err => {
                 if (err.message == 'Unauthorized') {
                     loadPath('/signup');
