@@ -4,6 +4,7 @@ import { Component } from "../component.js";
 import { loadPath } from "../main.js";
 import { InputField } from "../components/input-field.js";
 import { Button } from "../components/button.js";
+import { API } from "../api.js";
 
 export class SignInPage extends Component {
     get pageRoot() {
@@ -42,40 +43,34 @@ export class SignInPage extends Component {
         passwordInput.render();
 
         const signInButton = new Button(formBlock, 'primary', 'Войти', async () => {
-            try {
-                emailInput.validate();
-                passwordInput.validate();
-                const email = emailInput.getValue();
-                const password = passwordInput.getValue();
-                const role = 1;
-        
-                const response = await fetch('http://localhost:8080/auth/login', {
-                    method: 'POST',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email,
-                        password,
-                        role,
-                    }),
-                });
-        
-                if (response.ok) {
-                    const data = await response.body;
-                    console.log(data);
-                    loadPath('/my-banners');
-                } else {
-                    // TODO: Обработка ошибок
-                    const errorMessage = await response.text();
-                    console.error(errorMessage);
-                    passwordInput.inputElement.setCustomValidity('Неправильный email или пароль');
-                    passwordInput.inputElement.reportValidity();
-                }
-            } catch (error) {
-                console.error(error);
+            emailInput.validate();
+            passwordInput.validate();
+            const email = emailInput.getValue();
+            const password = passwordInput.getValue();
+            const role = 1;
+
+            const response = await API.fetch('/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                    role,
+                }),
+            });
+
+            if (response.ok) {
+                const data = response.body;
+                console.log(data);
+                loadPath('/my-banners');
+            } else {
+                // TODO: Обработка ошибок
+                const errorMessage = await response.text();
+                console.error(errorMessage);
+                passwordInput.inputElement.setCustomValidity('Неправильный email или пароль');
+                passwordInput.inputElement.reportValidity();
             }
         });
         signInButton.render();

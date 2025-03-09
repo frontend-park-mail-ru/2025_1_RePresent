@@ -1,8 +1,9 @@
 'use strict';
 
 import { Component } from "../component.js";
-import { loadPath, isUserAuthed } from "../main.js";
+import { loadPath } from "../main.js";
 import { Button } from "../components/button.js";
+import { API } from "../api.js";
 
 export class ProfilePage extends Component {
     getHTML() {
@@ -18,13 +19,15 @@ export class ProfilePage extends Component {
     }
 
     render() {
-        isUserAuthed().then(isAuthed => {
-            if (!isAuthed) {
-                loadPath('/signin');
-                return;
-            }
-        });
-        
+        API.getCurrentUser()
+            .catch(err => {
+                if (err.message == 'Unauthorized') {
+                    loadPath('/signup');
+                    return;
+                }
+                throw err;
+            });
+
         this.parent.innerHTML = '';
 
         const html = this.getHTML();
@@ -38,24 +41,18 @@ export class ProfilePage extends Component {
         buttonContainer.style.height = '100vh';
 
         const logoutButton = new Button(buttonContainer, 'danger', 'Выйти в окно', async () => {
-            try {        
-                const response = await fetch('http://localhost:8080/auth/logout', {
-                    method: 'POST',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                });
-                if (response.ok) {
-                    const data = await response.body;
-                    console.log(data);
-                    loadPath('/signin');
-                } else {
-                    alert("Ошибка выхода");
-                }
-            } catch (error) {
-                console.error(error);
+            const response = await API.fetch('/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (response.ok) {
+                const data = response.body;
+                console.log(data);
+                loadPath('/signin');
+            } else {
+                alert("Ошибка выхода");
             }
         });
         logoutButton.render();
