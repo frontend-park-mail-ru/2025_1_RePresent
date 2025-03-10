@@ -1,11 +1,11 @@
 'use strict';
 
-import { Component } from '../component.js';
-import { loadPath } from '../main.js';
-import { AdListItem } from '../components/ad-list-item.js';
-import { UserAPI } from '../api/userApi.js';
-import { BannerAPI } from '../api/bannerApi.js';
-import { Button } from '../components/button.js';
+import { Component } from '../../component.js';
+import { loadPath } from '../../main.js';
+import { AdListItem } from '../ad-list-item/ad-list-item.js';
+import { UserAPI } from '../../api/userApi.js';
+import { BannerAPI } from '../../api/bannerApi.js';
+import { Button } from '../button/button.js';
 
 export class BannersPage extends Component {
 

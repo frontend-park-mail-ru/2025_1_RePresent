@@ -1,10 +1,10 @@
 'use strict';
 
-import { Component } from '../component.js';
-import { loadPath } from '../main.js';
-import { InputField } from '../components/input-field.js';
-import { Button } from '../components/button.js';
-import { UserAPI } from '../api/userApi.js';
+import { Component } from '../../component.js';
+import { loadPath } from '../../main.js';
+import { InputField } from '../input-field/input-field.js';
+import { Button } from '../button/button.js';
+import { UserAPI } from '../../api/userApi.js';
 
 export class SignUpPage extends Component {
     get pageRoot() {

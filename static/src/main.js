@@ -1,9 +1,9 @@
 'use strict';
 
-import { SignUpPage } from './pages/sign-up.js';
-import { SignInPage } from './pages/sign-in.js';
-import { BannersPage } from './pages/banners.js';
-import { ProfilePage } from './pages/profile.js';
+import { SignUpPage } from './components/sign-up/sign-up.js';
+import { SignInPage } from './components/sign-in/sign-in.js';
+import { BannersPage } from './components/banners/banners.js';
+import { ProfilePage } from './components/profile/profile.js';
 
 const root = document.getElementById('root');
 

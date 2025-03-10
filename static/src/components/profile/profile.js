@@ -1,9 +1,9 @@
 'use strict';
 
-import { Component } from '../component.js';
-import { loadPath } from '../main.js';
-import { Button } from '../components/button.js';
-import { UserAPI } from '../api/userApi.js';
+import { Component } from '../../component.js';
+import { loadPath } from '../../main.js';
+import { Button } from '../button/button.js';
+import { UserAPI } from '../../api/userApi.js';
 
 export class ProfilePage extends Component {
     getHTML() {
