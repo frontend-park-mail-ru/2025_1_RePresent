@@ -7,23 +7,14 @@ import { UserAPI } from '../../api/userApi.js';
 import { BannerAPI } from '../../api/bannerApi.js';
 import { Button } from '../button/button.js';
 
+/**
+ * Страница панели управления объявлениями
+ */
 export class BannersPage extends Component {
 
     getHTML() {
-        return `
-        <div class="navbar"></div>
-
-        <div class="contents">
-        <div class="ad-list">
-            <h1>Мои объявления</h1>
-            <button class="primary">Создать объявление</button>
-            <div class="list">
-                <p class="none-msg">Нет объявлений</p>
-            </div>
-        </div>
-            <div class="main-section"></div>
-        </div>  
-        `;
+        const template = Handlebars.templates['components/banners/banners'];
+        return template();
     }
 
     render() {
@@ -35,7 +26,7 @@ export class BannersPage extends Component {
         const adList = this.parent.querySelector('.list');
 
         UserAPI.getCurrentUser()
-            .then(async(user) => {
+            .then(async (user) => {
                 const response = await BannerAPI.getAll(user.id);
                 if (response.ok) {
                     const data = await response.json();

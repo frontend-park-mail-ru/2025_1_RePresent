@@ -6,25 +6,17 @@ import { InputField } from '../input-field/input-field.js';
 import { Button } from '../button/button.js';
 import { UserAPI } from '../../api/userApi.js';
 
+/**
+ * Страница входа
+ */
 export class SignInPage extends Component {
     get pageRoot() {
         return document.getElementById('sign-in');
     }
 
     getHTML() {
-        return `
-        <div id="sign-in" class="sign-in-up">
-            <div class="container">
-                <div class="form-block">
-                    <h1>Войти в аккаунт Рекламодателя</h1>
-                </div>
-                <div class="offer-block">
-                    <h1>Добро пожаловать!</h1>
-                    <p>Впервые у нас? Создайте аккаунт!</p>
-                </div>
-            </div>
-        </div>
-        `;
+        const template = Handlebars.templates['components/sign-in/sign-in'];
+        return template();
     }
 
     emailGetError(value) {
@@ -63,7 +55,7 @@ export class SignInPage extends Component {
         const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль', this.passwordGetError);
         passwordInput.render();
 
-        const signInButton = new Button(formBlock, 'primary', 'Войти', async() => {
+        const signInButton = new Button(formBlock, 'primary', 'Войти', async () => {
             const formIsValid = [emailInput, passwordInput].map(input => input.validate()).every(isValid => isValid == true);
             if (!formIsValid) {
                 return;

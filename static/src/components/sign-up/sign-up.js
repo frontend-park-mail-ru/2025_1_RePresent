@@ -6,25 +6,17 @@ import { InputField } from '../input-field/input-field.js';
 import { Button } from '../button/button.js';
 import { UserAPI } from '../../api/userApi.js';
 
+/**
+ * Страница регистрации
+ */
 export class SignUpPage extends Component {
     get pageRoot() {
         return document.getElementById('sign-up');
     }
 
     getHTML() {
-        return `
-        <div id="sign-up" class="sign-in-up">
-            <div class="container">
-                <div class="offer-block">
-                    <h1>С возвращением!</h1>
-                    <p>Войдите в аккаунт, чтобы получить доступ к размещению</p>
-                </div>
-                <div class="form-block">
-                    <h1>Создать аккаунт Рекламодателя</h1>
-                </div>
-            </div>
-        </div>
-        `;
+        const template = Handlebars.templates['components/sign-up/sign-up'];
+        return template();
     }
 
     organizationGetError(value) {
@@ -92,7 +84,7 @@ export class SignUpPage extends Component {
         const passwordRepeatInput = new InputField(formBlock, 'password', 'password-repeat', 'Повторите пароль', passwordRepeatGetError);
         passwordRepeatInput.render();
 
-        const signUpButton = new Button(formBlock, 'primary', 'Продолжить', async() => {
+        const signUpButton = new Button(formBlock, 'primary', 'Продолжить', async () => {
             const formIsValid = [organizationInput, emailInput, passwordInput, passwordRepeatInput].map(input => input.validate()).every(isValid => isValid == true);
             if (!formIsValid) {
                 return;
