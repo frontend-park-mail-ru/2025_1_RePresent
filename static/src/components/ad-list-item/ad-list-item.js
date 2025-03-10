@@ -2,11 +2,21 @@
 
 import { Component } from '../../component.js';
 
+/**
+ * Элемент списка объявлений
+ */
 export class AdListItem extends Component {
     #status;
     #name;
     #stats;
 
+    /**
+     * Инициализация параметров
+     * @param {Node} parent - родитель
+     * @param {string} status - статус объявления
+     * @param {string} name - имя объявления
+     * @param {string} stats - краткая статистика объявления
+     */
     constructor(parent, type, name, stats) {
         super(parent);
         this.#status = type;

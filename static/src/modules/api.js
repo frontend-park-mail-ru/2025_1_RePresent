@@ -1,10 +1,22 @@
 'use strict';
 
+/**
+ * Обертка запросов к API
+ */
 export class API {
+    /**
+     * Адрес API, подставляемый сервером из конфига перед отправкой клиенту
+     */
     static get API_ORIGIN() {
         return 'ENV_API_ORIGIN/api/ENV_API_VERSION';
     }
 
+    /**
+     * Обертка fetch с обработкой неавторизованного запроса
+     * @param {string} inputRelative 
+     * @param {Object} init 
+     * @returns {Response} response - ответ API
+     */
     static async fetch(inputRelative, init) {
         if (!init) {
             init = {};

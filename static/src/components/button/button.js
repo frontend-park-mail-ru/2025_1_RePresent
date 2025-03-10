@@ -2,6 +2,15 @@
 
 import { Component } from '../../component.js';
 
+/**
+ * Обработчик нажатия на кнопку
+ * @callback Button~clickCallback
+ * @param {Event} event - событие нажатия кнопки
+ */
+
+/**
+ * Кнопка
+ */
 export class Button extends Component {
     #type;
     #text;
@@ -9,6 +18,13 @@ export class Button extends Component {
     #disabled;
     #loading;
 
+    /**
+     * Инициализация параметров
+     * @param {Node} parent - родитель
+     * @param {string} type - тип кнопки
+     * @param {string} text - текст кнопки
+     * @param {clickCallback} onClick - валидатор значения поля
+     */
     constructor(parent, type, text, onClick = null) {
         super(parent);
         this.#type = type;

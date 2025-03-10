@@ -6,6 +6,9 @@ import { InputField } from '../input-field/input-field.js';
 import { Button } from '../button/button.js';
 import { UserAPI } from '../../api/userApi.js';
 
+/**
+ * Страница входа
+ */
 export class SignInPage extends Component {
     get pageRoot() {
         return document.getElementById('sign-in');

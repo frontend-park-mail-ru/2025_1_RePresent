@@ -7,6 +7,9 @@ import { UserAPI } from '../../api/userApi.js';
 import { BannerAPI } from '../../api/bannerApi.js';
 import { Button } from '../button/button.js';
 
+/**
+ * Страница панели управления объявлениями
+ */
 export class BannersPage extends Component {
 
     getHTML() {

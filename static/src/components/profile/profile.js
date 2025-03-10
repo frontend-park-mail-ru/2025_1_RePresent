@@ -5,6 +5,9 @@ import { loadPath } from '../../main.js';
 import { Button } from '../button/button.js';
 import { UserAPI } from '../../api/userApi.js';
 
+/**
+ * Страница профиля пользователя
+ */
 export class ProfilePage extends Component {
     getHTML() {
         const template = Handlebars.templates['components/profile/profile'];

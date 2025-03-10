@@ -7,6 +7,9 @@ import { ProfilePage } from './components/profile/profile.js';
 
 const root = document.getElementById('root');
 
+/**
+ * @constant {Object.<string, Object>} соответствие между путями URL, классами компонентов и названиями страниц
+ */
 const pathToJSClass = {
     '/signup': { class: SignUpPage, title: 'ReTarget - Sign up' },
     '/signin': { class: SignInPage, title: 'ReTarget - Sign in' },
@@ -14,6 +17,11 @@ const pathToJSClass = {
     '/profile': { class: ProfilePage, tile: 'ReTarget - Мой профиль' },
 };
 
+/**
+ * Загрузить страницу по ее пути
+ * @param {*} path - путь страницы
+ * @param  {...any} params - параметры страницы
+ */
 export function loadPath(path, ...params) {
     if (!(path in pathToJSClass)) {
         throw Error(`No such path: "${path}"`);

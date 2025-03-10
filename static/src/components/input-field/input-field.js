@@ -2,6 +2,9 @@
 
 import { Input } from '../../input.js';
 
+/**
+ * Поле текстового ввода
+ */
 export class InputField extends Input {
     #type;
     #name;
@@ -10,6 +13,14 @@ export class InputField extends Input {
     #errorElement;
     #getError;
 
+    /**
+     * Инициализация параметров
+     * @param {Node} parent - родитель
+     * @param {string} type - тип input элемента
+     * @param {string} name - name и id элемента
+     * @param {string} placeholder - placeholder элемента
+     * @param {Input~validateCallback} validate - валидатор значения поля
+     */
     constructor(parent, type, name, placeholder, getError) {
         const validate = getError ? (value) => { return getError(value) == ''; } : undefined;
         super(parent, validate);
