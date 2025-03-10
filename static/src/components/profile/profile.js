@@ -7,15 +7,8 @@ import { UserAPI } from '../../api/userApi.js';
 
 export class ProfilePage extends Component {
     getHTML() {
-        return `
-        <div class="navbar"></div>
-
-        <div class="contents">
-            <div class="main">
-                <div class="button-container"></div>
-            </div>
-        </div>  
-        `;
+        const template = Handlebars.templates['components/profile/profile'];
+        return template();
     }
 
     render() {
@@ -40,7 +33,7 @@ export class ProfilePage extends Component {
         buttonContainer.style.alignItems = 'center';
         buttonContainer.style.height = '100vh';
 
-        const logoutButton = new Button(buttonContainer, 'danger', 'Выйти из аккаунта', async() => {
+        const logoutButton = new Button(buttonContainer, 'danger', 'Выйти из аккаунта', async () => {
             const response = await UserAPI.logOut();
             if (response.ok) {
                 const data = response.body;

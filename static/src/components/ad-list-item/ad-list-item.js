@@ -15,15 +15,8 @@ export class AdListItem extends Component {
     }
 
     getHTML() {
-        return `
-        <div class="ad-list-item ${this.#status}">
-            <div class="info">
-                <span class="name">${this.#name}</span>
-                <span class="stats">${this.#stats}</span>
-            </div>
-            <div class="indicator"></div>
-        </div>
-        `;
+        const template = Handlebars.templates['components/ad-list-item/ad-list-item'];
+        return template({ status: this.#status, name: this.#name, stats: this.#stats });
     }
 
     render() {

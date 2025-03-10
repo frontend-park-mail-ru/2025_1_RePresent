@@ -22,13 +22,9 @@ export class InputField extends Input {
         this.#getError = getError;
     }
 
-    getHTML() { // TODO: Handlebars
-        return `
-        <div class="input-field">
-            <input type="${this.#type}" name="${this.#name}" id="${this.#name}" placeholder="${this.#placeholder}">
-            <p class="error-msg"></p>
-        </div>
-        `;
+    getHTML() {
+        const template = Handlebars.templates['components/input-field/input-field'];
+        return template({ type: this.#type, name: this.#name, placeholder: this.#placeholder });
     }
 
     showError(errorMsg) {

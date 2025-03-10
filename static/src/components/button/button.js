@@ -19,11 +19,8 @@ export class Button extends Component {
     }
 
     getHTML() {
-        return `
-        <button class="${this.#type}" ${this.#disabled ? 'disabled' : ''}>
-            ${this.#loading ? 'Загрузка...' : this.#text}
-        </button>
-        `;
+        const template = Handlebars.templates['components/button/button'];
+        return template({ type: this.#type, disabled: this.#disabled ? 'disabled' : '', text: this.#text });
     }
 
     render() {
