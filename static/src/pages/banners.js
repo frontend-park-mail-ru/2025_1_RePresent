@@ -5,6 +5,7 @@ import { loadPath } from "../main.js";
 import { AdListItem } from "../components/ad-list-item.js";
 import { UserAPI } from "../api/userApi.js";
 import { BannerAPI } from "../api/bannerApi.js";
+import { Button } from "../components/button.js";
 
 export class BannersPage extends Component {
 
@@ -53,5 +54,12 @@ export class BannersPage extends Component {
                 }
                 throw err;
             });
+
+        // temporary
+        const profileButton = new Button(this.parent, 'subtle', 'Профиль', () => {
+            loadPath('/profile');
+        });
+        profileButton.render();
+        profileButton.element.style.margin = '1rem';
     }
 }

@@ -40,7 +40,7 @@ export class ProfilePage extends Component {
         buttonContainer.style.alignItems = 'center';
         buttonContainer.style.height = '100vh';
 
-        const logoutButton = new Button(buttonContainer, 'danger', 'Выйти в окно', async () => {
+        const logoutButton = new Button(buttonContainer, 'danger', 'Выйти из аккаунта', async () => {
             const response = await UserAPI.logOut();
             if (response.ok) {
                 const data = response.body;
