@@ -98,10 +98,6 @@ export class SignUpPage extends Component {
                 return;
             }
 
-            organizationInput.validate();
-            emailInput.validate();
-            passwordInput.validate();
-
             const username = organizationInput.getValue();
             const email = emailInput.getValue();
             const password = passwordInput.getValue();
