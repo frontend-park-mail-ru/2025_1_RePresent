@@ -27,6 +27,27 @@ export class SignInPage extends Component {
         `;
     }
 
+    emailGetError(value) {
+        const emailRegexp = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm
+        const isValid = emailRegexp.test(value);
+        if (isValid) {
+            return '';
+        }
+        if (!isValid) {
+            return 'Некорректный email';
+        }
+    }
+
+    passwordGetError(value) {
+        const isValid = value.trim().length > 0;
+        if (isValid) {
+            return '';
+        }
+        if (!isValid) {
+            return 'Введите пароль';
+        }
+    }
+
     render() {
         this.parent.innerHTML = '';
 
@@ -34,17 +55,20 @@ export class SignInPage extends Component {
         this.parent.insertAdjacentHTML('beforeend', html);
 
         const formBlock = this.parent.querySelector('.form-block');
-        const offerBlock = this.parent.querySelector('.offer-block');;
+        const offerBlock = this.parent.querySelector('.offer-block');
 
-        const emailInput = new InputField(formBlock, 'email', 'email', 'Email');
+        const emailInput = new InputField(formBlock, 'email', 'email', 'Email', this.emailGetError);
         emailInput.render();
 
-        const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль');
+        const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль', this.passwordGetError);
         passwordInput.render();
 
         const signInButton = new Button(formBlock, 'primary', 'Войти', async () => {
-            emailInput.validate();
-            passwordInput.validate();
+            const formIsValid = [emailInput, passwordInput].map(input => input.validate()).every(isValid => isValid == true);
+            if (!formIsValid) {
+                return;
+            }
+
             const email = emailInput.getValue();
             const password = passwordInput.getValue();
             const role = 1;
@@ -59,8 +83,7 @@ export class SignInPage extends Component {
                 // TODO: Обработка ошибок
                 const errorMessage = await response.text();
                 console.error(errorMessage);
-                passwordInput.inputElement.setCustomValidity('Неправильный email или пароль');
-                passwordInput.inputElement.reportValidity();
+                passwordInput.showError('Неправильный email или пароль');
             }
         });
         signInButton.render();
