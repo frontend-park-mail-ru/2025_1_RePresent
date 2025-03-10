@@ -1,10 +1,10 @@
 'use strict';
 
-import { Component } from "../component.js";
-import { loadPath } from "../main.js";
-import { InputField } from "../components/input-field.js";
-import { Button } from "../components/button.js";
-import { UserAPI } from "../api/userApi.js";
+import { Component } from '../component.js';
+import { loadPath } from '../main.js';
+import { InputField } from '../components/input-field.js';
+import { Button } from '../components/button.js';
+import { UserAPI } from '../api/userApi.js';
 
 export class SignUpPage extends Component {
     get pageRoot() {
@@ -38,7 +38,7 @@ export class SignUpPage extends Component {
     }
 
     emailGetError(value) {
-        const emailRegexp = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm
+        const emailRegexp = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
         const isValid = emailRegexp.test(value);
         if (isValid) {
             return '';
@@ -67,7 +67,7 @@ export class SignUpPage extends Component {
             if (!isValid) {
                 return 'Пароли не совпадают';
             }
-        }
+        };
     }
 
     render() {
@@ -77,7 +77,7 @@ export class SignUpPage extends Component {
         this.parent.insertAdjacentHTML('beforeend', html);
 
         const formBlock = this.parent.querySelector('.form-block');
-        const offerBlock = this.parent.querySelector('.offer-block');;
+        const offerBlock = this.parent.querySelector('.offer-block');
 
         const organizationInput = new InputField(formBlock, 'text', 'organization', 'Название организации', this.organizationGetError);
         organizationInput.render();
@@ -88,11 +88,11 @@ export class SignUpPage extends Component {
         const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль', this.passwordGetError);
         passwordInput.render();
 
-        const passwordRepeatGetError = this.getPasswordRepeatGetError(passwordInput)
+        const passwordRepeatGetError = this.getPasswordRepeatGetError(passwordInput);
         const passwordRepeatInput = new InputField(formBlock, 'password', 'password-repeat', 'Повторите пароль', passwordRepeatGetError);
         passwordRepeatInput.render();
 
-        const signUpButton = new Button(formBlock, 'primary', 'Продолжить', async () => {
+        const signUpButton = new Button(formBlock, 'primary', 'Продолжить', async() => {
             const formIsValid = [organizationInput, emailInput, passwordInput, passwordRepeatInput].map(input => input.validate()).every(isValid => isValid == true);
             if (!formIsValid) {
                 return;

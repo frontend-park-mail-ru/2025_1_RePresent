@@ -1,6 +1,6 @@
 'use strict';
 
-import { Input } from "../input.js";
+import { Input } from '../input.js';
 
 export class InputField extends Input {
     #type;

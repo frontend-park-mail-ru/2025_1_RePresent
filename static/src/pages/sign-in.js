@@ -1,10 +1,10 @@
 'use strict';
 
-import { Component } from "../component.js";
-import { loadPath } from "../main.js";
-import { InputField } from "../components/input-field.js";
-import { Button } from "../components/button.js";
-import { UserAPI } from "../api/userApi.js";
+import { Component } from '../component.js';
+import { loadPath } from '../main.js';
+import { InputField } from '../components/input-field.js';
+import { Button } from '../components/button.js';
+import { UserAPI } from '../api/userApi.js';
 
 export class SignInPage extends Component {
     get pageRoot() {
@@ -28,7 +28,7 @@ export class SignInPage extends Component {
     }
 
     emailGetError(value) {
-        const emailRegexp = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm
+        const emailRegexp = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
         const isValid = emailRegexp.test(value);
         if (isValid) {
             return '';
@@ -63,7 +63,7 @@ export class SignInPage extends Component {
         const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль', this.passwordGetError);
         passwordInput.render();
 
-        const signInButton = new Button(formBlock, 'primary', 'Войти', async () => {
+        const signInButton = new Button(formBlock, 'primary', 'Войти', async() => {
             const formIsValid = [emailInput, passwordInput].map(input => input.validate()).every(isValid => isValid == true);
             if (!formIsValid) {
                 return;

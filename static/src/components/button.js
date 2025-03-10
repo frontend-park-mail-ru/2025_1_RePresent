@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component } from "../component.js";
+import { Component } from '../component.js';
 
 export class Button extends Component {
     #type;
@@ -20,8 +20,8 @@ export class Button extends Component {
 
     getHTML() {
         return `
-        <button class="${this.#type}" ${this.#disabled? 'disabled' : ''}>
-            ${this.#loading? 'Загрузка...' : this.#text}
+        <button class="${this.#type}" ${this.#disabled ? 'disabled' : ''}>
+            ${this.#loading ? 'Загрузка...' : this.#text}
         </button>
         `;
     }
@@ -43,7 +43,7 @@ export class Button extends Component {
     update() {
         if (this.element) {
             this.element.disabled = this.#disabled;
-            this.element.textContent = this.#loading? 'Загрузка...' : this.#text;
+            this.element.textContent = this.#loading ? 'Загрузка...' : this.#text;
         }
     }
 

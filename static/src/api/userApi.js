@@ -1,6 +1,6 @@
 'use strict';
 
-import { API } from "../modules/api.js";
+import { API } from '../modules/api.js';
 
 export class UserAPI {
     static async getCurrentUser() {
@@ -9,7 +9,7 @@ export class UserAPI {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-            }
+            },
         });
         return response.json();
     }
@@ -30,7 +30,7 @@ export class UserAPI {
         return API.fetch('/auth/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 email: credentials.email,
@@ -44,7 +44,7 @@ export class UserAPI {
         return API.fetch('/auth/logout', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
         });
     }

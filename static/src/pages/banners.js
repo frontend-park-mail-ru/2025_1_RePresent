@@ -1,11 +1,11 @@
 'use strict';
 
-import { Component } from "../component.js";
-import { loadPath } from "../main.js";
-import { AdListItem } from "../components/ad-list-item.js";
-import { UserAPI } from "../api/userApi.js";
-import { BannerAPI } from "../api/bannerApi.js";
-import { Button } from "../components/button.js";
+import { Component } from '../component.js';
+import { loadPath } from '../main.js';
+import { AdListItem } from '../components/ad-list-item.js';
+import { UserAPI } from '../api/userApi.js';
+import { BannerAPI } from '../api/bannerApi.js';
+import { Button } from '../components/button.js';
 
 export class BannersPage extends Component {
 
@@ -35,12 +35,12 @@ export class BannersPage extends Component {
         const adList = this.parent.querySelector('.list');
 
         UserAPI.getCurrentUser()
-            .then(async (user) => {
+            .then(async(user) => {
                 const response = await BannerAPI.getAll(user.id);
                 if (response.ok) {
                     const data = await response.json();
                     data.forEach(element => {
-                        new AdListItem(adList, ["active", "awaiting", "rejected"][element.status - 1], element.title, element.description).render();
+                        new AdListItem(adList, ['active', 'awaiting', 'rejected'][element.status - 1], element.title, element.description).render();
                     });
                 } else {
                     loadPath('/signin');
