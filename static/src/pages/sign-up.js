@@ -113,8 +113,12 @@ export class SignUpPage extends Component {
                 // TODO: Обработка ошибок
                 const errorMessage = await response.text();
                 console.error(errorMessage);
-                passwordInput.inputElement.setCustomValidity('Ошибка');
-                passwordInput.inputElement.reportValidity();
+                if (errorMessage.includes('username')) {
+                    organizationInput.showError(errorMessage);
+                }
+                if (errorMessage.includes('email')) {
+                    emailInput.showError(errorMessage);
+                }
             }
         });
         signUpButton.render();
