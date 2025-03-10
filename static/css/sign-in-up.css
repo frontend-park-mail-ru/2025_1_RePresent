@@ -7,7 +7,7 @@
 
 .sign-in-up .container {
     width: 800px;
-    height: 500px;
+    height: 580px;
     background: linear-gradient(to left, var(--active-primary), var(--active-secondary));
     border-radius: var(--corner-small);
     overflow: hidden;

@@ -5,3 +5,4 @@ export class Component {
         this.parent = parent;
     }
 }
+
