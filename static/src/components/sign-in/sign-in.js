@@ -10,13 +10,12 @@ import { UserAPI } from '../../api/userApi.js';
  * Страница входа
  */
 export class SignInPage extends Component {
-    get pageRoot() {
-        return document.getElementById('sign-in');
-    }
-
-    getHTML() {
-        const template = Handlebars.templates['components/sign-in/sign-in'];
-        return template();
+    /**
+     * Конструктор компонента
+     * @param {Node} parent - родительский узел компонента
+     */
+    constructor(parent) {
+        super(parent, 'sign-in/sign-in');
     }
 
     emailGetError(value) {
@@ -41,49 +40,49 @@ export class SignInPage extends Component {
     }
 
     render() {
-        this.parent.innerHTML = '';
-
-        const html = this.getHTML();
-        this.parent.insertAdjacentHTML('beforeend', html);
+        super.render();
 
         const formBlock = this.parent.querySelector('.form-block');
         const offerBlock = this.parent.querySelector('.offer-block');
 
-        const emailInput = new InputField(formBlock, 'email', 'email', 'Email', this.emailGetError);
-        emailInput.render();
+        const emailInput = new InputField(formBlock);
+        emailInput.render({ type: 'email', name: 'email', placeholder: 'Email', getError: this.emailGetError });
 
-        const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль', this.passwordGetError);
-        passwordInput.render();
+        const passwordInput = new InputField(formBlock);
+        passwordInput.render({ type: 'password', name: 'password', placeholder: 'Пароль', getError: this.passwordGetError });
 
-        const signInButton = new Button(formBlock, 'primary', 'Войти', async () => {
-            const formIsValid = [emailInput, passwordInput].map(input => input.validate()).every(isValid => isValid == true);
-            if (!formIsValid) {
-                return;
-            }
+        const signInButton = new Button(formBlock);
+        signInButton.render({
+            type: 'primary', text: 'Войти', onClick: async () => {
+                const formIsValid = [emailInput, passwordInput].map(input => input.validate()).every(isValid => isValid == true);
+                if (!formIsValid) {
+                    return;
+                }
 
-            const email = emailInput.getValue();
-            const password = passwordInput.getValue();
-            const role = 1;
+                const email = emailInput.getValue();
+                const password = passwordInput.getValue();
+                const role = 1;
 
-            const response = await UserAPI.logIn({ email: email, password: password, role: role });
+                const response = await UserAPI.logIn({ email: email, password: password, role: role });
 
-            if (response.ok) {
-                const data = response.body;
-                console.log(data);
-                loadPath('/my-banners');
-            } else {
-                // TODO: Обработка ошибок
-                const errorMessage = await response.text();
-                console.error(errorMessage);
-                passwordInput.showError('Неправильный email или пароль');
+                if (response.ok) {
+                    const data = response.body;
+                    console.log(data);
+                    loadPath('/my-banners');
+                } else {
+                    // TODO: Обработка ошибок
+                    const errorMessage = await response.text();
+                    console.error(errorMessage);
+                    passwordInput.showError('Неправильный email или пароль');
+                }
             }
         });
-        signInButton.render();
 
-        const signUpButton = new Button(offerBlock, 'subtle', 'Создать', () => {
-            loadPath('/signup');
+        const signUpButton = new Button(offerBlock);
+        signUpButton.render({
+            type: 'subtle', text: 'Создать', onClick: () => {
+                loadPath('/signup');
+            }
         });
-        signUpButton.render();
-
     }
 }

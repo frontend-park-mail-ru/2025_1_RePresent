@@ -11,17 +11,16 @@ import { Button } from '../button/button.js';
  * Страница панели управления объявлениями
  */
 export class BannersPage extends Component {
-
-    getHTML() {
-        const template = Handlebars.templates['components/banners/banners'];
-        return template();
+    /**
+     * Конструктор компонента
+     * @param {Node} parent - родительский узел компонента
+     */
+    constructor(parent) {
+        super(parent, 'banners/banners');
     }
 
     render() {
-        this.parent.innerHTML = '';
-
-        const html = this.getHTML();
-        this.parent.insertAdjacentHTML('beforeend', html);
+        super.render();
 
         const adList = this.parent.querySelector('.list');
 
@@ -47,10 +46,12 @@ export class BannersPage extends Component {
             });
 
         // temporary
-        const profileButton = new Button(this.parent, 'subtle', 'Профиль', () => {
-            loadPath('/profile');
+        const profileButton = new Button(this.parent);
+        profileButton.render({
+            type: 'subtle', text: 'Профиль', onClick: () => {
+                loadPath('/profile');
+            }
         });
-        profileButton.render();
-        profileButton.element.style.margin = '1rem';
+        profileButton.rootElement.style.margin = '1rem';
     }
 }

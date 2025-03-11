@@ -3,50 +3,46 @@
 import { Input } from '../../input.js';
 
 /**
+ * Генератор ошибок поля
+ * @callback InputField~getError
+ * @param {string} value - значение текстового поля
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+
+/**
  * Поле текстового ввода
  */
 export class InputField extends Input {
-    #type;
-    #name;
-    #placeholder;
-    #rootElement;
     #errorElement;
-    #getError;
 
     /**
-     * Инициализация параметров
-     * @param {Node} parent - родитель
-     * @param {string} type - тип input элемента
-     * @param {string} name - name и id элемента
-     * @param {string} placeholder - placeholder элемента
-     * @param {Input~validateCallback} validate - валидатор значения поля
+     * Конструктор компонента
+     * @param {Node} parent - родительский узел компонента
      */
-    constructor(parent, type, name, placeholder, getError) {
-        const validate = getError ? (value) => { return getError(value) == ''; } : undefined;
-        super(parent, validate);
-        if (!(['text', 'email', 'password'].includes(type))) {
-            throw Error('Invalid type');
-        }
-        this.#type = type;
-        this.#name = name;
-        this.#placeholder = placeholder;
-        this.#getError = getError;
+    constructor(parent) {
+        super(parent, 'input-field/input-field');
     }
 
-    getHTML() {
-        const template = Handlebars.templates['components/input-field/input-field'];
-        return template({ type: this.#type, name: this.#name, placeholder: this.#placeholder });
-    }
-
+    /**
+     * Показать сообщение об ошибке
+     * @param {string} errorMsg - сообщение об ошибке
+     */
     showError(errorMsg) {
         this.#errorElement.innerText = errorMsg;
-        this.#rootElement.classList.add('error');
+        this.rootElement.classList.add('error');
     }
 
+    /**
+     * Спрятать сообщение об ошибке
+     */
     hideError() {
-        this.#rootElement.classList.remove('error');
+        this.rootElement.classList.remove('error');
     }
 
+    /**
+     * Валидировать значение поля
+     * @returns {boolean} - корректно ли значение поля
+     */
     validate() {
         const inputValue = this.inputElement.value.trim();
         const isValid = super.validate(inputValue);
@@ -54,17 +50,27 @@ export class InputField extends Input {
             this.hideError();
         }
         if (!isValid) {
-            this.showError(this.#getError(inputValue));
+            this.showError(this.props.getError(inputValue));
         }
         return isValid;
     }
 
-    render() {
-        const html = this.getHTML();
-        this.parent.insertAdjacentHTML('beforeend', html);
-        this.inputElement = document.querySelector(`.input-field #${this.#name}`);
-        this.#rootElement = this.inputElement.parentNode;
-        this.#errorElement = this.#rootElement.getElementsByClassName('error-msg')[0];
+    /**
+     * Отрисовка
+     * @param {Object} props - параметры компонента
+     * @param {string} props.type - статус объявления
+     * @param {string} props.name - имя объявления
+     * @param {string} props.placeholder - краткая статистика объявления
+     * @param {InputField~getError} getError - генератор ошибок поля
+     */
+    render(props) {
+        if (!(['text', 'email', 'password'].includes(props.type))) {
+            throw Error('Invalid type');
+        }
+        props.validate = props.getError ? (value) => { return props.getError(value) == ''; } : undefined;
+        super.render(props);
+        this.#errorElement = this.rootElement.querySelector('.error-msg');
+        this.inputElement = this.rootElement.querySelector('#' + props.name);
         this.inputElement.onblur = this.validate.bind(this);
     }
 }

@@ -10,13 +10,12 @@ import { UserAPI } from '../../api/userApi.js';
  * Страница регистрации
  */
 export class SignUpPage extends Component {
-    get pageRoot() {
-        return document.getElementById('sign-up');
-    }
-
-    getHTML() {
-        const template = Handlebars.templates['components/sign-up/sign-up'];
-        return template();
+    /**
+     * Конструктор компонента
+     * @param {Node} parent - родительский узел компонента
+     */
+    constructor(parent) {
+        super(parent, 'sign-up/sign-up');
     }
 
     organizationGetError(value) {
@@ -63,61 +62,62 @@ export class SignUpPage extends Component {
     }
 
     render() {
-        this.parent.innerHTML = '';
-
-        const html = this.getHTML();
-        this.parent.insertAdjacentHTML('beforeend', html);
+        super.render();
 
         const formBlock = this.parent.querySelector('.form-block');
-        const offerBlock = this.parent.querySelector('.offer-block');
 
-        const organizationInput = new InputField(formBlock, 'text', 'organization', 'Название организации', this.organizationGetError);
-        organizationInput.render();
+        const organizationInput = new InputField(formBlock);
+        organizationInput.render({ type: 'text', name: 'organization', placeholder: 'Название организации', getError: this.organizationGetError });
 
-        const emailInput = new InputField(formBlock, 'email', 'email', 'Email', this.emailGetError);
-        emailInput.render();
+        const emailInput = new InputField(formBlock);
+        emailInput.render({ type: 'email', name: 'email', placeholder: 'Email', getError: this.emailGetError });
 
-        const passwordInput = new InputField(formBlock, 'password', 'password', 'Пароль', this.passwordGetError);
-        passwordInput.render();
+        const passwordInput = new InputField(formBlock);
+        passwordInput.render({ type: 'password', name: 'password', placeholder: 'Пароль', getError: this.passwordGetError });
 
         const passwordRepeatGetError = this.getPasswordRepeatGetError(passwordInput);
-        const passwordRepeatInput = new InputField(formBlock, 'password', 'password-repeat', 'Повторите пароль', passwordRepeatGetError);
-        passwordRepeatInput.render();
+        const passwordRepeatInput = new InputField(formBlock);
+        passwordRepeatInput.render({ type: 'password', name: 'password-repeat', placeholder: 'Повторите пароль', getError: passwordRepeatGetError });
 
-        const signUpButton = new Button(formBlock, 'primary', 'Продолжить', async () => {
-            const formIsValid = [organizationInput, emailInput, passwordInput, passwordRepeatInput].map(input => input.validate()).every(isValid => isValid == true);
-            if (!formIsValid) {
-                return;
-            }
-
-            const username = organizationInput.getValue();
-            const email = emailInput.getValue();
-            const password = passwordInput.getValue();
-            const role = 1;
-
-            const response = await UserAPI.signUp({ username: username, email: email, password: password, role: role });
-
-            if (response.ok) {
-                const data = response.body;
-                console.log(data);
-                loadPath('/my-banners');
-            } else {
-                // TODO: Обработка ошибок
-                const errorMessage = await response.text();
-                console.error(errorMessage);
-                if (errorMessage.includes('username')) {
-                    organizationInput.showError(errorMessage);
+        const signUpButton = new Button(formBlock);
+        signUpButton.render({
+            type: 'primary', text: 'Продолжить', onClick: async () => {
+                const formIsValid = [organizationInput, emailInput, passwordInput, passwordRepeatInput].map(input => input.validate()).every(isValid => isValid == true);
+                if (!formIsValid) {
+                    return;
                 }
-                if (errorMessage.includes('email')) {
-                    emailInput.showError(errorMessage);
+
+                const username = organizationInput.getValue();
+                const email = emailInput.getValue();
+                const password = passwordInput.getValue();
+                const role = 1;
+
+                const response = await UserAPI.signUp({ username: username, email: email, password: password, role: role });
+
+                if (response.ok) {
+                    const data = response.body;
+                    console.log(data);
+                    loadPath('/my-banners');
+                } else {
+                    // TODO: Обработка ошибок
+                    const errorMessage = await response.text();
+                    console.error(errorMessage);
+                    if (errorMessage.includes('username')) {
+                        organizationInput.showError(errorMessage);
+                    }
+                    if (errorMessage.includes('email')) {
+                        emailInput.showError(errorMessage);
+                    }
                 }
             }
         });
-        signUpButton.render();
 
-        const signInButton = new Button(offerBlock, 'subtle', 'Войти', () => {
-            loadPath('/signin');
+        const offerBlock = this.parent.querySelector('.offer-block');
+        const signInButton = new Button(offerBlock);
+        signInButton.render({
+            type: 'subtle', text: 'Войти', onClick: () => {
+                loadPath('/signin');
+            }
         });
-        signInButton.render();
     }
 }

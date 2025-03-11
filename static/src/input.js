@@ -16,16 +16,19 @@ export class Input extends Component {
     #validatedValue = null;
     #validateValue;
 
+    /**
+     * Элемент input, должен быть установлен в производном классе
+     */
     inputElement;
 
     /**
-     * Инициализация параметров
+     * Отрисовка
      * @param {Node} parent - родитель
      * @param {Input~validateCallback} validate - валидатор значения поля
      */
-    constructor(parent, validate) {
-        super(parent);
-        this.#validateValue = validate;
+    render(props) {
+        super.render(props);
+        this.#validateValue = props.validate;
     }
 
     /**
