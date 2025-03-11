@@ -30,7 +30,8 @@ export class BannersPage extends Component {
                 if (response.ok) {
                     const data = await response.json();
                     data.forEach(element => {
-                        new AdListItem(adList, ['active', 'awaiting', 'rejected'][element.status - 1], element.title, element.description).render();
+                        const elProps = { status: ['active', 'awaiting', 'rejected'][element.status - 1], name: element.title, stats: element.description };
+                        new AdListItem(adList).render(elProps);
                     });
                 } else {
                     loadPath('/signin');
