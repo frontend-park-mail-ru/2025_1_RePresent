@@ -66,13 +66,8 @@ export class SignInPage extends Component {
                 const response = await UserAPI.logIn({ email: email, password: password, role: role });
 
                 if (response.ok) {
-                    const data = response.body;
-                    console.log(data);
                     loadPath('/my-banners');
                 } else {
-                    // TODO: Обработка ошибок
-                    const errorMessage = await response.text();
-                    console.error(errorMessage);
                     passwordInput.showError('Неправильный email или пароль');
                 }
             }

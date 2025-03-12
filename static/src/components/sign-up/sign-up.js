@@ -95,13 +95,9 @@ export class SignUpPage extends Component {
                 const response = await UserAPI.signUp({ username: username, email: email, password: password, role: role });
 
                 if (response.ok) {
-                    const data = response.body;
-                    console.log(data);
                     loadPath('/my-banners');
                 } else {
-                    // TODO: Обработка ошибок
-                    const errorMessage = await response.text();
-                    console.error(errorMessage);
+                    const errorMessage = (await response.json())['error'];
                     if (errorMessage.includes('username')) {
                         organizationInput.showError(errorMessage);
                     }

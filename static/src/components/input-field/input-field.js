@@ -14,7 +14,7 @@ import { Input } from '../../input.js';
  */
 export class InputField extends Input {
     #errorElement;
-    #prevValue;
+    #prevValue = '';
 
     /**
      * Конструктор компонента
