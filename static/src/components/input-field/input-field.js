@@ -14,6 +14,7 @@ import { Input } from '../../input.js';
  */
 export class InputField extends Input {
     #errorElement;
+    #prevValue;
 
     /**
      * Конструктор компонента
@@ -46,12 +47,16 @@ export class InputField extends Input {
     validate() {
         const inputValue = this.inputElement.value.trim();
         const isValid = super.validate(inputValue);
+        if (inputValue == this.#prevValue) {
+            return isValid;
+        }
         if (isValid) {
             this.hideError();
         }
         if (!isValid) {
             this.showError(this.props.getError(inputValue));
         }
+        this.#prevValue = inputValue;
         return isValid;
     }
 
