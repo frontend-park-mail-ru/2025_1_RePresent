@@ -47,16 +47,12 @@ export class InputField extends Input {
     validate() {
         const inputValue = this.inputElement.value.trim();
         const isValid = super.validate(inputValue);
-        if (inputValue == this.#prevValue) {
-            return isValid;
-        }
         if (isValid) {
             this.hideError();
         }
         if (!isValid) {
             this.showError(this.props.getError(inputValue));
         }
-        this.#prevValue = inputValue;
         return isValid;
     }
 
@@ -76,6 +72,13 @@ export class InputField extends Input {
         super.render(props);
         this.#errorElement = this.rootElement.querySelector('.error-msg');
         this.inputElement = this.rootElement.querySelector('#' + props.name);
-        this.inputElement.onblur = this.validate.bind(this);
+        this.inputElement.onblur = () => {
+            const inputValue = this.inputElement.value.trim();
+            if (inputValue == this.#prevValue) {
+                return isValid;
+            }
+            this.validate.bind(this)();
+            this.#prevValue = inputValue;
+        }
     }
 }

@@ -79,6 +79,10 @@ export class SignUpPage extends Component {
         const passwordRepeatInput = new InputField(formBlock);
         passwordRepeatInput.render({ type: 'password', name: 'password-repeat', placeholder: 'Повторите пароль', getError: passwordRepeatGetError });
 
+        passwordInput.inputElement.addEventListener('blur', () => {
+            passwordRepeatInput.validate();
+        });
+
         const signUpButton = new Button(formBlock);
         signUpButton.render({
             type: 'primary', text: 'Продолжить', onClick: async () => {
