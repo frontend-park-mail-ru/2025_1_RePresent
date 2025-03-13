@@ -2,6 +2,7 @@
 
 import { Form } from '../form/form.js';
 import { UserAPI } from '../../api/userApi.js';
+import { loadPath } from '../../main.js';
 import { InputField } from '../input-field/input-field.js';
 
 /**
