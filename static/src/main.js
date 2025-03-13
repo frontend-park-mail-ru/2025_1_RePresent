@@ -14,7 +14,7 @@ const pathToJSClass = {
     '/signup': { class: SignUpPage, title: 'ReTarget - Sign up' },
     '/signin': { class: SignInPage, title: 'ReTarget - Sign in' },
     '/my-banners': { class: BannersPage, title: 'ReTarget - Мои Объявления' },
-    '/profile': { class: ProfilePage, tile: 'ReTarget - Мой профиль' },
+    '/profile': { class: ProfilePage, title: 'ReTarget - Мой профиль' },
 };
 
 /**
@@ -28,6 +28,7 @@ export function loadPath(path, ...params) {
     }
 
     const pageClass = pathToJSClass[path].class;
+    root.innerHTML = '';
     const page = new pageClass(root);
     page.render(...params);
 

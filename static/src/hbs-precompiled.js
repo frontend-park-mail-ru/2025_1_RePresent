@@ -1,6 +1,6 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['components/ad-list-item/ad-list-item'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+templates['ad-list-item/ad-list-item'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -16,10 +16,10 @@ templates['components/ad-list-item/ad-list-item'] = template({"compiler":[8,">= 
     + alias4(((helper = (helper = lookupProperty(helpers,"stats") || (depth0 != null ? lookupProperty(depth0,"stats") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"stats","hash":{},"data":data,"loc":{"start":{"line":4,"column":28},"end":{"line":4,"column":37}}}) : helper)))
     + "</span>\r\n    </div>\r\n    <div class=\"indicator\"></div>\r\n</div>";
 },"useData":true});
-templates['components/banners/banners'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"navbar\"></div>\r\n\r\n<div class=\"contents\">\r\n    <div class=\"ad-list\">\r\n        <h1>Мои объявления</h1>\r\n        <button class=\"primary\">Создать объявление</button>\r\n        <div class=\"list\">\r\n            <p class=\"none-msg\">Нет объявлений</p>\r\n        </div>\r\n    </div>\r\n    <div class=\"main-section\"></div>\r\n</div>";
+templates['banners/banners'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"page-my-banners\">\r\n    <div class=\"navbar\"></div>\r\n\r\n    <div class=\"contents\">\r\n        <div class=\"ad-list\">\r\n            <h1>Мои объявления</h1>\r\n            <button class=\"primary\">Создать объявление</button>\r\n            <div class=\"list\">\r\n                <p class=\"none-msg\">Нет объявлений</p>\r\n            </div>\r\n        </div>\r\n        <div class=\"main-section\"></div>\r\n    </div>\r\n</div>";
 },"useData":true});
-templates['components/button/button'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+templates['button/button'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -35,7 +35,19 @@ templates['components/button/button'] = template({"compiler":[8,">= 4.3.0"],"mai
     + alias4(((helper = (helper = lookupProperty(helpers,"text") || (depth0 != null ? lookupProperty(depth0,"text") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"text","hash":{},"data":data,"loc":{"start":{"line":2,"column":4},"end":{"line":2,"column":12}}}) : helper)))
     + "\r\n</button>";
 },"useData":true});
-templates['components/input-field/input-field'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+templates['form/form'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<div class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"class","hash":{},"data":data,"loc":{"start":{"line":1,"column":12},"end":{"line":1,"column":21}}}) : helper)))
+    + "\"></div>";
+},"useData":true});
+templates['input-field/input-field'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -53,13 +65,13 @@ templates['components/input-field/input-field'] = template({"compiler":[8,">= 4.
     + alias4(((helper = (helper = lookupProperty(helpers,"placeholder") || (depth0 != null ? lookupProperty(depth0,"placeholder") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"placeholder","hash":{},"data":data,"loc":{"start":{"line":2,"column":70},"end":{"line":2,"column":85}}}) : helper)))
     + "\">\r\n    <p class=\"error-msg\"></p>\r\n</div>";
 },"useData":true});
-templates['components/profile/profile'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"navbar\"></div>\r\n\r\n<div class=\"contents\">\r\n    <div class=\"main\">\r\n        <div class=\"button-container\"></div>\r\n    </div>\r\n</div>";
+templates['profile/profile'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"page-profile\">\r\n    <div class=\"navbar\"></div>\r\n\r\n    <div class=\"contents\">\r\n        <div class=\"main\">\r\n            <div class=\"button-container\"></div>\r\n        </div>\r\n    </div>\r\n</div>";
 },"useData":true});
-templates['components/sign-in/sign-in'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"sign-in\" class=\"sign-in-up\">\r\n    <div class=\"container\">\r\n        <div class=\"form-block\">\r\n            <h1>Войти в аккаунт Рекламодателя</h1>\r\n        </div>\r\n        <div class=\"offer-block\">\r\n            <h1>Добро пожаловать!</h1>\r\n            <p>Впервые у нас? Создайте аккаунт!</p>\r\n        </div>\r\n    </div>\r\n</div>";
+templates['sign-in/sign-in'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"page-sign-in\" class=\"sign-in-up\">\r\n    <div class=\"container\"></div>\r\n</div>";
 },"useData":true});
-templates['components/sign-up/sign-up'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"sign-up\" class=\"sign-in-up\">\r\n    <div class=\"container\">\r\n        <div class=\"offer-block\">\r\n            <h1>С возвращением!</h1>\r\n            <p>Войдите в аккаунт, чтобы получить доступ к размещению</p>\r\n        </div>\r\n        <div class=\"form-block\">\r\n            <h1>Создать аккаунт Рекламодателя</h1>\r\n        </div>\r\n    </div>\r\n</div>";
+templates['sign-up/sign-up'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"page-sign-up\" class=\"sign-in-up\">\r\n    <div class=\"container\">\r\n        <div class=\"offer-block\">\r\n            <h1>С возвращением!</h1>\r\n            <p>Войдите в аккаунт, чтобы получить доступ к размещению</p>\r\n        </div>\r\n    </div>\r\n</div>";
 },"useData":true});
 })();

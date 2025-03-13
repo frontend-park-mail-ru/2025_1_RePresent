@@ -12,66 +12,26 @@ import { Component } from '../../component.js';
  * Кнопка
  */
 export class Button extends Component {
-    #type;
-    #text;
-    #onClick;
-    #disabled;
-    #loading;
+    /**
+     * Конструктор компонента
+     * @param {Node} parent - родительский узел компонента
+     */
+    constructor(parent) {
+        super(parent, 'button/button');
+    }
 
     /**
-     * Инициализация параметров
-     * @param {Node} parent - родитель
-     * @param {string} type - тип кнопки
-     * @param {string} text - текст кнопки
-     * @param {clickCallback} onClick - валидатор значения поля
+     * Отрисовка
+     * @param {Object} props - параметры компонента
+     * @param {string} props.type - тип кнопки
+     * @param {string} props.text - текст кнопки
+     * @param {string} props.disabled - отключена ли кнопка
+     * @param {clickCallback} props.onClick - обработчик нажатия кнопки
      */
-    constructor(parent, type, text, onClick = null) {
-        super(parent);
-        this.#type = type;
-        this.#text = text;
-        this.#onClick = onClick;
-        this.#disabled = false;
-        this.#loading = false;
-    }
+    render(props) {
+        props.disabled = props.disabled ? 'disabled' : '';
+        super.render(props);
 
-    getHTML() {
-        const template = Handlebars.templates['components/button/button'];
-        return template({ type: this.#type, disabled: this.#disabled ? 'disabled' : '', text: this.#text });
-    }
-
-    render() {
-        if (!this.parent) {
-            throw new Error('Родительский элемент не существует');
-        }
-
-        const html = this.getHTML();
-        this.parent.insertAdjacentHTML('beforeend', html);
-        this.element = this.parent.querySelector(`button.${this.#type}`);
-
-        if (this.#onClick) {
-            this.element.addEventListener('click', this.#onClick);
-        }
-    }
-
-    update() {
-        if (this.element) {
-            this.element.disabled = this.#disabled;
-            this.element.textContent = this.#loading ? 'Загрузка...' : this.#text;
-        }
-    }
-
-    disable() {
-        this.#disabled = true;
-        this.update();
-    }
-
-    enable() {
-        this.#disabled = false;
-        this.update();
-    }
-
-    setLoading(loading) {
-        this.#loading = loading;
-        this.update();
+        this.rootElement.addEventListener('click', props.onClick);
     }
 }
