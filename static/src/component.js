@@ -38,19 +38,24 @@ export class Component {
     /**
      * Обобщенный конструктор компонента
      * @param {Node} parent - родительский узел компонента
+     * @param {string} templateName - имя шаблона компонента
+     * @param {Object} props - параметры компонента
      */
-    constructor(parent, templateName) {
+    constructor(parent, templateName, props) {
         this.parent = parent;
         this.#template = Handlebars.templates[templateName];
+        this.props = props;
     }
 
     /**
      * Отрисовать впервые или перерисовать компонент на странице
      * Следует вызывать в начале функции при ее переопределении
-     * @param {Object} props - параметры компонента
+     * @param {?Object} props - параметры компонента
      */
     render(props) {
-        this.props = props;
+        if (props) {
+            this.props = props;
+        }
         const elementHTML = this.#template(props);
         const elDocument = new DOMParser().parseFromString(elementHTML, 'text/html');
         if (elDocument.body.childElementCount != 1) {

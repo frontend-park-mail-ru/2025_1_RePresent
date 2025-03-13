@@ -38,7 +38,7 @@ export class ProfilePage extends Component {
 
         const logoutButton = new Button(buttonContainer);
         logoutButton.render({
-            type: 'danger', text: 'Выйти из аккаунта', onClick: async () => {
+            type: 'danger', text: 'Выйти из аккаунта', onClick: async() => {
                 const response = await UserAPI.logOut();
                 if (response.ok) {
                     const data = response.body;
@@ -47,7 +47,7 @@ export class ProfilePage extends Component {
                 } else {
                     alert('Ошибка выхода');
                 }
-            }
+            },
         });
     }
 }

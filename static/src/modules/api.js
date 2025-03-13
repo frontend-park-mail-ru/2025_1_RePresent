@@ -13,8 +13,8 @@ export class API {
 
     /**
      * Обертка fetch с обработкой неавторизованного запроса
-     * @param {string} inputRelative 
-     * @param {Object} init 
+     * @param {string} inputRelative - путь, относительно /api/version/
+     * @param {Object} init - параметры fetch
      * @returns {Response} response - ответ API
      */
     static async fetch(inputRelative, init) {

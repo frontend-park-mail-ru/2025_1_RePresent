@@ -19,9 +19,10 @@ export class InputField extends Input {
     /**
      * Конструктор компонента
      * @param {Node} parent - родительский узел компонента
+     * @param {?Object} props - параметры компонента
      */
-    constructor(parent) {
-        super(parent, 'input-field/input-field');
+    constructor(parent, props) {
+        super(parent, 'input-field/input-field', props);
     }
 
     /**
@@ -57,28 +58,35 @@ export class InputField extends Input {
     }
 
     /**
+     * Валидировать значение поля, если поле было редактировано
+     */
+    validateIfChanged() {
+        const inputValue = this.inputElement.value.trim();
+        if (inputValue == this.#prevValue) {
+            return;
+        }
+        this.validate();
+        this.#prevValue = inputValue;
+    }
+
+    /**
      * Отрисовка
-     * @param {Object} props - параметры компонента
+     * @param {?Object} props - параметры компонента
      * @param {string} props.type - статус объявления
      * @param {string} props.name - имя объявления
      * @param {string} props.placeholder - краткая статистика объявления
      * @param {InputField~getError} getError - генератор ошибок поля
      */
     render(props) {
+        props ||= this.props;
+
         if (!(['text', 'email', 'password'].includes(props.type))) {
-            throw Error('Invalid type');
+            throw new Error('Invalid type');
         }
         props.validate = props.getError ? (value) => { return props.getError(value) == ''; } : undefined;
         super.render(props);
         this.#errorElement = this.rootElement.querySelector('.error-msg');
         this.inputElement = this.rootElement.querySelector('#' + props.name);
-        this.inputElement.onblur = () => {
-            const inputValue = this.inputElement.value.trim();
-            if (inputValue == this.#prevValue) {
-                return isValid;
-            }
-            this.validate.bind(this)();
-            this.#prevValue = inputValue;
-        }
+        this.inputElement.onblur = this.validateIfChanged.bind(this);
     }
 }
