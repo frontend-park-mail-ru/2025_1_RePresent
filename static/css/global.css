@@ -243,9 +243,9 @@ button[disabled] {
     cursor: default;
 }
 
-/* ad list item */
+/* banner list item */
 
-.ad-list-item {
+.banner-list-item {
     width: 400px;
     height: 65px;
     padding: 0 var(--margin-medium);
@@ -261,51 +261,51 @@ button[disabled] {
     user-select: none;
 }
 
-.ad-list-item:hover {
+.banner-list-item:hover {
     background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
 }
 
-.ad-list-item:active {
+.banner-list-item:active {
     background-color: var(--bg-secondary-dark);
 }
 
-.ad-list-item .info {
+.banner-list-item .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.ad-list-item .status {
+.banner-list-item .status {
     display: flex;
     flex-direction: row;
     justify-content: end;
 }
 
-.ad-list-item .name {
+.banner-list-item .name {
     font-size: var(--font-medium);
 }
 
-.ad-list-item .indicator {
+.banner-list-item .indicator {
     width: 25px;
     height: 25px;
     border-radius: 100%;
 }
 
-.ad-list-item.active .indicator {
+.banner-list-item.active .indicator {
     background-color: var(--active-primary);
 }
 
-.ad-list-item.awaiting .indicator {
+.banner-list-item.awaiting .indicator {
     background-color: var(--active-warning);
 }
 
-.ad-list-item.rejected .indicator {
+.banner-list-item.rejected .indicator {
     background-color: var(--active-danger);
 }
 
-/* ad list */
+/* banner list */
 
-.ad-list {
+.banner-list {
     width: 360px;
     min-height: 500px;
     padding: var(--margin-medium);
@@ -313,26 +313,26 @@ button[disabled] {
     border-radius: var(--corner-small);
 }
 
-.ad-list>* {
+.banner-list>* {
     width: 100%;
     margin-bottom: var(--margin-medium);
 }
 
-.ad-list h1 {
+.banner-list h1 {
     font-size: var(--font-large);
 }
 
-.ad-list .none-msg {
+.banner-list .none-msg {
     font-size: var(--font-medium);
     text-align: center;
     display: none;
 }
 
-.ad-list .none-msg:last-child {
+.banner-list .none-msg:last-child {
     display: block;
 }
 
-.ad-list .list>* {
+.banner-list .list>* {
     width: 100%;
     margin-bottom: var(--margin-small);
 }
