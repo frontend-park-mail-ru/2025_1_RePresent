@@ -1,0 +1,31 @@
+.banner-list {
+    width: 360px;
+    min-height: 500px;
+    padding: var(--margin-medium);
+    background-color: var(--bg-primary);
+    border-radius: var(--corner-small);
+}
+
+.banner-list>* {
+    width: 100%;
+    margin-bottom: var(--margin-medium);
+}
+
+.banner-list h1 {
+    font-size: var(--font-large);
+}
+
+.banner-list .none-msg {
+    font-size: var(--font-medium);
+    text-align: center;
+    display: none;
+}
+
+.banner-list .none-msg:last-child {
+    display: block;
+}
+
+.banner-list .list>* {
+    width: 100%;
+    margin-bottom: var(--margin-small);
+}
