@@ -16,7 +16,7 @@ const rootDir = path.join(__dirname, '..');
 app.use('/static', (req, res, next) => {
     // Проверяем, запрашивается ли файл api.js
     if (req.url.endsWith('/api.js')) {
-        const filePath = path.join(rootDir, 'static', req.url); // Полный путь к файлу
+        const filePath = path.join(rootDir, 'dist', req.url); // Полный путь к файлу
 
         // Читаем и изменяем содержимое файла
         fs.readFile(filePath, 'utf8', (err, data) => {
@@ -31,12 +31,12 @@ app.use('/static', (req, res, next) => {
         });
     } else {
         // Если запрашивается не api.js, передаем управление express.static
-        express.static(path.join(rootDir, 'static'))(req, res, next);
+        express.static(path.join(rootDir, 'dist'))(req, res, next);
     }
 });
 
 app.get('*', (_, res) => {
-    res.sendFile(path.join(rootDir, '/static/index.html'));
+    res.sendFile(path.join(rootDir, '/dist/index.html'));
 });
 
 app.listen(PORT, () => {
