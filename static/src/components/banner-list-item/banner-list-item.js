@@ -5,13 +5,13 @@ import { Component } from '../../component.js';
 /**
  * Элемент списка объявлений
  */
-export class AdListItem extends Component {
+export class BannerListItem extends Component {
     /**
      * Конструктор компонента
      * @param {Node} parent - родительский узел компонента
      */
     constructor(parent) {
-        super(parent, 'ad-list-item/ad-list-item');
+        super(parent, 'banner-list-item/banner-list-item');
     }
 
     /**

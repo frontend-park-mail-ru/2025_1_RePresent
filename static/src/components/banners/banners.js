@@ -2,7 +2,7 @@
 
 import { Component } from '../../component.js';
 import { loadPath } from '../../main.js';
-import { AdListItem } from '../ad-list-item/ad-list-item.js';
+import { BannerListItem } from '../banner-list-item/banner-list-item.js';
 import { UserAPI } from '../../api/userApi.js';
 import { BannerAPI } from '../../api/bannerApi.js';
 import { Button } from '../button/button.js';
@@ -19,24 +19,26 @@ export class BannersPage extends Component {
         super(parent, 'banners/banners');
     }
 
+    async renderList(user) {
+        const adList = this.parent.querySelector('.list');
+        const response = await BannerAPI.getAll(user.id);
+        if (response.ok) {
+            const data = await response.json();
+            data.forEach(element => {
+                const elProps = { status: ['active', 'awaiting', 'rejected'][element.status - 1], name: element.title, stats: element.description };
+                new BannerListItem(adList).render(elProps);
+            });
+            return;
+        }
+        loadPath('/signin');
+    }
+
     render() {
         super.render();
 
-        const adList = this.parent.querySelector('.list');
-
         UserAPI.getCurrentUser()
             .then(async(user) => {
-                const response = await BannerAPI.getAll(user.id);
-                if (response.ok) {
-                    const data = await response.json();
-                    data.forEach(element => {
-                        const elProps = { status: ['active', 'awaiting', 'rejected'][element.status - 1], name: element.title, stats: element.description };
-                        new AdListItem(adList).render(elProps);
-                    });
-                } else {
-                    loadPath('/signin');
-                }
-                return adList;
+                this.renderList(user);
             })
             .catch(err => {
                 if (err.message == 'Unauthorized') {
