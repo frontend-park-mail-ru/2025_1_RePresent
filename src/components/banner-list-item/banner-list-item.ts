@@ -2,13 +2,13 @@
 
 import './banner-list-item.css';
 
-import { Component } from '../../component';
+import { Component, Props } from '../../component';
 
 /**
  * Интерфейс для описания параметров компонента
  */
-interface BannerListItemProps {
-    status: string;
+export interface Banner extends Props {
+    status: number;
     name: string;
     stats: string;
 }
@@ -27,9 +27,14 @@ export class BannerListItem extends Component {
 
     /**
      * Отрисовка
-     * @param {BannerListItemProps} props - параметры компонента
+     * @param {Banner} props - параметры компонента
      */
-    render(props: BannerListItemProps): void {
-        super.render(props);
+    render(props: Banner): void {
+        const renderProps = {
+            status: ['active', 'awaiting', 'rejected'][props.status - 1],
+            name: props.name,
+            stats: props.stats,
+        };
+        super.render(renderProps);
     }
 }

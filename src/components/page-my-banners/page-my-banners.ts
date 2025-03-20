@@ -4,25 +4,17 @@ import './page-my-banners.css';
 
 import { Component } from '../../component';
 import { loadPath } from '../..';
-import { BannerListItem } from '../banner-list-item/banner-list-item';
 import { UserAPI } from '../../api/userApi';
 import { BannerAPI } from '../../api/bannerApi';
 import { Button } from '../button/button';
+import { BannerList } from '../banner-list/banner-list';
+import { Banner } from '../banner-list-item/banner-list-item';
 
 /**
  * Интерфейс для описания данных пользователя
  */
 interface User {
     id: number;
-}
-
-/**
- * Интерфейс для описания данных объявления
- */
-interface Banner {
-    status: number;
-    title: string;
-    description: string;
 }
 
 /**
@@ -37,28 +29,10 @@ export class PageMyBanners extends Component {
         super(parent, 'page-my-banners/page-my-banners', {});
     }
 
-    /**
-     * Отрисовка списка объявлений
-     * @param {User} user - данные пользователя
-     */
-    async renderList(user: User): Promise<void> {
-        const adList = this.parent.querySelector('.list') as HTMLElement;
-        if (!adList) {
-            throw new Error('Element with class "list" not found');
-        }
-
-        const response = await BannerAPI.getAll(user.id);
+    private async getBanners(userId: number): Promise<Banner[]> {
+        const response = await BannerAPI.getAll(userId);
         if (response.ok) {
-            const data: Banner[] = await response.json();
-            data.forEach(element => {
-                const elProps = {
-                    status: ['active', 'awaiting', 'rejected'][element.status - 1],
-                    name: element.title,
-                    stats: element.description,
-                };
-                new BannerListItem(adList).render(elProps);
-            });
-            return;
+            return await response.json();
         }
 
         loadPath('/signin');
@@ -70,9 +44,14 @@ export class PageMyBanners extends Component {
     render(): void {
         super.render();
 
+        const contentsSection = this.rootElement.getElementsByClassName('contents')[0] as HTMLElement;
+        const bannerList = new BannerList(contentsSection);
+        bannerList.render({ banners: [] });
+
         UserAPI.getCurrentUser()
             .then(async (user: User) => {
-                await this.renderList(user);
+                const banners = await this.getBanners(user.id);
+                bannerList.render({ banners });
             })
             .catch(err => {
                 if (err.message === 'Unauthorized') {
