@@ -8,13 +8,13 @@ import { UserAPI } from '../../api/userApi';
 /**
  * Страница профиля пользователя
  */
-export class ProfilePage extends Component {
+export class PageProfile extends Component {
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'profile/profile', {});
+        super(parent, 'page-profile/page-profile', {});
     }
 
     /**

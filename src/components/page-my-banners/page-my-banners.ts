@@ -1,6 +1,6 @@
 'use strict';
 
-import './banners.css';
+import './page-my-banners.css';
 
 import { Component } from '../../component';
 import { loadPath } from '../..';
@@ -28,13 +28,13 @@ interface Banner {
 /**
  * Страница панели управления объявлениями
  */
-export class BannersPage extends Component {
+export class PageMyBanners extends Component {
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'banners/banners', {});
+        super(parent, 'page-my-banners/page-my-banners', {});
     }
 
     /**

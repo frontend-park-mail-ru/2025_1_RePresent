@@ -2,10 +2,10 @@
 
 import './global.css';
 
-import { SignUpPage } from './components/sign-up/sign-up';
-import { SignInPage } from './components/sign-in/sign-in';
-import { BannersPage } from './components/banners/banners';
-import { ProfilePage } from './components/profile/profile';
+import { PageSignUp } from './components/page-sign-up/page-sign-up';
+import { PageSignIn } from './components/page-sign-in/page-sign-in';
+import { PageMyBanners } from './components/page-my-banners/page-my-banners';
+import { PageProfile } from './components/page-profile/page-profile';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -21,10 +21,10 @@ interface PageInfo {
  * @constant {Object.<string, PageInfo>} соответствие между путями URL, классами компонентов и названиями страниц
  */
 const pathToJSClass: { [key: string]: PageInfo } = {
-    '/signup': { class: SignUpPage, title: 'ReTarget - Sign up' },
-    '/signin': { class: SignInPage, title: 'ReTarget - Sign in' },
-    '/my-banners': { class: BannersPage, title: 'ReTarget - Мои Объявления' },
-    '/profile': { class: ProfilePage, title: 'ReTarget - Мой профиль' },
+    '/signup': { class: PageSignUp, title: 'ReTarget - Sign up' },
+    '/signin': { class: PageSignIn, title: 'ReTarget - Sign in' },
+    '/my-banners': { class: PageMyBanners, title: 'ReTarget - Мои Объявления' },
+    '/profile': { class: PageProfile, title: 'ReTarget - Мой профиль' },
 };
 
 /**

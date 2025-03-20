@@ -8,13 +8,13 @@ import { FormSignUp } from '../form-sign-up/form-sign-up';
 /**
  * Страница регистрации
  */
-export class SignUpPage extends Component {
+export class PageSignUp extends Component {
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'sign-up/sign-up', {});
+        super(parent, 'page-sign-up/page-sign-up', {});
     }
 
     /**
