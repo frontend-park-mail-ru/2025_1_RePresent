@@ -3,7 +3,8 @@
 import './banner-list.css';
 
 import { Component, Props } from '../../component';
-import { Banner, BannerListItem } from '../banner-list-item/banner-list-item';
+import { BannerListItem } from '../banner-list-item/banner-list-item';
+import { Banner } from '../../api/bannerApi';
 
 /**
  * Интерфейс списка объявлений

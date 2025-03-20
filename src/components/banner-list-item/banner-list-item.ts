@@ -2,16 +2,8 @@
 
 import './banner-list-item.css';
 
-import { Component, Props } from '../../component';
-
-/**
- * Интерфейс для описания параметров компонента
- */
-export interface Banner extends Props {
-    status: number;
-    name: string;
-    stats: string;
-}
+import { Component } from '../../component';
+import { Banner } from '../../api/bannerApi';
 
 /**
  * Элемент списка объявлений
@@ -32,8 +24,8 @@ export class BannerListItem extends Component {
     render(props: Banner): void {
         const renderProps = {
             status: ['active', 'awaiting', 'rejected'][props.status - 1],
-            name: props.name,
-            stats: props.stats,
+            name: props.title,
+            stats: props.description,
         };
         super.render(renderProps);
     }

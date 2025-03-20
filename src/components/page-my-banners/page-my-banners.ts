@@ -4,18 +4,10 @@ import './page-my-banners.css';
 
 import { Component } from '../../component';
 import { loadPath } from '../..';
-import { UserAPI } from '../../api/userApi';
+import { User, UserAPI } from '../../api/userApi';
 import { BannerAPI } from '../../api/bannerApi';
 import { Button } from '../button/button';
 import { BannerList } from '../banner-list/banner-list';
-import { Banner } from '../banner-list-item/banner-list-item';
-
-/**
- * Интерфейс для описания данных пользователя
- */
-interface User {
-    id: number;
-}
 
 /**
  * Страница панели управления объявлениями
@@ -27,15 +19,6 @@ export class PageMyBanners extends Component {
      */
     constructor(parent: HTMLElement) {
         super(parent, 'page-my-banners/page-my-banners', {});
-    }
-
-    private async getBanners(userId: number): Promise<Banner[]> {
-        const response = await BannerAPI.getAll(userId);
-        if (response.ok) {
-            return await response.json();
-        }
-
-        loadPath('/signin');
     }
 
     /**
@@ -50,7 +33,7 @@ export class PageMyBanners extends Component {
 
         UserAPI.getCurrentUser()
             .then(async (user: User) => {
-                const banners = await this.getBanners(user.id);
+                const banners = await BannerAPI.getAll(user.id);
                 bannerList.render({ banners });
             })
             .catch(err => {

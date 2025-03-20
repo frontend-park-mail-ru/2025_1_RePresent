@@ -3,7 +3,7 @@
 import { API } from '../modules/api';
 
 /**
- * Интерфейс для описания структуры учетных данных
+ * Интерфейс для описания данных аутентификации
  */
 interface Credentials {
     username?: string;
@@ -12,12 +12,19 @@ interface Credentials {
     role: number;
 }
 
+/**
+ * Интерфейс для описания данных пользователя
+ */
+export interface User {
+    id: number;
+}
+
 export class UserAPI {
     /**
      * Получить текущего пользователя
-     * @returns {Promise<any>} - данные текущего пользователя
+     * @returns {Promise<User>} - данные текущего пользователя
      */
-    static async getCurrentUser(): Promise<any> {
+    static async getCurrentUser(): Promise<User> {
         const response = await API.fetch('/auth/me', {
             method: 'GET',
             headers: {
