@@ -6,8 +6,8 @@ import { Component } from '../../component';
 import { loadPath } from '../..';
 import { User, UserAPI } from '../../api/userApi';
 import { BannerAPI } from '../../api/bannerApi';
-import { Button } from '../button/button';
 import { BannerList } from '../banner-list/banner-list';
+import { MenuSection } from '../menu-section/menu-section';
 
 /**
  * Страница панели управления объявлениями
@@ -31,6 +31,17 @@ export class PageMyBanners extends Component {
         const bannerList = new BannerList(contentsSection);
         bannerList.render({ banners: [] });
 
+        const menuSection = new MenuSection(contentsSection);
+        menuSection.render({
+            bannerId: 1, // TODO get from API or NavigationAPI
+            items: [
+                { label: 'Редактор', menuName: 'editor' },
+                { label: 'Статистика', menuName: 'statistics' },
+                { label: 'Оплата', menuName: 'billing' },
+                { label: 'Платформы', menuName: 'platforms' },
+            ],
+        });
+
         UserAPI.getCurrentUser()
             .then(async (user: User) => {
                 const banners = await BannerAPI.getAll(user.id);
@@ -43,15 +54,5 @@ export class PageMyBanners extends Component {
                 }
                 throw err;
             });
-
-        // Временная кнопка для перехода в профиль
-        const profileButton = new Button(this.parent);
-        profileButton.render({
-            type: 'subtle',
-            label: 'Профиль',
-            onClick: () => {
-                loadPath('/profile');
-            },
-        });
     }
 }

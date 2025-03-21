@@ -15,7 +15,7 @@ type ClickCallback = (event: Event) => void;
  * Интерфейс для описания параметров компонента
  */
 interface ButtonProps {
-    type: string;
+    type: 'primary' | 'neutral' | 'subtle' | 'danger';
     label: string;
     disabled?: boolean;
     onClick: ClickCallback;
