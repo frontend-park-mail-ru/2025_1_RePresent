@@ -75,7 +75,7 @@ export class Form extends Component {
         const submitButton = new Button(this.rootElement);
         submitButton.render({
             type: 'primary',
-            text: this.props.submitLabel,
+            label: this.props.submitLabel,
             onClick: this.#onSubmit.bind(this),
         });
     }

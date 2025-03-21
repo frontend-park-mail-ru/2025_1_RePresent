@@ -16,7 +16,7 @@ type ClickCallback = (event: Event) => void;
  */
 interface ButtonProps {
     type: string;
-    text: string;
+    label: string;
     disabled?: boolean;
     onClick: ClickCallback;
 }

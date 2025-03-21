@@ -33,7 +33,7 @@ export class PageSignIn extends Component {
         const signUpButton = new Button(offerBlock);
         signUpButton.render({
             type: 'subtle',
-            text: 'Создать',
+            label: 'Создать',
             onClick: () => {
                 loadPath('/signup');
             },

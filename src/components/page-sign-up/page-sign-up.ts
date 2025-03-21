@@ -31,7 +31,7 @@ export class PageSignUp extends Component {
         const signInButton = new Button(offerBlock);
         signInButton.render({
             type: 'subtle',
-            text: 'Войти',
+            label: 'Войти',
             onClick: () => {
                 loadPath('/signin');
             },

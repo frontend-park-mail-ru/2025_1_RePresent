@@ -48,7 +48,7 @@ export class PageMyBanners extends Component {
         const profileButton = new Button(this.parent);
         profileButton.render({
             type: 'subtle',
-            text: 'Профиль',
+            label: 'Профиль',
             onClick: () => {
                 loadPath('/profile');
             },
