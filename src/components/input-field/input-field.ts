@@ -19,6 +19,7 @@ interface InputFieldProps extends InputProps {
     type: 'text' | 'email' | 'password';
     name: string;
     placeholder: string;
+    label?: string;
     getError?: GetErrorCallback;
 }
 

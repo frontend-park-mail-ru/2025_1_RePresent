@@ -28,16 +28,19 @@ export class FormBannerEditorOptions extends Form {
         props.inputs = {
             nameInput: new InputField(root, {
                 type: 'text',
+                label: 'Имя',
                 name: 'name',
                 placeholder: 'Введите имя',
             }),
             linkInput: new InputField(root, {
                 type: 'text',
+                label: 'Ссылка на источник',
                 name: 'link',
                 placeholder: 'Введите ссылку',
             }),
             textInput: new InputField(root, { // TODO make textarea input
                 type: 'text',
+                label: 'Текст',
                 name: 'text',
                 placeholder: 'Введите текст',
             }),

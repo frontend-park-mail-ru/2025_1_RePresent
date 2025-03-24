@@ -36,7 +36,7 @@ export class MenuBannerEditor extends Component {
         const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
         previewSection.insertAdjacentHTML('beforeend', '<h1>Предпросмотр</h1>');
         previewSection.insertAdjacentHTML('beforeend', '<div class="preview-container"></div>');
-        new InputField(previewSection, { type: 'text', name: 'contentType', placeholder: 'Тип' }).render(); // TODO make choice input and move into form
+        new InputField(previewSection, { type: 'text', label: 'Тип файла', name: 'contentType', placeholder: 'Тип' }).render(); // TODO make choice input and move into form
         new Button(previewSection).render({ type: 'neutral', label: 'Загрузить файл', onClick: () => { alert('Файл загружен') } });
 
         const optionsSection = this.rootElement.getElementsByClassName('options-section')[0] as HTMLElement;
