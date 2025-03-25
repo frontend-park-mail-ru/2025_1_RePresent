@@ -45,7 +45,7 @@ export class FormSignIn extends Form {
     /**
      * Обработчик нажатия на кнопку отправки формы
      */
-    async #onSubmit(): Promise<void> {
+    protected async onSubmit(): Promise<void> {
         const email = this.props.inputs.emailInput.getValue();
         const password = this.props.inputs.passwordInput.getValue();
         const role = 1;
@@ -63,7 +63,7 @@ export class FormSignIn extends Form {
      * Отрисовка
      */
     render(): void {
-        const props: FormProps = { inputs: {}, submitLabel: 'Войти', onSubmit: this.#onSubmit.bind(this), className: 'form-block' };
+        const props: FormProps = { inputs: {}, submitLabel: 'Войти', onSubmit: this.onSubmit.bind(this), className: 'form-block' };
 
         super.renderRoot(props);
 

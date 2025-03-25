@@ -9,7 +9,7 @@ import { Component } from '../../component';
  * @callback Button~clickCallback
  * @param {Event} event - событие нажатия кнопки
  */
-type ClickCallback = (event: Event) => void;
+export type ClickCallback = (event: Event) => void;
 
 /**
  * Интерфейс для описания параметров компонента

@@ -4,7 +4,7 @@ import '../../sign-in-up.css';
 
 import { Component, Props } from '../../component';
 import { Input } from '../../input';
-import { Button } from '../button/button';
+import { CancelSave } from '../cancel-save/cancel-save';
 
 /**
  * Обработчик отправки формы.
@@ -21,6 +21,8 @@ export interface FormProps extends Props {
     inputs: Record<string, Input>;
     submitLabel: string;
     onSubmit: SubmitCallback;
+    hasCancel?: boolean;
+    cancelLabel?: string;
     className: string;
 }
 
@@ -39,12 +41,19 @@ export class Form extends Component {
     /**
      * Внутренний обработчик нажатия на кнопку отправки формы
      */
-    #onSubmit(): void {
+    protected async onSubmit(): Promise<void> {
         const inputsArray = Object.values(this.props.inputs) as Input[];
         const inputsValid = inputsArray.map(input => input.validate()).every(isValid => isValid === true);
         if (inputsValid) {
             this.props.onSubmit();
         }
+    }
+
+    /**
+     * Внутренний обработчик нажатия на кнопку отмены
+     */
+    protected async onCancel(): Promise<void> {
+        // TODO set defaults
     }
 
     /**
@@ -72,11 +81,12 @@ export class Form extends Component {
             input.render();
         }
 
-        const submitButton = new Button(this.rootElement);
-        submitButton.render({
-            type: 'primary',
-            label: this.props.submitLabel,
-            onClick: this.#onSubmit.bind(this),
+        const cancelSave = new CancelSave(this.rootElement);
+        cancelSave.render({
+            saveLabel: props.submitLabel,
+            onSave: this.onSubmit.bind(this),
+            hasCancel: props.hasCancel,
+            onCancel: this.onCancel.bind(this)
         });
     }
 }

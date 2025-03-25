@@ -37,6 +37,7 @@
 }
 
 .sign-in-up button {
+    width: 100%;
     border-radius: var(--corner-big);
 }
 
