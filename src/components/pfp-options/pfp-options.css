@@ -1,0 +1,15 @@
+.pfp-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-big);
+}
+
+.pfp-options>* {
+    width: 20.8rem;
+}
+
+.pfp-img {
+    aspect-ratio: 1;
+    background-color: var(--bg-secondary);
+    border-radius: var(--corner-small);
+}

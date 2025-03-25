@@ -1,0 +1,13 @@
+.form-email-verify {
+    display: flex;
+    flex-direction: row;
+    gap: var(--margin-big);
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 7rem;
+}
+
+.form-email-verify button {
+    margin-top: 2rem;
+    height: fit-content;
+}

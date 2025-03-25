@@ -1,0 +1,34 @@
+#page-profile .contents {
+    width: 80rem;
+    padding: var(--margin-big);
+    display: flex;
+    flex-direction: row;
+    gap: var(--margin-big);
+    justify-content: space-around;
+    background-color: var(--bg-primary);
+    border-radius: var(--corner-small);
+}
+
+#page-profile .public-section,
+#page-profile .private-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-medium);
+}
+
+#page-profile .public-section {
+    width: 24rem;
+}
+
+#page-profile .private-section {
+    width: 36rem;
+}
+
+#page-profile .public-section>*,
+#page-profile .private-section>* {
+    width: 100%;
+}
+
+#page-profile h1 {
+    font-size: var(--font-large);
+}

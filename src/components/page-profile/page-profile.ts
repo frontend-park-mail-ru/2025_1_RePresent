@@ -1,9 +1,16 @@
 'use strict';
 
+import './page-profile.css';
+
 import { Component } from '../../component';
 import { loadPath } from '../..';
-import { Button } from '../button/button';
 import { UserAPI } from '../../api/userApi';
+import { PfpOptions } from '../pfp-options/pfp-options';
+import { FormProfilePublic } from '../form-profile-public/form-profile-public';
+import { WalletOptions } from '../wallet-options/wallet-options';
+import { InputField } from '../input-field/input-field';
+import { FormEmailVerify } from '../form-email-verify/form-email-verify';
+import { FormPasswordChange } from '../form-password-change/form-password-change';
 
 /**
  * Страница профиля пользователя
@@ -32,28 +39,33 @@ export class PageProfile extends Component {
                 throw err;
             });
 
-        const main = this.parent.querySelector('.main') as HTMLElement;
-        const buttonContainer = main.querySelector('.button-container') as HTMLElement;
+        const publicSection = this.rootElement.getElementsByClassName('public-section')[0] as HTMLElement;
 
-        buttonContainer.style.display = 'flex';
-        buttonContainer.style.justifyContent = 'center';
-        buttonContainer.style.alignItems = 'center';
-        buttonContainer.style.height = '100vh';
+        const pfpOptions = new PfpOptions(publicSection);
+        pfpOptions.render();
 
-        const logoutButton = new Button(buttonContainer);
-        logoutButton.render({
-            type: 'danger',
-            label: 'Выйти из аккаунта',
-            onClick: async () => {
-                const response = await UserAPI.logOut();
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log(data);
-                    loadPath('/signin');
-                } else {
-                    alert('Ошибка выхода');
-                }
-            },
+        const formProfilePublic = new FormProfilePublic(publicSection);
+        formProfilePublic.render();
+
+        const privateSection = this.rootElement.getElementsByClassName('private-section')[0] as HTMLElement;
+
+        const walletOptions = new WalletOptions(privateSection);
+        walletOptions.render();
+
+        privateSection.insertAdjacentHTML('beforeend', '<h1>Настройки</h1>');
+
+        const roleField = new InputField(privateSection, {
+            label: 'Роль',
+            name: 'role',
+            placeholder: 'Ваша роль',
+            type: 'text',
         });
+        roleField.render();
+
+        const emailOptions = new FormEmailVerify(privateSection);
+        emailOptions.render();
+
+        const formPasswordChange = new FormPasswordChange(privateSection);
+        formPasswordChange.render();
     }
 }
