@@ -41,7 +41,7 @@ export class Form extends Component {
     /**
      * Внутренний обработчик нажатия на кнопку отправки формы
      */
-    protected async onSubmit(): Promise<void> {
+    private async onSubmitInner(): Promise<void> {
         const inputsArray = Object.values(this.props.inputs) as Input[];
         const inputsValid = inputsArray.map(input => input.validate()).every(isValid => isValid === true);
         if (inputsValid) {
@@ -84,7 +84,7 @@ export class Form extends Component {
         const cancelSave = new CancelSave(this.rootElement);
         cancelSave.render({
             saveLabel: props.submitLabel,
-            onSave: this.onSubmit.bind(this),
+            onSave: this.onSubmitInner.bind(this),
             hasCancel: props.hasCancel,
             onCancel: this.onCancel.bind(this)
         });

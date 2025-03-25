@@ -45,7 +45,7 @@ export class FormSignIn extends Form {
     /**
      * Обработчик нажатия на кнопку отправки формы
      */
-    protected async onSubmit(): Promise<void> {
+    private async onSubmit(): Promise<void> {
         const email = this.props.inputs.emailInput.getValue();
         const password = this.props.inputs.passwordInput.getValue();
         const role = 1;
