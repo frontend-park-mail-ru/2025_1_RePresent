@@ -8,6 +8,7 @@ import { User, UserAPI } from '../../api/userApi';
 import { BannerAPI } from '../../api/bannerApi';
 import { BannerList } from '../banner-list/banner-list';
 import { MenuSection } from '../menu-section/menu-section';
+import { Navbar } from '../navbar/navbar';
 
 /**
  * Страница панели управления объявлениями
@@ -26,6 +27,10 @@ export class PageMyBanners extends Component {
      */
     render(): void {
         super.render();
+
+        // TODO make Page class for pages, which will render navbar
+        const navbarContainer = this.rootElement.getElementsByClassName('navbar-container')[0] as HTMLElement;
+        new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'advertiser' });
 
         const contentsSection = this.rootElement.getElementsByClassName('contents')[0] as HTMLElement;
         const bannerList = new BannerList(contentsSection);

@@ -11,6 +11,7 @@ import { WalletOptions } from '../wallet-options/wallet-options';
 import { InputField } from '../input-field/input-field';
 import { FormEmailVerify } from '../form-email-verify/form-email-verify';
 import { FormPasswordChange } from '../form-password-change/form-password-change';
+import { Navbar } from '../navbar/navbar';
 
 /**
  * Страница профиля пользователя
@@ -29,6 +30,10 @@ export class PageProfile extends Component {
      */
     render(): void {
         super.render();
+
+        // TODO make Page class for pages, which will render navbar
+        const navbarContainer = this.rootElement.getElementsByClassName('navbar-container')[0] as HTMLElement;
+        new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'advertiser' });
 
         UserAPI.getCurrentUser()
             .catch(err => {

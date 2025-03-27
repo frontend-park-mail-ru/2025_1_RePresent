@@ -1,3 +1,9 @@
+#page-profile .navbar-container {
+    position: sticky;
+    top: var(--margin-medium);
+    margin-bottom: var(--margin-medium);
+}
+
 #page-profile .contents {
     width: 80rem;
     padding: var(--margin-big);

@@ -5,6 +5,11 @@
     gap: var(--margin-medium);
 }
 
+#page-my-banners .navbar-container {
+    position: sticky;
+    top: var(--margin-medium);
+}
+
 #page-my-banners .contents {
     display: flex;
     flex-direction: row;
