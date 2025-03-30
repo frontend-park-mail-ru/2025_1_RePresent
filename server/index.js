@@ -12,17 +12,17 @@ const API_VERSION = process.env.API_VERSION;
 
 const rootDir = path.join(__dirname, '..');
 
-// Middleware для статических файлов с обработкой api.js
+// Middleware для статических файлов с обработкой bundle.js
 app.use('/static', (req, res, next) => {
-    // Проверяем, запрашивается ли файл api.js
-    if (req.url.endsWith('/api.js')) {
-        const filePath = path.join(rootDir, 'static', req.url); // Полный путь к файлу
+    // Проверяем, запрашивается ли файл bundle.js
+    if (req.url.endsWith('/bundle.js')) {
+        const filePath = path.join(rootDir, 'dist', req.url); // Полный путь к файлу
 
         // Читаем и изменяем содержимое файла
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) return next(err); // Передаем ошибку дальше, если файл не найден
 
-            // Заменяем ENV_API_ORIGIN на значение host
+            // Заменяем вставки на константы из .env
             const modifiedData = data.replace(/ENV_API_ORIGIN/g, API_ORIGIN).replace(/ENV_API_VERSION/g, API_VERSION);
 
             // Отправляем измененное содержимое клиенту
@@ -31,12 +31,12 @@ app.use('/static', (req, res, next) => {
         });
     } else {
         // Если запрашивается не api.js, передаем управление express.static
-        express.static(path.join(rootDir, 'static'))(req, res, next);
+        express.static(path.join(rootDir, 'dist'))(req, res, next);
     }
 });
 
 app.get('*', (_, res) => {
-    res.sendFile(path.join(rootDir, '/static/index.html'));
+    res.sendFile(path.join(rootDir, '/dist/index.html'));
 });
 
 app.listen(PORT, () => {

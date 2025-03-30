@@ -1,0 +1,10 @@
+.form-profile-public {
+    height: 18em;
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-medium);
+}
+
+.form-profile-public>* {
+    width: 100%;
+}
