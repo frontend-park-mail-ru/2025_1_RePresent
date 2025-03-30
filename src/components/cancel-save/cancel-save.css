@@ -1,0 +1,6 @@
+.cancel-save {
+    display: flex;
+    flex-direction: row;
+    gap: var(--margin-big);
+    justify-content: space-between;
+}

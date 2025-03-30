@@ -1,0 +1,36 @@
+.menu-banner-editor {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--margin-huge);
+}
+
+.menu-banner-editor h1 {
+    font-size: var(--font-large);
+}
+
+.menu-banner-editor .preview-section,
+.menu-banner-editor .options-section,
+.menu-banner-editor .form-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-big);
+}
+
+.menu-banner-editor .input-field,
+.menu-banner-editor .input-switch {
+    width: 100%;
+}
+
+.menu-banner-editor .preview-container {
+    height: 30rem;
+    background-color: var(--bg-secondary);
+    border-radius: var(--corner-small);
+}
+
+.menu-banner-editor .preview-section .input-field,
+.menu-banner-editor button {
+    width: fit-content;
+}
