@@ -2,17 +2,10 @@
 
 import './menu-banner-editor.css';
 
-import { Component, Props } from '../../component';
+import { Component } from '../../component';
 import { InputField } from '../input-field/input-field';
 import { Button } from '../button/button';
 import { FormBannerEditorOptions } from '../form-banner-editor-options/form-banner-editor-options';
-
-/**
- * Интерфейс для описания параметров компонента
- */
-interface MenuBannerEditorProps extends Props {
-    bannerId: number;
-}
 
 /**
  * Меню редактора объявления
@@ -28,10 +21,9 @@ export class MenuBannerEditor extends Component {
 
     /**
      * Отрисовка
-     * @param {MenuBannerEditorProps} props - параметры компонента
      */
-    render(props: MenuBannerEditorProps): void {
-        super.render(props);
+    public render(): void {
+        super.render();
 
         const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
         previewSection.insertAdjacentHTML('beforeend', '<h1>Предпросмотр</h1>');

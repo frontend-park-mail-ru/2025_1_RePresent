@@ -6,18 +6,19 @@ import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';
 import { MenuBannerEditor } from '../menu-banner-editor/menu-banner-editor';
+import { store } from '../../modules/store';
 
 /**
  * Интерфейс для описания параметров компонента
  */
-interface MenuSectionProps extends MenuListProps {
-    bannerId: number;
-}
+interface MenuSectionProps extends MenuListProps { }
 
 /**
  * Список меню
  */
 export class MenuSection extends Component {
+    private selectedMenuName: string;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -25,20 +26,29 @@ export class MenuSection extends Component {
     constructor(parent: HTMLElement) {
         super(parent, 'menu-section/menu-section', {});
 
-        dispatcher.on('menu-select', this.onMenuSelect.bind(this));
+        dispatcher.on('menu-select', (selectedName: string) => {
+            this.selectedMenuName = selectedName;
+            this.renderMenu();
+        });
+
+        dispatcher.on('store-updated-selectedBanner', this.renderMenu.bind(this));
     }
 
     /**
-     * Обработчик выбора меню, отображающий меню
-     * @param selectedName - имя выбранного меню
+     * Отрисовка выбранного меню
      */
-    private onMenuSelect(selectedName: string) {
+    private renderMenu() {
+        const hasSelectedBanner = store.get('selectedBanner') as boolean;
+        if (!hasSelectedBanner) {
+            return;
+        }
+
         const menuContents = this.rootElement.getElementsByClassName('menu-contents')[0] as HTMLElement;
         menuContents.innerHTML = '';
 
-        switch (selectedName) {
+        switch (this.selectedMenuName) {
             case 'editor':
-                new MenuBannerEditor(menuContents).render({ bannerId: this.props.bannerId });
+                new MenuBannerEditor(menuContents).render();
                 break;
             default:
                 break;

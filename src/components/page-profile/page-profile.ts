@@ -3,8 +3,6 @@
 import './page-profile.css';
 
 import { Component } from '../../component';
-import { loadPath } from '../..';
-import { UserAPI } from '../../api/userApi';
 import { PfpOptions } from '../pfp-options/pfp-options';
 import { FormProfilePublic } from '../form-profile-public/form-profile-public';
 import { WalletOptions } from '../wallet-options/wallet-options';
@@ -34,15 +32,6 @@ export class PageProfile extends Component {
         // TODO make Page class for pages, which will render navbar
         const navbarContainer = this.rootElement.getElementsByClassName('navbar-container')[0] as HTMLElement;
         new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'advertiser' });
-
-        UserAPI.getCurrentUser()
-            .catch(err => {
-                if (err.message === 'Unauthorized') {
-                    loadPath('/signup');
-                    return;
-                }
-                throw err;
-            });
 
         const publicSection = this.rootElement.getElementsByClassName('public-section')[0] as HTMLElement;
 

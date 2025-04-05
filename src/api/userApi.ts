@@ -12,29 +12,7 @@ interface Credentials {
     role: number;
 }
 
-/**
- * Интерфейс для описания данных пользователя
- */
-export interface User {
-    id: number;
-}
-
 export class UserAPI {
-    /**
-     * Получить текущего пользователя
-     * @returns {Promise<User>} - данные текущего пользователя
-     */
-    static async getCurrentUser(): Promise<User> {
-        const response = await API.fetch('/auth/me', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-        });
-        return response.json();
-    }
-
     /**
      * Зарегистрировать нового пользователя
      * @param {Credentials} credentials - учетные данные пользователя

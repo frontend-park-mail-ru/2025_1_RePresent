@@ -1,5 +1,12 @@
 'use strict';
 
+export interface APIresponse {
+    service: {
+        error: string;
+        success: string;
+    };
+}
+
 /**
  * Обертка запросов к API
  */
