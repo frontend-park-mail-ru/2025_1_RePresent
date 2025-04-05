@@ -17,4 +17,4 @@ services:
       - .:/app
     ports:
       - "${PORT}:${PORT}"
-    command: sh -c "cd ./server && npm install && node index.js"
+    command: sh -c "cd server && npm install && node index.js"
