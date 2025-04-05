@@ -14,7 +14,7 @@ services:
     container_name: ReTargetStaticServer
     working_dir: /app
     volumes:
-      - ./server:/app
+      - .:/app
     ports:
       - "${PORT}:${PORT}"
-    command: sh -c "npm install && node index.js"
+    command: sh -c "cd ./server && npm install && node index.js"
