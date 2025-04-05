@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  static-builder:
+    image: node:16
+    container_name: ReTargetStaticBuilder
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT}:${PORT}"
+    command: sh -c "npm install && npm run build"
+
+  static-server:
+    image: node:16
+    container_name: ReTargetStaticServer
+    working_dir: /app
+    volumes:
+      - ./server:/app
+    ports:
+      - "${PORT}:${PORT}"
+    command: sh -c "npm install && node index.js"
