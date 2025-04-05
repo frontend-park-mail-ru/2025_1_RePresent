@@ -8,6 +8,7 @@ services:
     volumes:
       - .:/app
     command: sh -c "npm install && npm run build"
+    restart: "no"
 
   static-server:
     image: node:16
@@ -18,3 +19,5 @@ services:
     ports:
       - "${PORT}:${PORT}"
     command: sh -c "cd server && npm install && node index.js"
+    depends_on:
+      - static-builder
