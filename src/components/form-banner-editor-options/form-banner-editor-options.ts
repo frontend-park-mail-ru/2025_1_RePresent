@@ -1,6 +1,6 @@
 'use strict';
 
-import { Banner } from '../../api/bannerApi';
+import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
 import { store } from '../../modules/store';
 import { Form, FormProps } from '../form/form';
@@ -11,6 +11,8 @@ import { InputSwitch } from '../input-switch/input-switch';
  * Форма параметров объявления
  */
 export class FormBannerEditorOptions extends Form {
+    private selectedBanner: Banner;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -25,7 +27,20 @@ export class FormBannerEditorOptions extends Form {
      * Обработчик нажатия на кнопку отправки формы
      */
     private async onSubmit(): Promise<void> {
-        // TODO API call
+        const inputs = this.props.inputs;
+
+        this.selectedBanner.Title = inputs.nameInput.getValue();
+        this.selectedBanner.Link = inputs.linkInput.getValue();
+        this.selectedBanner.Description = inputs.textInput.getValue();
+        this.selectedBanner.Status = inputs.isActive.getValue();
+
+        if (this.selectedBanner.beingCreated) {
+            await BannerAPI.create(this.selectedBanner);
+        } else {
+            await BannerAPI.update(this.selectedBanner);
+        }
+
+        dispatcher.dispatch('banner-select', this.selectedBanner.ID);
     }
 
     /**
@@ -33,6 +48,7 @@ export class FormBannerEditorOptions extends Form {
      */
     render(): void {
         const selectedBanner = store.get('selectedBanner') as Banner;
+        this.selectedBanner = selectedBanner;
 
         const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.onSubmit.bind(this), className: 'form-block' };
 

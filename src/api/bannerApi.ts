@@ -14,6 +14,7 @@ export interface Banner {
     Balance: number;
     Status: number;
     OwnerID: number;
+    beingCreated?: boolean;
 }
 
 export class BannerAPI {
@@ -33,17 +34,16 @@ export class BannerAPI {
 
     /**
      * Создать баннер для текущего пользователя
+     * @param {Banner} banner - баннер
      * @returns {Promise<APIresponse>} - ответ API
      */
-    static async create(): Promise<APIresponse> {
+    static async create(banner: Banner): Promise<APIresponse> {
         const response = await API.fetch('/banner', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(
-                {} as Banner
-            ),
+            body: JSON.stringify(banner),
         });
         return response.json();
     }

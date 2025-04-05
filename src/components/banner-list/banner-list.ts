@@ -33,6 +33,25 @@ export class BannerList extends Component {
     }
 
     /**
+     * Обработчик нажатия на Создать объявление
+     */
+    private onBannerCreateClick(): void {
+        const newBanner: Banner = {
+            ID: 0,
+            Title: '',
+            Description: '',
+            Content: '',
+            Link: '',
+            Balance: 0,
+            Status: 0,
+            OwnerID: 0,
+            beingCreated: true,
+        };
+
+        store.update({ key: 'selectedBanner', value: newBanner });
+    }
+
+    /**
      * Отрисовка списка объявлений
      * @param {number} selectedId - id выбранного баннера
      */
@@ -61,6 +80,9 @@ export class BannerList extends Component {
      */
     public render(): void {
         super.render();
+
+        const createBannerBtn = this.parent.querySelector('.create-banner-btn') as HTMLElement;
+        createBannerBtn.addEventListener('click', this.onBannerCreateClick.bind(this));
 
         this.loadBanners();
     }
