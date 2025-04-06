@@ -38,7 +38,7 @@ export class BannerAPI {
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async create(banner: Banner): Promise<APIresponse> {
-        const response = await API.fetch('/banner', {
+        const response = await API.fetch('/banner/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
