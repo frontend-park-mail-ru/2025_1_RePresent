@@ -63,4 +63,20 @@ export class BannerAPI {
         });
         return response.json();
     }
+
+    /**
+     * Загрузить файл на баннер
+     * @param {File} file - файл
+     * @returns {Promise<APIresponse>} - ответ API
+     */
+    static async upload(file: File): Promise<APIresponse> {
+        const response = await API.fetch(`/banner/upload`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: file,
+        });
+        return response.json();
+    }
 }
