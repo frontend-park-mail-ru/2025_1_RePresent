@@ -71,7 +71,7 @@ export class BannerAPI {
      */
     static async upload(file: File): Promise<APIresponse> {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('image', file);
 
         const response = await API.fetch(`/banner/upload`, {
             method: 'PUT',

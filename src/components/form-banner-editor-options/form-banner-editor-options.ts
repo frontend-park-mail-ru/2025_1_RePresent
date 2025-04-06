@@ -33,7 +33,11 @@ export class FormBannerEditorOptions extends Form {
         this.selectedBanner.link = inputs.linkInput.getValue();
         this.selectedBanner.description = inputs.textInput.getValue();
         this.selectedBanner.status = inputs.isActive.getValue() ? 1 : 0;
-        this.selectedBanner.content = store.get('fileId');
+
+        const fileId = store.get('fileId');
+        if (fileId) {
+            this.selectedBanner.content = fileId;
+        }
 
         if (!this.selectedBanner.content) {
             alert('Загрузите файл');
