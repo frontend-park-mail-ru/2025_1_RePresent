@@ -6,14 +6,14 @@ import { API, APIresponse } from '../modules/api';
  * Интерфейс для описания параметров объявления
  */
 export interface Banner {
-    ID: number;
-    Title: string;
-    Description: string;
-    Content: string;
-    Link: string;
-    Balance: number;
-    Status: number;
-    OwnerID: number;
+    id: number;
+    title: string;
+    description: string;
+    content: string;
+    link: string;
+    balance: number;
+    status: number;
+    owner: number;
     beingCreated?: boolean;
 }
 
@@ -54,7 +54,7 @@ export class BannerAPI {
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async update(banner: Banner): Promise<APIresponse> {
-        const response = await API.fetch(`/banner/${banner.ID}`, {
+        const response = await API.fetch(`/banner/${banner.id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -37,14 +37,14 @@ export class BannerList extends Component {
      */
     private onBannerCreateClick(): void {
         const newBanner: Banner = {
-            ID: 0,
-            Title: '',
-            Description: '',
-            Content: '',
-            Link: '',
-            Balance: 0,
-            Status: 0,
-            OwnerID: 0,
+            id: 0,
+            title: '',
+            description: '',
+            content: '',
+            link: '',
+            balance: 0,
+            status: 0,
+            owner: 0,
             beingCreated: true,
         };
 
@@ -61,8 +61,8 @@ export class BannerList extends Component {
         const adList = this.parent.querySelector('.list') as HTMLElement;
         adList.innerHTML = '';
         this.banners.forEach(banner => {
-            const isSelected = banner.ID == selectedId;
-            new BannerListItem(adList).render({ bannerId: banner.ID, selected: isSelected });
+            const isSelected = banner.id == selectedId;
+            new BannerListItem(adList).render({ bannerId: banner.id, selected: isSelected });
             if (isSelected) {
                 store.update({ key: 'selectedBanner', value: banner });
             }

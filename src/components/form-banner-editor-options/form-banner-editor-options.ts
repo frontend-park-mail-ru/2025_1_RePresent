@@ -29,13 +29,13 @@ export class FormBannerEditorOptions extends Form {
     private async onSubmit(): Promise<void> {
         const inputs = this.props.inputs;
 
-        this.selectedBanner.Title = inputs.nameInput.getValue();
-        this.selectedBanner.Link = inputs.linkInput.getValue();
-        this.selectedBanner.Description = inputs.textInput.getValue();
-        this.selectedBanner.Status = inputs.isActive.getValue() ? 1 : 0;
-        this.selectedBanner.Content = store.get('fileId');
+        this.selectedBanner.title = inputs.nameInput.getValue();
+        this.selectedBanner.link = inputs.linkInput.getValue();
+        this.selectedBanner.description = inputs.textInput.getValue();
+        this.selectedBanner.status = inputs.isActive.getValue() ? 1 : 0;
+        this.selectedBanner.content = store.get('fileId');
 
-        if (!this.selectedBanner.Content) {
+        if (!this.selectedBanner.content) {
             alert('Загрузите файл');
             return;
         }
@@ -46,7 +46,7 @@ export class FormBannerEditorOptions extends Form {
             await BannerAPI.update(this.selectedBanner);
         }
 
-        dispatcher.dispatch('banner-select', this.selectedBanner.ID);
+        dispatcher.dispatch('banner-select', this.selectedBanner.id);
     }
 
     /**
@@ -68,26 +68,26 @@ export class FormBannerEditorOptions extends Form {
                 label: 'Имя',
                 name: 'name',
                 placeholder: 'Введите имя',
-                default: selectedBanner.Title,
+                default: selectedBanner.title,
             }),
             linkInput: new InputField(root, {
                 type: 'text',
                 label: 'Ссылка на источник',
                 name: 'link',
                 placeholder: 'Введите ссылку',
-                default: selectedBanner.Link,
+                default: selectedBanner.link,
             }),
             textInput: new InputField(root, { // TODO make textarea input
                 type: 'text',
                 label: 'Текст',
                 name: 'text',
                 placeholder: 'Введите текст',
-                default: selectedBanner.Description,
+                default: selectedBanner.description,
             }),
             isActive: new InputSwitch(root, {
                 name: 'is-active',
                 label: 'Активно',
-                checked: selectedBanner.Status != 0,
+                checked: selectedBanner.status != 0,
             }),
         };
 
