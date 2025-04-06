@@ -55,7 +55,7 @@ export class BannerAPI {
      */
     static async update(banner: Banner): Promise<APIresponse> {
         const response = await API.fetch(`/banner/${banner.id}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
