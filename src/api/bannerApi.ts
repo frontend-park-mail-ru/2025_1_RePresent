@@ -75,9 +75,6 @@ export class BannerAPI {
 
         const response = await API.fetch(`/banner/upload`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
             body: formData,
         });
         return response.json();
