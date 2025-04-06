@@ -28,6 +28,18 @@ export class InputSwitch extends Input {
     }
 
     /**
+     * Содержимое компонента или null, если валидация не пройдена.
+     * @returns {?boolean} - содержимое компонента
+     */
+    getValue(): boolean | null {
+        const value = super.getValue();
+        if (value == null) {
+            return value;
+        }
+        return value == 'on';
+    }
+
+    /**
      * Отрисовка
      * @param {InputSwitchProps} props - параметры компонента
      */
