@@ -40,6 +40,7 @@ export class BannerListItem extends Component {
      */
     render(props: BannerListItemProps): void {
         const renderProps = {
+            bannerId: props.bannerId,
             status: ['active', 'awaiting', 'rejected'][props.Status - 1],
             selected: props.selected ? 'selected' : '',
             name: props.Title,

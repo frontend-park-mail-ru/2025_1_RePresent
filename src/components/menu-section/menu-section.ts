@@ -17,7 +17,7 @@ interface MenuSectionProps extends MenuListProps { }
  * Список меню
  */
 export class MenuSection extends Component {
-    private selectedMenuName: string;
+    private selectedMenuName: string = 'editor';
 
     /**
      * Конструктор компонента
