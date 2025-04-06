@@ -70,12 +70,15 @@ export class BannerAPI {
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async upload(file: File): Promise<APIresponse> {
+        const formData = new FormData();
+        formData.append('file', file);
+
         const response = await API.fetch(`/banner/upload`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-            body: file,
+            body: formData,
         });
         return response.json();
     }
