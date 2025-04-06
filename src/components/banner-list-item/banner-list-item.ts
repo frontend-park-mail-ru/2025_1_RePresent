@@ -7,6 +7,8 @@ import { dispatcher } from '../../modules/dispatcher';
 
 export interface BannerListItemProps extends Props {
     bannerId: number;
+    name: string;
+    status: number;
     selected: boolean;
 }
 
@@ -41,10 +43,10 @@ export class BannerListItem extends Component {
     render(props: BannerListItemProps): void {
         const renderProps = {
             bannerId: props.bannerId,
+            name: props.name,
+            stats: 'stats...',
             status: ['active', 'awaiting', 'rejected'][props.Status - 1],
             selected: props.selected ? 'selected' : '',
-            name: props.Title,
-            stats: props.Description,
         };
         super.render(renderProps);
 

@@ -62,7 +62,7 @@ export class BannerList extends Component {
         adList.innerHTML = '';
         this.banners.forEach(banner => {
             const isSelected = banner.id == selectedId;
-            new BannerListItem(adList).render({ bannerId: banner.id, selected: isSelected });
+            new BannerListItem(adList).render({ bannerId: banner.id, name: banner.title, status: banner.status, selected: isSelected });
             if (isSelected) {
                 store.update({ key: 'selectedBanner', value: banner });
             }
