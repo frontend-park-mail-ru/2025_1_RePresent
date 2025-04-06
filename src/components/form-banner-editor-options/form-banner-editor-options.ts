@@ -32,7 +32,7 @@ export class FormBannerEditorOptions extends Form {
         this.selectedBanner.Title = inputs.nameInput.getValue();
         this.selectedBanner.Link = inputs.linkInput.getValue();
         this.selectedBanner.Description = inputs.textInput.getValue();
-        this.selectedBanner.Status = inputs.isActive.getValue();
+        this.selectedBanner.Status = inputs.isActive.getValue() as number;
 
         if (this.selectedBanner.beingCreated) {
             await BannerAPI.create(this.selectedBanner);
