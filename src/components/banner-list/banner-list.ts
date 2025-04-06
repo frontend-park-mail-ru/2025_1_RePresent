@@ -51,6 +51,8 @@ export class BannerList extends Component {
         store.update({ key: 'selectedBanner', value: newBanner });
 
         dispatcher.dispatch('menu-select', 'editor');
+
+        this.renderList(null);
     }
 
     /**
