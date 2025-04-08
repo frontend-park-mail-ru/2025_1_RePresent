@@ -26,7 +26,8 @@ export class MenuBannerEditor extends Component {
      */
     private async updatePreview(bannerId: number): Promise<void> {
         const previewContainer = this.rootElement.getElementsByClassName('preview-container')[0] as HTMLElement;
-        previewContainer.innerHTML = await BannerAPI.getIframe(bannerId);
+        const iframeSrc = `ENV_API_ORIGIN/api/ENV_API_VERSION/banner/iframe/${bannerId}`;
+        previewContainer.innerHTML = `<iframe class="banner" style="border: none;" title="Banner" width="300" height="300" src="${iframeSrc}"></iframe>`;
     }
 
     /**

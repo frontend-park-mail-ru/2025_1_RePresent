@@ -25,7 +25,10 @@
 }
 
 .menu-banner-editor .preview-container {
-    height: 15rem;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--bg-secondary);
     border-radius: var(--corner-small);
 }
