@@ -22,11 +22,14 @@ export class MenuBannerEditor extends Component {
 
     /**
      * Обновление предпросмотра объявления
-     * @param {number} bannerId - id баннера
+     * @param {Banner} banner - баннер
      */
-    private async updatePreview(bannerId: number): Promise<void> {
+    private updatePreview(banner: Banner): Promise<void> {
+        if (banner.beingCreated) {
+            return;
+        }
         const previewContainer = this.rootElement.getElementsByClassName('preview-container')[0] as HTMLElement;
-        const iframeSrc = `ENV_API_ORIGIN/api/ENV_API_VERSION/banner/iframe/${bannerId}`;
+        const iframeSrc = `ENV_API_ORIGIN/api/ENV_API_VERSION/banner/iframe/${banner.id}`;
         previewContainer.innerHTML = `<iframe class="banner" style="border: none;" title="Banner" width="300" height="300" src="${iframeSrc}"></iframe>`;
     }
 
@@ -69,12 +72,11 @@ export class MenuBannerEditor extends Component {
 
         const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
 
-        const contentId = selectedBanner.content;
-        const contentSrc = this.getContentSrcFromId(contentId);
+        const contentSrc = selectedBanner.beingCreated ? '' : this.getContentSrcFromId(selectedBanner.content);
         new ImageUpload(previewSection).render(
             {
                 imgSrc: contentSrc,
-                imgAlt: 'загруженное изображение',
+                imgAlt: 'изображение объявления',
                 btnLabel: 'Загрузить',
                 uploadCallback: this.uploadFile.bind(this),
             }
@@ -83,6 +85,6 @@ export class MenuBannerEditor extends Component {
         const optionsSection = this.rootElement.getElementsByClassName('options-section')[0] as HTMLElement;
         new FormBannerEditorOptions(optionsSection).render();
 
-        this.updatePreview(selectedBanner.id);
+        this.updatePreview(selectedBanner);
     }
 }

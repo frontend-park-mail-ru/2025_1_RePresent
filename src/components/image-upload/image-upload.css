@@ -14,4 +14,8 @@
     background-color: var(--bg-secondary);
     border: var(--border-width) solid var(--bg-secondary);
     border-radius: var(--corner-small);
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
