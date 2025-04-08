@@ -3,6 +3,10 @@
     height: fit-content;
 }
 
-.input-tag {
+.input-file .input-tag {
     display: none;
+}
+
+.input-file button {
+    width: 100%;
 }

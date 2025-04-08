@@ -1,0 +1,16 @@
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-big);
+}
+
+.image-upload .image,
+.image-upload .input-file {
+    width: 100%;
+}
+
+.image-upload .image {
+    aspect-ratio: 1;
+    background-color: var(--bg-secondary);
+    border-radius: var(--corner-small);
+}
