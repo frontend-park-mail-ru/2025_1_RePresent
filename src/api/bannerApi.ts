@@ -65,6 +65,21 @@ export class BannerAPI {
     }
 
     /**
+     * Удалить баннер для текущего пользователя
+     * @param {number} bannerId - id баннера
+     * @returns {Promise<APIresponse>} - ответ API
+     */
+    static async delete(bannerId: number): Promise<APIresponse> {
+        const response = await API.fetch(`/banner/${bannerId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.json();
+    }
+
+    /**
      * Загрузить файл на баннер
      * @param {File} file - файл
      * @returns {Promise<APIresponse>} - ответ API

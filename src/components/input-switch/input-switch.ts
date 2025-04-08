@@ -28,15 +28,11 @@ export class InputSwitch extends Input {
     }
 
     /**
-     * Содержимое компонента или null, если валидация не пройдена.
-     * @returns {?boolean} - содержимое компонента
+     * Состояние компонента
+     * @returns {boolean} - включен ли переключатель
      */
-    getValue(): boolean | null {
-        const value = super.getValue();
-        if (value == null) {
-            return value;
-        }
-        return value == 'on';
+    getValue(): boolean {
+        return this.inputElement.checked;
     }
 
     /**

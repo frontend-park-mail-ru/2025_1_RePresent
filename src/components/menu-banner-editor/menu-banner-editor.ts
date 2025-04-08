@@ -7,6 +7,8 @@ import { FormBannerEditorOptions } from '../form-banner-editor-options/form-bann
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { store } from '../../modules/store';
 import { ImageUpload } from '../image-upload/image-upload';
+import { Button } from '../button/button';
+import { dispatcher } from '../../modules/dispatcher';
 
 /**
  * Меню редактора объявления
@@ -21,10 +23,10 @@ export class MenuBannerEditor extends Component {
     }
 
     /**
-     * Обновление предпросмотра объявления
-     * @param {Banner} banner - баннер
+     * Отрисовка предпросмотра объявления
      */
-    private updatePreview(banner: Banner): Promise<void> {
+    private renderPreview(): void {
+        const banner = store.get('selectedBanner') as Banner;
         if (banner.beingCreated) {
             return;
         }
@@ -63,16 +65,13 @@ export class MenuBannerEditor extends Component {
     }
 
     /**
-     * Отрисовка
+     * Отрисовка раздела загрузки изображения
      */
-    public render(): void {
-        super.render();
-
-        const selectedBanner = store.get('selectedBanner') as Banner;
-
+    private renderImageUpload(): void {
+        const banner = store.get('selectedBanner') as Banner;
         const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
+        const contentSrc = banner.beingCreated ? '' : this.getContentSrcFromId(banner.content);
 
-        const contentSrc = selectedBanner.beingCreated ? '' : this.getContentSrcFromId(selectedBanner.content);
         new ImageUpload(previewSection).render(
             {
                 imgSrc: contentSrc,
@@ -81,10 +80,50 @@ export class MenuBannerEditor extends Component {
                 uploadCallback: this.uploadFile.bind(this),
             }
         );
+    }
+
+    /**
+     * Отрисовка кнопки удаления объявления
+     */
+    private renderDeleteButton(): void {
+        const banner = store.get('selectedBanner') as Banner;
+        if (banner.beingCreated) {
+            return;
+        }
+        const cancelSaveSection = this.rootElement.getElementsByClassName('cancel-save')[0] as HTMLElement;
+        new Button(cancelSaveSection).render(
+            {
+                label: 'Удалить',
+                type: 'danger',
+                onClick: this.onDeleteClick.bind(this),
+            });
+    }
+
+    private async onDeleteClick(): Promise<void> {
+        if (!confirm('Вы уверены, что хотите удалить это объявление?')) {
+            return;
+        }
+        const bannerId = (store.get('selectedBanner') as Banner).id;
+        const response = await BannerAPI.delete(bannerId);
+        if (response.service.error) {
+            console.log(response.service.error);
+        }
+        dispatcher.dispatch('banner-delete', bannerId);
+    }
+
+    /**
+     * Отрисовка
+     */
+    public render(): void {
+        super.render();
+
+        this.renderImageUpload();
 
         const optionsSection = this.rootElement.getElementsByClassName('options-section')[0] as HTMLElement;
         new FormBannerEditorOptions(optionsSection).render();
 
-        this.updatePreview(selectedBanner);
+        this.renderDeleteButton();
+
+        this.renderPreview();
     }
 }

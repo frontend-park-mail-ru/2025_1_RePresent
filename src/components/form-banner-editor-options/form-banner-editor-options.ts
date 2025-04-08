@@ -40,7 +40,7 @@ export class FormBannerEditorOptions extends Form {
         }
 
         if (!this.selectedBanner.content) {
-            alert('Загрузите файл');
+            alert('Загрузите изображение');
             return;
         }
 
