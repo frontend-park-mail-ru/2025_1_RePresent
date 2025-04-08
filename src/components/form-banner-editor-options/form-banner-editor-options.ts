@@ -46,11 +46,11 @@ export class FormBannerEditorOptions extends Form {
 
         if (this.selectedBanner.beingCreated) {
             await BannerAPI.create(this.selectedBanner);
+            dispatcher.dispatch('banner-create');
         } else {
             await BannerAPI.update(this.selectedBanner);
+            dispatcher.dispatch('banner-update', this.selectedBanner.id);
         }
-
-        dispatcher.dispatch('banner-update', this.selectedBanner.id);
     }
 
     /**

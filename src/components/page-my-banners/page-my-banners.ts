@@ -34,13 +34,6 @@ export class PageMyBanners extends Component {
         bannerList.render();
 
         const menuSection = new MenuSection(contentsSection);
-        menuSection.render({
-            items: [
-                { label: 'Редактор', menuName: 'editor' },
-                { label: 'Статистика', menuName: 'statistics' },
-                { label: 'Оплата', menuName: 'billing' },
-                { label: 'Платформы', menuName: 'platforms' },
-            ],
-        });
+        menuSection.render();
     }
 }

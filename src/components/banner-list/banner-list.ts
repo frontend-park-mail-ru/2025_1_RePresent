@@ -24,6 +24,16 @@ export class BannerList extends Component {
         dispatcher.on('banner-select', this.onBannerSelect.bind(this));
         dispatcher.on('banner-update', this.onBannerUpdate.bind(this));
         dispatcher.on('banner-delete', this.onBannerDelete.bind(this));
+        dispatcher.on('banner-create', this.onBannerCreate.bind(this));
+    }
+
+    /**
+     * Обработчик создания баннера, перезапрашивющий список баннеров
+     */
+    private async onBannerCreate(): Promise<void> {
+        this.banners = await BannerAPI.getAll();
+        const selectedId = Math.max(...this.banners.map(banner => banner.id));
+        this.renderList(selectedId);
     }
 
     /**

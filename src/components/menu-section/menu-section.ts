@@ -9,12 +9,7 @@ import { MenuBannerEditor } from '../menu-banner-editor/menu-banner-editor';
 import { store } from '../../modules/store';
 
 /**
- * Интерфейс для описания параметров компонента
- */
-interface MenuSectionProps extends MenuListProps { }
-
-/**
- * Список меню
+ * Раздел меню
  */
 export class MenuSection extends Component {
     private selectedMenuName: string = 'editor';
@@ -33,6 +28,10 @@ export class MenuSection extends Component {
 
         dispatcher.on('store-updated-selectedBanner', () => {
             dispatcher.dispatch('menu-select', this.selectedMenuName);
+        });
+
+        dispatcher.on('banner-delete', () => {
+            dispatcher.dispatch('menu-select', '');
         });
     }
 
@@ -59,10 +58,18 @@ export class MenuSection extends Component {
 
     /**
      * Отрисовка
-     * @param {MenuSectionProps} props - параметры компонента
      */
-    render(props: MenuSectionProps): void {
-        super.render(props);
+    render(): void {
+        super.render();
+
+        const props: MenuListProps = {
+            items: [
+                { label: 'Редактор', menuName: 'editor' },
+                { label: 'Статистика', menuName: 'statistics' },
+                { label: 'Оплата', menuName: 'billing' },
+                { label: 'Платформы', menuName: 'platforms' },
+            ],
+        };
 
         new MenuList(this.rootElement).render(props);
 
