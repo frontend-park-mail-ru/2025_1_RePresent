@@ -21,6 +21,15 @@ export class MenuBannerEditor extends Component {
     }
 
     /**
+     * Обновление предпросмотра объявления
+     * @param {number} bannerId - id баннера
+     */
+    private async updatePreview(bannerId: number): Promise<void> {
+        const previewContainer = this.rootElement.getElementsByClassName('preview-container')[0] as HTMLElement;
+        previewContainer.innerHTML = await BannerAPI.getIframe(bannerId);
+    }
+
+    /**
      * Получить src изображения баннера
      * @param {string} contentId - id изображения баннера
      * @returns {string} - src изображения баннера
@@ -55,11 +64,11 @@ export class MenuBannerEditor extends Component {
     public render(): void {
         super.render();
 
-        const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
-        previewSection.insertAdjacentHTML('beforeend', '<h1>Предпросмотр</h1>');
-        previewSection.insertAdjacentHTML('beforeend', '<div class="preview-container"></div>');
+        const selectedBanner = store.get('selectedBanner') as Banner;
 
-        const contentId = (store.get('selectedBanner') as Banner).content;
+        const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
+
+        const contentId = selectedBanner.content;
         const contentSrc = this.getContentSrcFromId(contentId);
         new ImageUpload(previewSection).render(
             {
@@ -71,7 +80,8 @@ export class MenuBannerEditor extends Component {
         );
 
         const optionsSection = this.rootElement.getElementsByClassName('options-section')[0] as HTMLElement;
-        optionsSection.insertAdjacentHTML('beforeend', '<h1>Параметры</h1>');
         new FormBannerEditorOptions(optionsSection).render();
+
+        this.updatePreview(selectedBanner.id);
     }
 }

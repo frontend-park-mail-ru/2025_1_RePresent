@@ -12,5 +12,6 @@
 .image-upload .image {
     aspect-ratio: 1;
     background-color: var(--bg-secondary);
+    border: var(--border-width) solid var(--bg-secondary);
     border-radius: var(--corner-small);
 }

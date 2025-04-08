@@ -22,6 +22,16 @@ export class BannerList extends Component {
         super(parent, 'banner-list/banner-list', {});
 
         dispatcher.on('banner-select', this.onBannerSelect.bind(this));
+        dispatcher.on('banner-update', this.onBannerUpdate.bind(this));
+    }
+
+    /**
+     * Обработчик обновления баннера, перезапрашивющий список баннеров
+     * @param {number} bannerId - id обновленного баннера
+     */
+    private async onBannerUpdate(bannerId: number): Promise<void> {
+        this.banners = await BannerAPI.getAll();
+        this.renderList(bannerId);
     }
 
     /**
@@ -50,9 +60,9 @@ export class BannerList extends Component {
 
         store.update({ key: 'selectedBanner', value: newBanner });
 
-        dispatcher.dispatch('menu-select', 'editor');
-
         this.renderList(null);
+
+        dispatcher.dispatch('menu-select', 'editor');
     }
 
     /**
@@ -72,22 +82,15 @@ export class BannerList extends Component {
     }
 
     /**
-     * Запрос и отрисовка списка объявлений
-     */
-    private async loadBanners() {
-        this.banners = await BannerAPI.getAll();
-        this.renderList(null);
-    }
-
-    /**
      * Отрисовка страницы
      */
-    public render(): void {
+    public async render(): Promise<void> {
         super.render();
 
         const createBannerBtn = this.parent.querySelector('.create-banner-btn') as HTMLElement;
         createBannerBtn.addEventListener('click', this.onBannerCreateClick.bind(this));
 
-        this.loadBanners();
+        this.banners = await BannerAPI.getAll();
+        this.renderList(null);
     }
 }

@@ -79,4 +79,19 @@ export class BannerAPI {
         });
         return response.json();
     }
+
+    /**
+     * Получить iframe баннера
+     * @param {number} bannerId - id баннера
+     * @returns {Promise<string>} - ответ API
+     */
+    static async getIframe(bannerId: number): Promise<string> {
+        const response = await API.fetch(`/banner/iframe/${bannerId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.text();
+    }
 }

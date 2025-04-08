@@ -50,7 +50,7 @@ export class FormBannerEditorOptions extends Form {
             await BannerAPI.update(this.selectedBanner);
         }
 
-        dispatcher.dispatch('banner-select', this.selectedBanner.id);
+        dispatcher.dispatch('banner-update', this.selectedBanner.id);
     }
 
     /**
