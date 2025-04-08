@@ -31,7 +31,9 @@ export class MenuSection extends Component {
             this.renderMenu();
         });
 
-        dispatcher.on('store-updated-selectedBanner', this.renderMenu.bind(this));
+        dispatcher.on('store-updated-selectedBanner', () => {
+            dispatcher.dispatch('menu-select', this.selectedMenuName);
+        });
     }
 
     /**
