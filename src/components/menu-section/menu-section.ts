@@ -27,6 +27,7 @@ export class MenuSection extends Component {
         });
 
         dispatcher.on('store-updated-selectedBanner', () => {
+            store.update({ key: 'fileId', value: '' });
             dispatcher.dispatch('menu-select', this.selectedMenuName);
         });
 
