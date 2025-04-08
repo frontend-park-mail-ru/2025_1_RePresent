@@ -59,9 +59,11 @@ export class MenuBannerEditor extends Component {
         previewSection.insertAdjacentHTML('beforeend', '<h1>Предпросмотр</h1>');
         previewSection.insertAdjacentHTML('beforeend', '<div class="preview-container"></div>');
 
+        const contentId = (store.get('selectedBanner') as Banner).content;
+        const contentSrc = this.getContentSrcFromId(contentId);
         new ImageUpload(previewSection).render(
             {
-                imgSrc: '',
+                imgSrc: contentSrc,
                 imgAlt: 'загруженное изображение',
                 btnLabel: 'Загрузить',
                 uploadCallback: this.uploadFile.bind(this),
