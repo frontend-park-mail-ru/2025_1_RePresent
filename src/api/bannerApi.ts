@@ -25,9 +25,6 @@ export class BannerAPI {
     static async getAll(): Promise<Banner[]> {
         const response = await API.fetch('/banner', {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
         });
         return response.json();
     }
@@ -40,9 +37,6 @@ export class BannerAPI {
     static async create(banner: Banner): Promise<APIresponse> {
         const response = await API.fetch('/banner/create', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify(banner),
         });
         return response.json();
@@ -56,9 +50,6 @@ export class BannerAPI {
     static async update(banner: Banner): Promise<APIresponse> {
         const response = await API.fetch(`/banner/${banner.id}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify(banner),
         });
         return response.json();
@@ -72,9 +63,6 @@ export class BannerAPI {
     static async delete(bannerId: number): Promise<APIresponse> {
         const response = await API.fetch(`/banner/${bannerId}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
         });
         return response.json();
     }
@@ -90,6 +78,7 @@ export class BannerAPI {
 
         const response = await API.fetch(`/banner/upload`, {
             method: 'PUT',
+            headers: {},
             body: formData,
         });
         return response.json();

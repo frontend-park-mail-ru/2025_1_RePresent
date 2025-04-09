@@ -19,7 +19,7 @@ export class API {
     }
 
     /**
-     * Обертка fetch с обработкой неавторизованного запроса
+     * Обертка fetch с обработкой неавторизованного запроса (JSON body по умолчанию)
      * @param {string} inputRelative - путь, относительно /api/version/
      * @param {RequestInit} init - параметры fetch
      * @returns {Promise<Response>} response - ответ API
@@ -30,6 +30,11 @@ export class API {
         }
         init.mode = 'cors';
         init.credentials = 'include';
+        if (!init.headers) {
+            init.headers = {
+                'Content-Type': 'application/json',
+            };
+        }
 
         const response = await fetch(this.API_ORIGIN + inputRelative, init);
 

@@ -21,9 +21,6 @@ export class UserAPI {
     static signUp(credentials: Credentials): Promise<Response> {
         return API.fetch('/auth/signup', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({
                 username: credentials.username,
                 email: credentials.email,
@@ -41,9 +38,6 @@ export class UserAPI {
     static logIn(credentials: Credentials): Promise<Response> {
         return API.fetch('/auth/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({
                 email: credentials.email,
                 password: credentials.password,
@@ -59,9 +53,7 @@ export class UserAPI {
     static logOut(): Promise<Response> {
         return API.fetch('/auth/logout', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: {},
         });
     }
 }
