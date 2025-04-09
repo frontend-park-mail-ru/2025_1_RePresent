@@ -38,18 +38,6 @@ export class InputFile extends Input {
     }
 
     /**
-     * Содержимое компонента или null, если валидация не пройдена.
-     * @returns {?boolean} - содержимое компонента
-     */
-    public getValue(): boolean | null {
-        const value = super.getValue();
-        if (value == null) {
-            return value;
-        }
-        return value == 'on';
-    }
-
-    /**
      * Отрисовка
      * @param {InputFileProps} props - параметры компонента
      */

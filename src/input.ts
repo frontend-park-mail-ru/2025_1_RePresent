@@ -61,9 +61,9 @@ export class Input extends Component {
 
     /**
      * Содержимое компонента или null, если валидация не пройдена.
-     * @returns {?any} - содержимое компонента
+     * @returns {string | boolean | null} - содержимое компонента
      */
-    getValue(): any | null {
+    getValue(): string | boolean | null {
         if (!this.#validateValue) {
             return this.inputElement.value;
         }
