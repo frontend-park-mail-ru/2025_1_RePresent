@@ -9,6 +9,7 @@ import { store } from '../../modules/store';
 import { ImageUpload } from '../image-upload/image-upload';
 import { Button } from '../button/button';
 import { dispatcher } from '../../modules/dispatcher';
+import { API } from '../../modules/api';
 
 /**
  * Меню редактора объявления
@@ -31,7 +32,7 @@ export class MenuBannerEditor extends Component {
             return;
         }
         const previewContainer = this.rootElement.getElementsByClassName('preview-container')[0] as HTMLElement;
-        const iframeSrc = `ENV_API_ORIGIN/api/ENV_API_VERSION/banner/iframe/${banner.id}`;
+        const iframeSrc = `${API.API_ORIGIN}/banner/iframe/${banner.id}`;
         previewContainer.innerHTML = `<iframe class="banner" style="border: none;" title="Banner" width="300" height="300" src="${iframeSrc}"></iframe>`;
     }
 
@@ -41,7 +42,7 @@ export class MenuBannerEditor extends Component {
      * @returns {string} - src изображения баннера
      */
     private getContentSrcFromId(contentId: string): string {
-        return `ENV_API_ORIGIN/api/ENV_API_VERSION/banner/image/${contentId}`;
+        return `${API.API_ORIGIN}/banner/image/${contentId}`;
     }
 
     /**
