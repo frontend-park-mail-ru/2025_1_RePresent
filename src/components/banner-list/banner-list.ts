@@ -94,6 +94,10 @@ export class BannerList extends Component {
      */
     private renderList(selectedId: number): void {
         const adList = this.parent.querySelector('.list') as HTMLElement;
+        if (this.banners.length == 0) {
+            adList.innerHTML = '<p class="none-msg">Нет объявлений</p>';
+            return;
+        }
         adList.innerHTML = '';
         this.banners.forEach(banner => {
             const isSelected = banner.id == selectedId;
