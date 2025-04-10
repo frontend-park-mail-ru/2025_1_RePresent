@@ -53,8 +53,11 @@ export class FormSignIn extends Form {
         const response = await UserAPI.logIn({ email, password, role });
 
         if (response.ok) {
-            loadPath('/my-banners');
-        } else {
+            const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
+            loadPath(redirectPath);
+        }
+
+        if (!response.ok) {
             this.props.inputs.passwordInput.showError('Неправильный email или пароль');
         }
     }

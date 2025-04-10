@@ -1,5 +1,7 @@
 'use strict';
 
+import { loadPath } from '..';
+
 export interface APIresponse {
     service: {
         error: string;
@@ -39,7 +41,13 @@ export class API {
         const response = await fetch(this.API_ORIGIN + inputRelative, init);
 
         if (response.status === 401) {
+            loadPath('/signin', { signInRedirectPath: location.pathname });
             throw new Error('Unauthorized');
+        }
+
+        if (response.status >= 500) {
+            alert('Сервис временно недоступен');
+            throw new Error('Service unavailable');
         }
 
         return response;
