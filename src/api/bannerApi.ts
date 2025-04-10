@@ -29,7 +29,7 @@ export class BannerAPI {
         if (!response.ok) {
             return [];
         }
-        return response.json();
+        return response.json() || [];
     }
 
     /**
