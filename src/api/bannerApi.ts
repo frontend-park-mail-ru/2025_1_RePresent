@@ -29,8 +29,7 @@ export class BannerAPI {
         if (!response.ok) {
             return [];
         }
-        const banners = await response.json();
-        return banners || [];
+        return response.json();
     }
 
     /**
