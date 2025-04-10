@@ -42,12 +42,10 @@ export class API {
 
         if (response.status === 401) {
             loadPath('/signin', { signInRedirectPath: location.pathname });
-            throw new Error('Unauthorized');
         }
 
         if (response.status >= 500) {
             alert('Сервис временно недоступен');
-            throw new Error('Service unavailable');
         }
 
         return response;
