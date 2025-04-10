@@ -6,6 +6,8 @@ import { PageSignUp } from './components/page-sign-up/page-sign-up';
 import { PageSignIn } from './components/page-sign-in/page-sign-in';
 import { PageMyBanners } from './components/page-my-banners/page-my-banners';
 import { PageProfile } from './components/page-profile/page-profile';
+import { Props } from './component';
+import { dispatcher } from './modules/dispatcher';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -13,7 +15,7 @@ const root = document.getElementById('root') as HTMLElement;
  * Интерфейс для описания структуры объекта, хранящего информацию о странице
  */
 interface PageInfo {
-    class: new (root: HTMLElement) => { render: (...params: any[]) => void };
+    class: new (root: HTMLElement) => { render: () => void };
     title: string;
 }
 
@@ -30,21 +32,23 @@ const pathToJSClass: { [key: string]: PageInfo } = {
 /**
  * Загрузить страницу по ее пути
  * @param {string} path - путь страницы
- * @param {...any} params - параметры страницы
+ * @param {Props?} state - параметры страницы
  */
-export function loadPath(path: string, ...params: any[]): void {
+export function loadPath(path: string, state: Props = {}): void {
     if (!(path in pathToJSClass)) {
         throw Error(`No such path: "${path}"`);
     }
 
+    dispatcher.clearAll();
+
     const pageClass = pathToJSClass[path].class;
     root.innerHTML = '';
     const page = new pageClass(root);
-    page.render(...params);
+    page.render();
 
     const nextTitle = pathToJSClass[path].title;
     const nextURL = window.location.origin + path;
-    window.history.replaceState({}, nextTitle, nextURL);
+    history.pushState(state, nextTitle, nextURL);
     document.title = nextTitle;
 }
 

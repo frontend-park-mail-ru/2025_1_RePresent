@@ -18,8 +18,13 @@
     background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
 }
 
-.banner-list-item:active {
+.banner-list-item:active,
+.banner-list-item.selected {
     background-color: var(--bg-secondary-dark);
+}
+
+.banner-list-item.selected {
+    cursor: default;
 }
 
 .banner-list-item .info {

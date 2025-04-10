@@ -6,42 +6,12 @@ import { Form, FormProps } from '../form/form';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../..';
 import { InputField } from '../input-field/input-field';
+import { emailGetError, passwordGetError } from '../../modules/validation';
 
 /**
  * Форма входа
  */
 export class FormSignIn extends Form {
-    /**
-     * Проверка валидности email
-     * @param {string} value - значение email
-     * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
-     */
-    emailGetError(value: string): string {
-        const emailRegexp = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
-        const isValid = emailRegexp.test(value);
-        if (isValid) {
-            return '';
-        }
-        return 'Некорректный email';
-    }
-
-    /**
-     * Проверка валидности пароля
-     * @param {string} value - значение пароля
-     * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
-     */
-    passwordGetError(value: string): string {
-        const isValid =
-            value.length >= 8 &&
-            /[a-z]+/.test(value) &&
-            /[A-Z]+/.test(value) &&
-            /[0-9]+/.test(value);
-        if (isValid) {
-            return '';
-        }
-        return 'Минимум 8 символов, содержит заглавные и строчные буквы и цифры';
-    }
-
     /**
      * Обработчик нажатия на кнопку отправки формы
      */
@@ -52,9 +22,13 @@ export class FormSignIn extends Form {
 
         const response = await UserAPI.logIn({ email, password, role });
 
-        if (response.ok) {
-            loadPath('/my-banners');
-        } else {
+        if (response.service.success) {
+            const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
+            loadPath(redirectPath);
+            return;
+        }
+
+        if (response.service.error) {
             this.props.inputs.passwordInput.showError('Неправильный email или пароль');
         }
     }
@@ -74,13 +48,13 @@ export class FormSignIn extends Form {
                 type: 'email',
                 name: 'email',
                 placeholder: 'Email',
-                getError: this.emailGetError.bind(this),
+                getError: emailGetError,
             }),
             passwordInput: new InputField(root, {
                 type: 'password',
                 name: 'password',
                 placeholder: 'Пароль',
-                getError: this.passwordGetError.bind(this),
+                getError: passwordGetError,
             }),
         };
 

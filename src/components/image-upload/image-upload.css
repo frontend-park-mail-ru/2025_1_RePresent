@@ -1,0 +1,21 @@
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-big);
+}
+
+.image-upload .image,
+.image-upload .input-file {
+    width: 100%;
+}
+
+.image-upload .image {
+    aspect-ratio: 1;
+    background-color: var(--bg-secondary);
+    border: var(--border-width) solid var(--bg-secondary);
+    border-radius: var(--corner-small);
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

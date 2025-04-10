@@ -6,18 +6,14 @@ import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';
 import { MenuBannerEditor } from '../menu-banner-editor/menu-banner-editor';
+import { store } from '../../modules/store';
 
 /**
- * Интерфейс для описания параметров компонента
- */
-interface MenuSectionProps extends MenuListProps {
-    bannerId: number;
-}
-
-/**
- * Список меню
+ * Раздел меню
  */
 export class MenuSection extends Component {
+    private selectedMenuName: string = 'editor';
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -25,20 +21,36 @@ export class MenuSection extends Component {
     constructor(parent: HTMLElement) {
         super(parent, 'menu-section/menu-section', {});
 
-        dispatcher.on('menu-select', this.onMenuSelect.bind(this));
+        dispatcher.on('menu-select', (selectedName: string) => {
+            this.selectedMenuName = selectedName;
+            this.renderMenu();
+        });
+
+        dispatcher.on('store-updated-selectedBanner', () => {
+            store.update({ key: 'fileId', value: '' });
+            dispatcher.dispatch('menu-select', this.selectedMenuName);
+        });
+
+        dispatcher.on('banner-delete', () => {
+            dispatcher.dispatch('menu-select', '');
+        });
     }
 
     /**
-     * Обработчик выбора меню, отображающий меню
-     * @param selectedName - имя выбранного меню
+     * Отрисовка выбранного меню
      */
-    private onMenuSelect(selectedName: string) {
+    private renderMenu() {
+        const hasSelectedBanner = store.get<boolean>('selectedBanner');
+        if (!hasSelectedBanner) {
+            return;
+        }
+
         const menuContents = this.rootElement.getElementsByClassName('menu-contents')[0] as HTMLElement;
         menuContents.innerHTML = '';
 
-        switch (selectedName) {
+        switch (this.selectedMenuName) {
             case 'editor':
-                new MenuBannerEditor(menuContents).render({ bannerId: this.props.bannerId });
+                new MenuBannerEditor(menuContents).render();
                 break;
             default:
                 break;
@@ -47,10 +59,18 @@ export class MenuSection extends Component {
 
     /**
      * Отрисовка
-     * @param {MenuSectionProps} props - параметры компонента
      */
-    render(props: MenuSectionProps): void {
-        super.render(props);
+    render(): void {
+        super.render();
+
+        const props: MenuListProps = {
+            items: [
+                { label: 'Редактор', menuName: 'editor' },
+                { label: 'Статистика', menuName: 'statistics' },
+                { label: 'Оплата', menuName: 'billing' },
+                { label: 'Платформы', menuName: 'platforms' },
+            ],
+        };
 
         new MenuList(this.rootElement).render(props);
 

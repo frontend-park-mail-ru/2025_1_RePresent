@@ -35,7 +35,7 @@ export class PageSignIn extends Component {
             type: 'subtle',
             label: 'Создать',
             onClick: () => {
-                loadPath('/signup');
+                loadPath('/signup', history.state);
             },
         });
     }

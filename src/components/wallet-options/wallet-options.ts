@@ -3,8 +3,6 @@
 import './wallet-options.css';
 
 import { Component } from '../../component';
-import { loadPath } from '../..';
-import { UserAPI } from '../../api/userApi';
 import { Button } from '../button/button';
 import { InputSwitch } from '../input-switch/input-switch';
 import { InputField } from '../input-field/input-field';
@@ -33,15 +31,6 @@ export class WalletOptions extends Component {
      */
     render(): void {
         super.render();
-
-        UserAPI.getCurrentUser()
-            .catch(err => {
-                if (err.message === 'Unauthorized') {
-                    loadPath('/signup');
-                    return;
-                }
-                throw err;
-            });
 
         const walletMain = this.rootElement.getElementsByClassName('wallet-main')[0] as HTMLElement;
         const replenishButton = new Button(walletMain);

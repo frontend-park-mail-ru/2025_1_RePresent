@@ -28,6 +28,14 @@ export class InputSwitch extends Input {
     }
 
     /**
+     * Состояние компонента
+     * @returns {boolean} - включен ли переключатель
+     */
+    getValue(): boolean {
+        return this.inputElement.checked;
+    }
+
+    /**
      * Отрисовка
      * @param {InputSwitchProps} props - параметры компонента
      */
@@ -41,5 +49,7 @@ export class InputSwitch extends Input {
 
         // Передаем обновленные props в родительский метод render
         super.render({ ...props, checked, disabled });
+
+        this.inputElement = this.rootElement.querySelector('#' + props.name) as HTMLInputElement;
     }
 }

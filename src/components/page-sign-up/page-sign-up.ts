@@ -33,7 +33,7 @@ export class PageSignUp extends Component {
             type: 'subtle',
             label: 'Войти',
             onClick: () => {
-                loadPath('/signin');
+                loadPath('/signin', history.state);
             },
         });
     }

@@ -21,14 +21,15 @@ interface InputFieldProps extends InputProps {
     placeholder: string;
     label?: string;
     getError?: GetErrorCallback;
+    default?: string;
 }
 
 /**
  * Поле текстового ввода
  */
 export class InputField extends Input {
-    #errorElement: HTMLElement;
-    #prevValue: string = '';
+    private errorElement: HTMLElement;
+    private prevValue: string = '';
 
     /**
      * Конструктор компонента
@@ -44,7 +45,7 @@ export class InputField extends Input {
      * @param {string} errorMsg - сообщение об ошибке
      */
     showError(errorMsg: string): void {
-        this.#errorElement.innerText = errorMsg;
+        this.errorElement.innerText = errorMsg;
         this.rootElement.classList.add('error');
     }
 
@@ -75,11 +76,11 @@ export class InputField extends Input {
      */
     validateIfChanged(): void {
         const inputValue = this.inputElement.value.trim();
-        if (inputValue === this.#prevValue) {
+        if (inputValue === this.prevValue) {
             return;
         }
         this.validate();
-        this.#prevValue = inputValue;
+        this.prevValue = inputValue;
     }
 
     /**
@@ -96,8 +97,9 @@ export class InputField extends Input {
         props.validate = props.getError ? (value: string) => props.getError!(value) === '' : undefined;
         super.render(props);
 
-        this.#errorElement = this.rootElement.querySelector('.error-msg') as HTMLElement;
+        this.errorElement = this.rootElement.querySelector('.error-msg') as HTMLElement;
         this.inputElement = this.rootElement.querySelector('#' + props.name) as HTMLInputElement;
+        this.inputElement.value = props.default || '';
         this.inputElement.onblur = this.validateIfChanged.bind(this);
     }
 }

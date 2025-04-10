@@ -2,13 +2,22 @@
 
 import './banner-list-item.css';
 
-import { Component } from '../../component';
-import { Banner } from '../../api/bannerApi';
+import { Component, Props } from '../../component';
+import { dispatcher } from '../../modules/dispatcher';
+
+export interface BannerListItemProps extends Props {
+    bannerId: number;
+    name: string;
+    status: number;
+    selected: boolean;
+}
 
 /**
  * Элемент списка объявлений
  */
 export class BannerListItem extends Component {
+    protected props: BannerListItemProps;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -18,15 +27,29 @@ export class BannerListItem extends Component {
     }
 
     /**
-     * Отрисовка
-     * @param {Banner} props - параметры компонента
+     * Обработчик нажатия на компонентт
      */
-    render(props: Banner): void {
+    private onClick() {
+        if (this.props.selected) {
+            return;
+        }
+        dispatcher.dispatch('banner-select', this.props.bannerId);
+    }
+
+    /**
+     * Отрисовка
+     * @param {BannerListItemProps} props - параметры компонента
+     */
+    render(props: BannerListItemProps): void {
         const renderProps = {
-            status: ['active', 'awaiting', 'rejected'][props.status - 1],
-            name: props.title,
-            stats: props.description,
+            bannerId: props.bannerId,
+            name: props.name,
+            stats: 'stats...',
+            status: ['active', 'awaiting', 'rejected'][props.Status - 1],
+            selected: props.selected ? 'selected' : '',
         };
         super.render(renderProps);
+
+        this.rootElement.addEventListener('click', this.onClick.bind(this));
     }
 }
