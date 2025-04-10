@@ -26,6 +26,9 @@ export class BannerAPI {
         const response = await API.fetch('/banner', {
             method: 'GET',
         });
+        if (!response.ok) {
+            return [];
+        }
         return response.json();
     }
 
