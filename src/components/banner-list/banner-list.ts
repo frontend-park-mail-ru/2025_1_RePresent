@@ -65,7 +65,7 @@ export class BannerList extends Component {
      * Обработчик нажатия на Создать объявление
      */
     private onBannerCreateClick(): void {
-        if ((store.get('selectedBanner') as Banner)?.beingCreated) {
+        if (store.get<Banner>('selectedBanner')?.beingCreated) {
             return;
         }
 

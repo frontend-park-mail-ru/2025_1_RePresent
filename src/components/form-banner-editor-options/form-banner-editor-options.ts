@@ -34,7 +34,7 @@ export class FormBannerEditorOptions extends Form {
         this.selectedBanner.description = inputs.textInput.getValue();
         this.selectedBanner.status = inputs.isActive.getValue() ? 1 : 0;
 
-        const fileId = store.get('fileId');
+        const fileId = store.get<string>('fileId');
         if (fileId) {
             this.selectedBanner.content = fileId;
         }
@@ -57,7 +57,7 @@ export class FormBannerEditorOptions extends Form {
      * Отрисовка
      */
     render(): void {
-        const selectedBanner = store.get('selectedBanner') as Banner;
+        const selectedBanner = store.get<Banner>('selectedBanner');
         this.selectedBanner = selectedBanner;
 
         const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.onSubmit.bind(this), className: 'form-block' };

@@ -27,7 +27,7 @@ export class MenuBannerEditor extends Component {
      * Отрисовка предпросмотра объявления
      */
     private renderPreview(): void {
-        const banner = store.get('selectedBanner') as Banner;
+        const banner = store.get<Banner>('selectedBanner');
         if (banner.beingCreated) {
             return;
         }
@@ -51,7 +51,7 @@ export class MenuBannerEditor extends Component {
      * @returns {Promise<string>} - новый src файла, или старый в случае ошибки загрузки
      */
     private async uploadFile(file: File): Promise<string> {
-        let contentId = (store.get('selectedBanner') as Banner).content;
+        let contentId = store.get<Banner>('selectedBanner').content;
         const contentSrc = this.getContentSrcFromId(contentId);
 
         const response = await BannerAPI.upload(file);
@@ -69,7 +69,7 @@ export class MenuBannerEditor extends Component {
      * Отрисовка раздела загрузки изображения
      */
     private renderImageUpload(): void {
-        const banner = store.get('selectedBanner') as Banner;
+        const banner = store.get<Banner>('selectedBanner');
         const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
         const contentSrc = banner.beingCreated ? '' : this.getContentSrcFromId(banner.content);
 
@@ -87,7 +87,7 @@ export class MenuBannerEditor extends Component {
      * Отрисовка кнопки удаления объявления
      */
     private renderDeleteButton(): void {
-        const banner = store.get('selectedBanner') as Banner;
+        const banner = store.get<Banner>('selectedBanner');
         if (banner.beingCreated) {
             return;
         }
@@ -104,7 +104,7 @@ export class MenuBannerEditor extends Component {
         if (!confirm('Вы уверены, что хотите удалить это объявление?')) {
             return;
         }
-        const bannerId = (store.get('selectedBanner') as Banner).id;
+        const bannerId = store.get<Banner>('selectedBanner').id;
         const response = await BannerAPI.delete(bannerId);
         if (response.service.error) {
             console.log(response.service.error);

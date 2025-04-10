@@ -40,7 +40,7 @@ export class MenuSection extends Component {
      * Отрисовка выбранного меню
      */
     private renderMenu() {
-        const hasSelectedBanner = store.get('selectedBanner') as boolean;
+        const hasSelectedBanner = store.get<boolean>('selectedBanner');
         if (!hasSelectedBanner) {
             return;
         }

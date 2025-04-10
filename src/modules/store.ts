@@ -2,20 +2,25 @@
 
 import { dispatcher } from './dispatcher';
 
+/**
+ * Тип значения, хранящегося в Store
+ */
+type ValueT = any;
+
 export interface StoreEntry {
     key: string;
-    value: any;
+    value: ValueT;
 }
 
 /**
  * Глобальное хранилище переменных
  */
 class Store {
-    private data: Record<string, any> = {};
+    private data: Record<string, ValueT> = {};
 
     /**
      * Обновляет значение и рассылает его подписчикам
-     * @param storeEntry - хранимое значение
+     * @param {StoreEntry} storeEntry - хранимое значение
      */
     public update(storeEntry: StoreEntry): void {
         this.data[storeEntry.key] = storeEntry.value;
@@ -24,10 +29,10 @@ class Store {
 
     /**
      * Получить значение по ключу
-     * @param key - ключ хранимого значение
-     * @returns 
+     * @param {string} key - ключ хранимого значение
+     * @returns {ValueT} - значение
      */
-    public get(key: string): any {
+    public get<ValueT>(key: string): ValueT {
         return this.data[key];
     }
 }
