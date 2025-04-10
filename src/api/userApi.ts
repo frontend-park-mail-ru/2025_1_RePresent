@@ -1,6 +1,6 @@
 'use strict';
 
-import { API } from '../modules/api';
+import { API, APIresponse } from '../modules/api';
 
 /**
  * Интерфейс для описания данных аутентификации
@@ -16,10 +16,10 @@ export class UserAPI {
     /**
      * Зарегистрировать нового пользователя
      * @param {Credentials} credentials - учетные данные пользователя
-     * @returns {Promise<Response>} - ответ API
+     * @returns {Promise<APIresponse>} - ответ API
      */
-    static signUp(credentials: Credentials): Promise<Response> {
-        return API.fetch('/auth/signup', {
+    static async signUp(credentials: Credentials): Promise<APIresponse> {
+        const response = await API.fetch('/auth/signup', {
             method: 'POST',
             body: JSON.stringify({
                 username: credentials.username,
@@ -28,15 +28,16 @@ export class UserAPI {
                 role: credentials.role,
             }),
         });
+        return response.json();
     }
 
     /**
      * Войти в систему
      * @param {Credentials} credentials - учетные данные пользователя
-     * @returns {Promise<Response>} - ответ API
+     * @returns {Promise<APIresponse>} - ответ API
      */
-    static logIn(credentials: Credentials): Promise<Response> {
-        return API.fetch('/auth/login', {
+    static async logIn(credentials: Credentials): Promise<APIresponse> {
+        const response = await API.fetch('/auth/login', {
             method: 'POST',
             body: JSON.stringify({
                 email: credentials.email,
@@ -44,16 +45,18 @@ export class UserAPI {
                 role: credentials.role,
             }),
         });
+        return response.json();
     }
 
     /**
      * Выйти из системы
-     * @returns {Promise<Response>} - ответ API
+     * @returns {Promise<APIresponse>} - ответ API
      */
-    static logOut(): Promise<Response> {
-        return API.fetch('/auth/logout', {
+    static async logOut(): Promise<APIresponse> {
+        const response = await API.fetch('/auth/logout', {
             method: 'POST',
             headers: {},
         });
+        return response.json();
     }
 }

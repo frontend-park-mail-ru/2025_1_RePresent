@@ -83,13 +83,14 @@ export class FormSignUp extends Form {
 
         const response = await UserAPI.signUp({ username, email, password, role });
 
-        if (response.ok) {
+        if (response.service.success) {
             const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
             loadPath(redirectPath);
+            return;
         }
 
-        if (!response.ok) {
-            const errorMessage = (await response.json())['error'];
+        if (response.service.error) {
+            const errorMessage = response.service.error;
             if (errorMessage.includes('username')) {
                 this.props.inputs.organizationInput.showError(errorMessage);
             }

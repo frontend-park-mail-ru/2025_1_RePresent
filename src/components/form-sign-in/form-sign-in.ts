@@ -52,12 +52,13 @@ export class FormSignIn extends Form {
 
         const response = await UserAPI.logIn({ email, password, role });
 
-        if (response.ok) {
+        if (response.service.success) {
             const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
             loadPath(redirectPath);
+            return;
         }
 
-        if (!response.ok) {
+        if (response.service.error) {
             this.props.inputs.passwordInput.showError('Неправильный email или пароль');
         }
     }
