@@ -7,6 +7,7 @@ import { PageSignIn } from './components/page-sign-in/page-sign-in';
 import { PageMyBanners } from './components/page-my-banners/page-my-banners';
 import { PageProfile } from './components/page-profile/page-profile';
 import { Props } from './component';
+import { dispatcher } from './modules/dispatcher';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -37,6 +38,8 @@ export function loadPath(path: string, state: Props = {}): void {
     if (!(path in pathToJSClass)) {
         throw Error(`No such path: "${path}"`);
     }
+
+    dispatcher.clearAll();
 
     const pageClass = pathToJSClass[path].class;
     root.innerHTML = '';
