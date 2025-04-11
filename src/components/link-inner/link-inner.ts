@@ -3,7 +3,7 @@
 import './link-inner.css';
 
 import { Component } from '../../component';
-import { loadPath } from '../..';
+import { loadPath } from '../../modules/router';
 
 /**
  * Интерфейс для описания параметров компонента
