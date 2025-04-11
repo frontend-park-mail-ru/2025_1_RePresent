@@ -1,6 +1,6 @@
 'use strict';
 
-import { loadPath } from '..';
+import { loadPath } from './router';
 
 export interface APIresponse {
     service: {

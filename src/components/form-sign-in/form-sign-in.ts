@@ -4,7 +4,7 @@ import '../../sign-in-up.css';
 
 import { Form, FormProps } from '../form/form';
 import { UserAPI } from '../../api/userApi';
-import { loadPath } from '../..';
+import { loadPath } from '../../modules/router';
 import { InputField } from '../input-field/input-field';
 import { emailGetError, passwordGetError } from '../../modules/validation';
 
