@@ -16,15 +16,15 @@ interface Profile {
 export class ProfileAPI {
     /**
      * Получить информацию профиля
-     * @returns {Promise<Profile>} - ответ API
+     * @returns {Promise<Profile> | null} - ответ API
      */
-    static async getMyInfo(): Promise<Profile> {
+    static async getMyInfo(): Promise<Profile> | null {
         const response = await API.fetch('/profile/my', {
             method: 'GET',
             headers: {},
         });
         const json = await response.json();
-        return json['body'];
+        return json['body'] || null;
     }
 
     /**

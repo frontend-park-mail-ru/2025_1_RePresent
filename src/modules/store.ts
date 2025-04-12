@@ -35,6 +35,13 @@ class Store {
     public get<ValueT>(key: string): ValueT {
         return this.data[key];
     }
+
+    /**
+     * Очистить хранилище
+     */
+    public clear(): void {
+        this.data = {};
+    }
 }
 
 const store = new Store;
