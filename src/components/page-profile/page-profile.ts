@@ -26,6 +26,14 @@ export class PageProfile extends Component {
     }
 
     /**
+     * Получить URL аватара
+     * @returns {string} - URL аватара
+     */
+    private getAvatarURL(): string {
+        return `${API.API_ORIGIN}/avatar/download?nocache=${Date.now()}`;
+    }
+
+    /**
      * Обработчик загрузки аватара
      * @param {File} file - файл
      * @returns {Promise<string>} - новый src файла, или старый в случае ошибки загрузки
@@ -36,7 +44,7 @@ export class PageProfile extends Component {
             console.log(response.service.error);
         }
 
-        return `${API.API_ORIGIN}/avatar/download`;
+        return this.getAvatarURL();
     }
 
     /**
@@ -47,7 +55,7 @@ export class PageProfile extends Component {
 
         new ImageUpload(publicSection).render(
             {
-                imgSrc: `${API.API_ORIGIN}/avatar/download`,
+                imgSrc: this.getAvatarURL(),
                 imgAlt: 'аватар',
                 btnLabel: 'Изменить изображение',
                 uploadCallback: this.uploadAvatar.bind(this),
