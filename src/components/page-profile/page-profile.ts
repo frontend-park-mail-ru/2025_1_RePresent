@@ -11,7 +11,8 @@ import { FormPasswordChange } from '../form-password-change/form-password-change
 import { Navbar } from '../navbar/navbar';
 import { API } from '../../modules/api';
 import { ImageUpload } from '../image-upload/image-upload';
-import { ProfileAPI } from '../../api/profileApi';
+import { Profile, ProfileAPI } from '../../api/profileApi';
+import { store } from '../../modules/store';
 
 /**
  * Страница профиля пользователя
@@ -87,11 +88,14 @@ export class PageProfile extends Component {
 
         privateSection.insertAdjacentHTML('beforeend', '<h1>Настройки</h1>');
 
+        const roleNum = store.get<Profile>('profile').role;
         const roleField = new InputField(privateSection, {
             label: 'Роль',
             name: 'role',
             placeholder: 'Ваша роль',
             type: 'text',
+            default: (roleNum == 1) ? 'Рекламодатель' : 'Платформа',
+            disabled: true,
         });
         roleField.render();
 
