@@ -3,13 +3,15 @@
 import './page-profile.css';
 
 import { Component } from '../../component';
-import { PfpOptions } from '../pfp-options/pfp-options';
 import { FormProfilePublic } from '../form-profile-public/form-profile-public';
 import { WalletOptions } from '../wallet-options/wallet-options';
 import { InputField } from '../input-field/input-field';
 import { FormEmailVerify } from '../form-email-verify/form-email-verify';
 import { FormPasswordChange } from '../form-password-change/form-password-change';
 import { Navbar } from '../navbar/navbar';
+import { API } from '../../modules/api';
+import { ImageUpload } from '../image-upload/image-upload';
+import { ProfileAPI } from '../../api/profileApi';
 
 /**
  * Страница профиля пользователя
@@ -24,9 +26,39 @@ export class PageProfile extends Component {
     }
 
     /**
+     * Обработчик загрузки аватара
+     * @param {File} file - файл
+     * @returns {Promise<string>} - новый src файла, или старый в случае ошибки загрузки
+     */
+    private async uploadAvatar(file: File): Promise<string> {
+        const response = await ProfileAPI.uploadAvatar(file);
+        if (response.service.error) {
+            console.log(response.service.error);
+        }
+
+        return `${API.API_ORIGIN}/avatar/download`;
+    }
+
+    /**
+     * Отрисовка раздела загрузки аватара
+     */
+    private renderAvatarSection(): void {
+        const publicSection = this.rootElement.getElementsByClassName('public-section')[0] as HTMLElement;
+
+        new ImageUpload(publicSection).render(
+            {
+                imgSrc: `${API.API_ORIGIN}/avatar/download`,
+                imgAlt: 'аватар',
+                btnLabel: 'Изменить изображение',
+                uploadCallback: this.uploadAvatar.bind(this),
+            }
+        );
+    }
+
+    /**
      * Отрисовка страницы
      */
-    render(): void {
+    public render(): void {
         super.render();
 
         // TODO make Page class for pages, which will render navbar
@@ -35,8 +67,7 @@ export class PageProfile extends Component {
 
         const publicSection = this.rootElement.getElementsByClassName('public-section')[0] as HTMLElement;
 
-        const pfpOptions = new PfpOptions(publicSection);
-        pfpOptions.render();
+        this.renderAvatarSection();
 
         const formProfilePublic = new FormProfilePublic(publicSection);
         formProfilePublic.render();

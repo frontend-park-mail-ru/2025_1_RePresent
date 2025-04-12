@@ -47,7 +47,7 @@ export class MenuBannerEditor extends Component {
 
     /**
      * Обработчик загрузки файла
-     * @param {FileList} file - файл
+     * @param {File} file - файл
      * @returns {Promise<string>} - новый src файла, или старый в случае ошибки загрузки
      */
     private async uploadFile(file: File): Promise<string> {

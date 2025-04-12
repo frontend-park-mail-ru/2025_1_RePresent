@@ -38,3 +38,7 @@
 #page-profile h1 {
     font-size: var(--font-large);
 }
+
+#page-profile .image-upload {
+    width: 20.8rem;
+}
