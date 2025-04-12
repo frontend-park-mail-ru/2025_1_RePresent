@@ -1,6 +1,6 @@
 'use strict';
 
-import '../../sign-in-up.css';
+import '../../sign-in-up\.scss';
 
 import { Form, FormProps } from '../form/form';
 import { UserAPI } from '../../api/userApi';

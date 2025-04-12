@@ -1,6 +1,6 @@
 'use strict';
 
-import './input-field.css';
+import './input-field\.scss';
 
 import { Input, InputProps } from '../../input';
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import './button.css';
+import './button\.scss';
 
 import { Component } from '../../component';
 

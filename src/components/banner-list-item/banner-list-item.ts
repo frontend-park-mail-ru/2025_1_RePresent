@@ -1,6 +1,6 @@
 'use strict';
 
-import './banner-list-item.css';
+import './banner-list-item\.scss';
 
 import { Component, Props } from '../../component';
 import { dispatcher } from '../../modules/dispatcher';

@@ -1,6 +1,6 @@
 'use strict';
 
-import './input-switch.css';
+import './input-switch\.scss';
 
 import { Input } from '../../input';
 

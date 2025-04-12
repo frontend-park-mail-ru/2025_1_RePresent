@@ -1,6 +1,6 @@
 'use strict';
 
-import './form-profile-public.css';
+import './form-profile-public\.scss';
 
 import { Form, FormProps } from '../form/form';
 import { InputField } from '../input-field/input-field';

@@ -1,6 +1,6 @@
 'use strict';
 
-import './wallet-options.css';
+import './wallet-options\.scss';
 
 import { Component } from '../../component';
 import { Button } from '../button/button';

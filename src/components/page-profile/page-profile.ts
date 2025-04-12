@@ -1,6 +1,6 @@
 'use strict';
 
-import './page-profile.css';
+import './page-profile\.scss';
 
 import { Component } from '../../component';
 import { FormProfilePublic } from '../form-profile-public/form-profile-public';

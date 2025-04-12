@@ -1,6 +1,6 @@
 'use strict';
 
-import './cancel-save.css';
+import './cancel-save\.scss';
 
 import { Component } from '../../component';
 import { Button, ClickCallback } from '../button/button';

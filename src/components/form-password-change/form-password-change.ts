@@ -1,6 +1,6 @@
 'use strict';
 
-import './form-password-change.css';
+import './form-password-change\.scss';
 
 import { Form, FormProps } from '../form/form';
 import { InputField } from '../input-field/input-field';

@@ -1,6 +1,6 @@
 'use strict';
 
-import './global.css';
+import './global.scss';
 
 import { loadPath } from './modules/router';
 
