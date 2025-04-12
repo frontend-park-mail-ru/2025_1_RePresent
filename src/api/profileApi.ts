@@ -5,7 +5,7 @@ import { API, APIresponse } from '../modules/api';
 /**
  * Интерфейс для описания данных профиля
  */
-interface Profile {
+export interface Profile {
     username: string;
     email: string;
     description: string;
