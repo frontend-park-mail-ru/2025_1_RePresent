@@ -12,51 +12,51 @@
     line-height: 1.5rem;
     cursor: pointer;
     user-select: none;
-}
 
-.banner-list-item:hover {
-    background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
-}
+    &:hover {
+        background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
+    }
 
-.banner-list-item:active,
-.banner-list-item.selected {
-    background-color: var(--bg-secondary-dark);
-}
+    &:active,
+    &.selected {
+        background-color: var(--bg-secondary-dark);
+    }
 
-.banner-list-item.selected {
-    cursor: default;
-}
+    &.selected {
+        cursor: default;
+    }
 
-.banner-list-item .info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-.banner-list-item .status {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-}
+    .status {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+    }
 
-.banner-list-item .name {
-    font-size: var(--font-medium);
-}
+    .name {
+        font-size: var(--font-medium);
+    }
 
-.banner-list-item .indicator {
-    width: 25px;
-    height: 25px;
-    border-radius: 100%;
-}
+    .indicator {
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+    }
 
-.banner-list-item.active .indicator {
-    background-color: var(--active-primary);
-}
+    &.active .indicator {
+        background-color: var(--active-primary);
+    }
 
-.banner-list-item.awaiting .indicator {
-    background-color: var(--active-warning);
-}
+    &.awaiting .indicator {
+        background-color: var(--active-warning);
+    }
 
-.banner-list-item.rejected .indicator {
-    background-color: var(--active-danger);
+    &.rejected .indicator {
+        background-color: var(--active-danger);
+    }
 }

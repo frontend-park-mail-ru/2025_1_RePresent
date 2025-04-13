@@ -1,54 +1,61 @@
 .input-field {
     width: 240px;
     text-align: left;
-}
 
-.input-field .label {
-    margin-bottom: 5px;
-}
+    .label {
+        margin-bottom: 5px;
 
-.input-field .label:empty {
-    display: none;
-}
+        &:empty {
+            display: none;
+        }
+    }
 
-.input-field input {
-    width: 100%;
-    height: 40px;
-    padding: var(--margin-small);
-    border: var(--border-width) solid var(--bg-light-gray);
-    border-radius: var(--corner-small);
-    outline: none;
-    transition: .2s;
-}
+    input {
+        width: 100%;
+        height: 40px;
+        padding: var(--margin-small);
+        border: var(--border-width) solid var(--bg-light-gray);
+        border-radius: var(--corner-small);
+        outline: none;
+        transition: 0.2s;
 
-.input-field input:focus {
-    box-shadow: 0px 0px 0px 5px rgb(from var(--active-primary) r g b / 50%);
-}
+        &:focus {
+            box-shadow: 0px 0px 0px 5px rgb(from var(--active-primary) r g b / 50%);
+        }
 
-.input-field.error input:focus {
-    box-shadow: 0px 0px 0px 5px rgb(from var(--active-danger) r g b / 50%);
-}
+        &::placeholder {
+            color: var(--bg-gray);
+        }
+    }
 
-.input-field.disabled input {
-    border-color: var(--bg-gray);
-    background-color: var(--bg-light-gray);
-}
+    &.error {
+        input {
+            border-color: var(--active-danger);
 
-.input-field.disabled .label,
-.input-field input::placeholder {
-    color: var(--bg-gray);
-}
+            &:focus {
+                box-shadow: 0px 0px 0px 5px rgb(from var(--active-danger) r g b / 50%);
+            }
+        }
 
-.input-field .error-msg {
-    margin-top: var(--margin-small);
-    color: var(--active-danger);
-    display: none;
-}
+        .error-msg {
+            display: block;
+        }
+    }
 
-.input-field.error input {
-    border-color: var(--active-danger);
-}
+    &.disabled {
+        input {
+            border-color: var(--bg-gray);
+            background-color: var(--bg-light-gray);
+        }
 
-.input-field.error .error-msg {
-    display: block;
+        .label {
+            color: var(--bg-gray);
+        }
+    }
+
+    .error-msg {
+        margin-top: var(--margin-small);
+        color: var(--active-danger);
+        display: none;
+    }
 }

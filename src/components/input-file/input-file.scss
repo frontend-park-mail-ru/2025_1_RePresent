@@ -1,12 +1,12 @@
 .input-file {
     width: fit-content;
     height: fit-content;
-}
 
-.input-file .input-tag {
-    display: none;
-}
+    .input-tag {
+        display: none;
+    }
 
-.input-file button {
-    width: 100%;
+    button {
+        width: 100%;
+    }
 }

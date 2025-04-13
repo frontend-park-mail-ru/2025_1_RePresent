@@ -2,21 +2,21 @@
     display: flex;
     flex-direction: column;
     gap: var(--margin-medium);
-}
 
-.wallet-options .wallet-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--margin-medium);
-}
+    .wallet-main {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--margin-medium);
+    }
 
-.wallet-options .wallet-balance {
-    flex-grow: 10;
-    height: fit-content;
-}
+    .wallet-balance {
+        flex-grow: 10;
+        height: fit-content;
+    }
 
-.wallet-options>* {
-    width: 100%;
+    >* {
+        width: 100%;
+    }
 }

@@ -1,10 +1,10 @@
 .menu-list-item {
     font-size: var(--font-medium);
-}
 
-.menu-list-item.selected,
-.menu-list-item.selected:hover,
-.menu-list-item.selected:active {
-    background-color: var(--bg-secondary-dark);
-    cursor: default;
+    &.selected,
+    &.selected:hover,
+    &.selected:active {
+        background-color: var(--bg-secondary-dark);
+        cursor: default;
+    }
 }

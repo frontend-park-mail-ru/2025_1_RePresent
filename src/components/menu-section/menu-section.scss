@@ -6,11 +6,11 @@
     gap: var(--margin-big);
     background-color: var(--bg-primary);
     border-radius: var(--corner-small);
-}
 
-.menu-contents {
-    padding: 0 var(--margin-big);
-    display: flex;
-    flex-direction: row;
-    gap: var(--margin-huge);
+    .menu-contents {
+        padding: 0 var(--margin-big);
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-huge);
+    }
 }

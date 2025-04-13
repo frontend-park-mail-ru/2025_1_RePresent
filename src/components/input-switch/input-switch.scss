@@ -4,81 +4,84 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
     --slider-size: 1.5rem;
     --switch-width: 3rem;
-}
 
-.input-switch .switch {
-    position: relative;
-    width: var(--switch-width);
-    height: calc(var(--slider-size) + var(--border-width) * 2);
-}
+    .switch {
+        position: relative;
+        width: var(--switch-width);
+        height: calc(var(--slider-size) + var(--border-width) * 2);
+    }
 
-.input-switch.disabled .label {
-    color: var(--bg-gray);
-}
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
 
-.input-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
+        &:focus+.slider,
+        &:active+.slider {
+            box-shadow: 0px 0px 0px 5px rgb(from var(--active-primary) r g b / 50%);
+        }
 
-.input-switch .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: .2s;
-    background-color: var(--bg-primary);
-    border: var(--border-width) solid var(--active-primary);
-    border-radius: calc(var(--slider-size) * 0.5 + var(--border-width));
-}
+        &:checked+.slider {
+            background-color: var(--active-primary);
+            border-color: var(--active-primary-dark);
 
-.input-switch input:focus+.slider,
-.input-switch input:active+.slider {
-    box-shadow: 0px 0px 0px 5px rgb(from var(--active-primary) r g b / 50%);
-}
+            &:hover {
+                background-color: color-mix(in srgb, var(--active-primary), var(--active-primary-dark));
+            }
 
-.input-switch input:checked+.slider {
-    background-color: var(--active-primary);
-    border-color: var(--active-primary-dark);
-}
+            &::before {
+                transform: translateX(calc(var(--switch-width) - var(--slider-size) - var(--border-width) * 2));
+                background-color: var(--bg-primary);
+            }
+        }
+    }
 
-.input-switch .slider:hover {
-    background-color: color-mix(in srgb, var(--bg-primary), var(--bg-light-gray));
-}
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: 0.2s;
+        background-color: var(--bg-primary);
+        border: var(--border-width) solid var(--active-primary);
+        border-radius: calc(var(--slider-size) * 0.5 + var(--border-width));
 
-.input-switch .slider:before {
-    position: absolute;
-    content: "";
-    height: calc(var(--slider-size) - var(--border-width) * 2);
-    width: calc(var(--slider-size) - var(--border-width) * 2);
-    left: var(--border-width);
-    bottom: var(--border-width);
-    background-color: var(--active-primary);
-    transition: .2s;
-    border-radius: 50%;
-}
+        &:hover {
+            background-color: color-mix(in srgb, var(--bg-primary), var(--bg-light-gray));
+        }
 
-.input-switch input:checked+.slider:before {
-    transform: translateX(calc(var(--switch-width) - var(--slider-size) - var(--border-width) * 2));
-    background-color: var(--bg-primary);
-}
+        &::before {
+            position: absolute;
+            content: "";
+            height: calc(var(--slider-size) - var(--border-width) * 2);
+            width: calc(var(--slider-size) - var(--border-width) * 2);
+            left: var(--border-width);
+            bottom: var(--border-width);
+            background-color: var(--active-primary);
+            transition: 0.2s;
+            border-radius: 50%;
+        }
+    }
 
-.input-switch input:checked+.slider:hover {
-    background-color: color-mix(in srgb, var(--active-primary), var(--active-primary-dark));
-}
+    &.disabled {
+        .label {
+            color: var(--bg-gray);
+        }
 
-.input-switch.disabled input+.slider,
-.input-switch.disabled input:checked+.slider {
-    background-color: var(--bg-light-gray);
-    border-color: var(--bg-gray);
-    cursor: default;
-}
+        input+.slider,
+        input:checked+.slider {
+            background-color: var(--bg-light-gray);
+            border-color: var(--bg-gray);
+            cursor: default;
+        }
 
-.input-switch.disabled input+.slider:before {
-    background-color: var(--bg-gray);
+        input+.slider::before {
+            background-color: var(--bg-gray);
+        }
+    }
 }

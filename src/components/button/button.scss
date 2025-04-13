@@ -3,64 +3,64 @@ button {
     border-radius: var(--corner-small);
     padding: 5px var(--margin-big);
     cursor: pointer;
-}
 
-button.primary {
-    border-color: var(--active-primary-dark);
-    background-color: var(--active-primary);
-}
+    &.primary {
+        border-color: var(--active-primary-dark);
+        background-color: var(--active-primary);
 
-button.primary:hover {
-    background-color: color-mix(in srgb, var(--active-primary), var(--active-primary-dark));
-}
+        &:hover {
+            background-color: color-mix(in srgb, var(--active-primary), var(--active-primary-dark));
+        }
 
-button.primary:active {
-    background-color: var(--active-primary-dark);
-}
+        &:active {
+            background-color: var(--active-primary-dark);
+        }
+    }
 
-button.neutral {
-    border-color: var(--bg-secondary-dark);
-    background-color: var(--bg-secondary);
-}
+    &.neutral {
+        border-color: var(--bg-secondary-dark);
+        background-color: var(--bg-secondary);
 
-button.neutral:hover {
-    background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
-}
+        &:hover {
+            background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
+        }
 
-button.neutral:active {
-    background-color: var(--bg-secondary-dark);
-}
+        &:active {
+            background-color: var(--bg-secondary-dark);
+        }
+    }
 
-button.subtle {
-    border-color: var(--bg-secondary);
-    background-color: var(--bg-primary);
-}
+    &.subtle {
+        border-color: var(--bg-secondary);
+        background-color: var(--bg-primary);
 
-button.subtle:hover {
-    background-color: color-mix(in srgb, var(--bg-primary), var(--bg-secondary));
-}
+        &:hover {
+            background-color: color-mix(in srgb, var(--bg-primary), var(--bg-secondary));
+        }
 
-button.subtle:active {
-    background-color: var(--bg-secondary);
-}
+        &:active {
+            background-color: var(--bg-secondary);
+        }
+    }
 
-button.danger {
-    border-color: var(--active-danger-dark);
-    color: var(--text-inverted);
-    background-color: var(--active-danger);
-}
+    &.danger {
+        border-color: var(--active-danger-dark);
+        color: var(--text-inverted);
+        background-color: var(--active-danger);
 
-button.danger:hover {
-    background-color: color-mix(in srgb, var(--active-danger), var(--active-danger-dark));
-}
+        &:hover {
+            background-color: color-mix(in srgb, var(--active-danger), var(--active-danger-dark));
+        }
 
-button.danger:active {
-    background-color: var(--active-danger-dark);
-}
+        &:active {
+            background-color: var(--active-danger-dark);
+        }
+    }
 
-button[disabled] {
-    border-color: var(--bg-gray) !important;
-    color: var(--bg-gray) !important;
-    background-color: var(--bg-light-gray) !important;
-    cursor: default;
+    &[disabled] {
+        border-color: var(--bg-gray) !important;
+        color: var(--bg-gray) !important;
+        background-color: var(--bg-light-gray) !important;
+        cursor: default;
+    }
 }
