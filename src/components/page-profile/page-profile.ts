@@ -19,6 +19,7 @@ import { loadPath } from '../../modules/router';
  * Страница профиля пользователя
  */
 export class PageProfile extends Component {
+    private readonly DEFAULT_AVATAR = '/static/images/default-pic.png';
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -63,6 +64,12 @@ export class PageProfile extends Component {
                 uploadCallback: this.uploadAvatar.bind(this),
             }
         );
+        const img = publicSection.querySelector('img');
+        if (img) {
+            img.onerror = () => {
+                img.src = this.DEFAULT_AVATAR;
+            };
+        }
     }
 
     /**
