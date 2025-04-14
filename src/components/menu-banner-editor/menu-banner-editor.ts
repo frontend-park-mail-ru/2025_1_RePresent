@@ -1,6 +1,6 @@
 'use strict';
 
-import './menu-banner-editor.css';
+import './menu-banner-editor\.scss';
 
 import { Component } from '../../component';
 import { FormBannerEditorOptions } from '../form-banner-editor-options/form-banner-editor-options';
@@ -15,6 +15,7 @@ import { API } from '../../modules/api';
  * Меню редактора объявления
  */
 export class MenuBannerEditor extends Component {
+    private readonly DEFAULT_BANNER_IMAGE= '/static/images/default-pic.png';
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -47,7 +48,7 @@ export class MenuBannerEditor extends Component {
 
     /**
      * Обработчик загрузки файла
-     * @param {FileList} file - файл
+     * @param {File} file - файл
      * @returns {Promise<string>} - новый src файла, или старый в случае ошибки загрузки
      */
     private async uploadFile(file: File): Promise<string> {
@@ -81,6 +82,13 @@ export class MenuBannerEditor extends Component {
                 uploadCallback: this.uploadFile.bind(this),
             }
         );
+
+        const img = previewSection.querySelector('img');
+        if (img) {
+            img.onerror = () => {
+                img.src = this.DEFAULT_BANNER_IMAGE;
+            };
+        }
     }
 
     /**

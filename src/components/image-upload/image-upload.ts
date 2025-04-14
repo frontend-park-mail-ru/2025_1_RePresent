@@ -1,6 +1,6 @@
 'use strict';
 
-import './image-upload.css';
+import './image-upload\.scss';
 
 import { Component } from '../../component';
 import { InputFile } from '../input-file/input-file';

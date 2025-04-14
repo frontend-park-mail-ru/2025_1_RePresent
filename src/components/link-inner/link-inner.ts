@@ -1,6 +1,6 @@
 'use strict';
 
-import './link-inner.css';
+import './link-inner\.scss';
 
 import { Component } from '../../component';
 import { loadPath } from '../../modules/router';

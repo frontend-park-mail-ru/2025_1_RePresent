@@ -1,6 +1,6 @@
 'use strict';
 
-import '../../sign-in-up.css';
+import '../../sign-in-up\.scss';
 
 import { Component, Props } from '../../component';
 import { Input } from '../../input';

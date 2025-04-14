@@ -1,6 +1,6 @@
 'use strict';
 
-import './banner-list.css';
+import './banner-list\.scss';
 
 import { Component } from '../../component';
 import { BannerListItem } from '../banner-list-item/banner-list-item';

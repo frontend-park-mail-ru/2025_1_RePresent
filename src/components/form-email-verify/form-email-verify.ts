@@ -1,6 +1,6 @@
 'use strict';
 
-import './form-email-verify.css';
+import './form-email-verify\.scss';
 
 import { Form, FormProps } from '../form/form';
 import { InputField } from '../input-field/input-field';

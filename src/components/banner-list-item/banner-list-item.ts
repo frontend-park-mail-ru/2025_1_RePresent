@@ -1,6 +1,6 @@
 'use strict';
 
-import './banner-list-item.css';
+import './banner-list-item\.scss';
 
 import { Component, Props } from '../../component';
 import { dispatcher } from '../../modules/dispatcher';
@@ -44,7 +44,7 @@ export class BannerListItem extends Component {
         const renderProps = {
             bannerId: props.bannerId,
             name: props.name,
-            stats: 'stats...',
+            stats: '',
             status: ['active', 'awaiting', 'rejected'][props.Status - 1],
             selected: props.selected ? 'selected' : '',
         };

@@ -1,0 +1,22 @@
+.wallet-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-medium);
+
+    .wallet-main {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--margin-medium);
+    }
+
+    .wallet-balance {
+        flex-grow: 10;
+        height: fit-content;
+    }
+
+    >* {
+        width: 100%;
+    }
+}

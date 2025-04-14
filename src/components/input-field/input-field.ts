@@ -1,6 +1,6 @@
 'use strict';
 
-import './input-field.css';
+import './input-field\.scss';
 
 import { Input, InputProps } from '../../input';
 
@@ -22,6 +22,7 @@ interface InputFieldProps extends InputProps {
     label?: string;
     getError?: GetErrorCallback;
     default?: string;
+    disabled?: boolean;
 }
 
 /**
@@ -90,12 +91,9 @@ export class InputField extends Input {
     render(props?: InputFieldProps): void {
         props = props || this.props as InputFieldProps;
 
-        if (!['text', 'email', 'password'].includes(props.type)) {
-            throw new Error('Invalid type');
-        }
-
         props.validate = props.getError ? (value: string) => props.getError!(value) === '' : undefined;
-        super.render(props);
+        const disabled = props.disabled ? 'disabled' : '';
+        super.render({ ...props, disabled });
 
         this.errorElement = this.rootElement.querySelector('.error-msg') as HTMLElement;
         this.inputElement = this.rootElement.querySelector('#' + props.name) as HTMLInputElement;

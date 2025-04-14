@@ -1,20 +1,25 @@
 'use strict';
 
-import './page-profile.css';
+import './page-profile\.scss';
 
 import { Component } from '../../component';
-import { PfpOptions } from '../pfp-options/pfp-options';
 import { FormProfilePublic } from '../form-profile-public/form-profile-public';
 import { WalletOptions } from '../wallet-options/wallet-options';
 import { InputField } from '../input-field/input-field';
-import { FormEmailVerify } from '../form-email-verify/form-email-verify';
-import { FormPasswordChange } from '../form-password-change/form-password-change';
 import { Navbar } from '../navbar/navbar';
+import { API } from '../../modules/api';
+import { ImageUpload } from '../image-upload/image-upload';
+import { Profile, ProfileAPI } from '../../api/profileApi';
+import { store } from '../../modules/store';
+import { Button } from '../button/button';
+import { UserAPI } from '../../api/userApi';
+import { loadPath } from '../../modules/router';
 
 /**
  * Страница профиля пользователя
  */
 export class PageProfile extends Component {
+    private readonly DEFAULT_AVATAR = '/static/images/default-pic.png';
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -24,9 +29,69 @@ export class PageProfile extends Component {
     }
 
     /**
+     * Получить URL аватара
+     * @returns {string} - URL аватара
+     */
+    private getAvatarURL(): string {
+        return `${API.API_ORIGIN}/avatar/download?nocache=${Date.now()}`;
+    }
+
+    /**
+     * Обработчик загрузки аватара
+     * @param {File} file - файл
+     * @returns {Promise<string>} - новый src файла, или старый в случае ошибки загрузки
+     */
+    private async uploadAvatar(file: File): Promise<string> {
+        const response = await ProfileAPI.uploadAvatar(file);
+        if (response.service.error) {
+            console.log(response.service.error);
+        }
+
+        return this.getAvatarURL();
+    }
+
+    /**
+     * Отрисовка раздела загрузки аватара
+     */
+    private renderAvatarSection(): void {
+        const publicSection = this.rootElement.getElementsByClassName('public-section')[0] as HTMLElement;
+
+        new ImageUpload(publicSection).render(
+            {
+                imgSrc: this.getAvatarURL(),
+                imgAlt: 'аватар',
+                btnLabel: 'Изменить изображение',
+                uploadCallback: this.uploadAvatar.bind(this),
+            }
+        );
+        const img = publicSection.querySelector('img');
+        if (img) {
+            img.onerror = () => {
+                img.src = this.DEFAULT_AVATAR;
+            };
+        }
+    }
+
+    /**
+     * Обработчик нажатия на кнопку выхода из аккаунта
+     */
+    private async onLogOutClick(): Promise<void> {
+        if (!confirm('Вы уверены, что хотите выйти?')) {
+            return;
+        }
+
+        const response = await UserAPI.logOut();
+        if (response.service.error) {
+            return;
+        }
+
+        loadPath('/signin');
+    }
+
+    /**
      * Отрисовка страницы
      */
-    render(): void {
+    public render(): void {
         super.render();
 
         // TODO make Page class for pages, which will render navbar
@@ -35,8 +100,7 @@ export class PageProfile extends Component {
 
         const publicSection = this.rootElement.getElementsByClassName('public-section')[0] as HTMLElement;
 
-        const pfpOptions = new PfpOptions(publicSection);
-        pfpOptions.render();
+        this.renderAvatarSection();
 
         const formProfilePublic = new FormProfilePublic(publicSection);
         formProfilePublic.render();
@@ -48,18 +112,18 @@ export class PageProfile extends Component {
 
         privateSection.insertAdjacentHTML('beforeend', '<h1>Настройки</h1>');
 
+        const roleNum = store.get<Profile>('profile').role;
         const roleField = new InputField(privateSection, {
             label: 'Роль',
             name: 'role',
             placeholder: 'Ваша роль',
             type: 'text',
+            default: (roleNum == 1) ? 'Рекламодатель' : 'Платформа',
+            disabled: true,
         });
         roleField.render();
 
-        const emailOptions = new FormEmailVerify(privateSection);
-        emailOptions.render();
-
-        const formPasswordChange = new FormPasswordChange(privateSection);
-        formPasswordChange.render();
+        const logOutButton = new Button(privateSection);
+        logOutButton.render({ label: 'Выйти из аккаунта', type: 'danger', onClick: this.onLogOutClick.bind(this) });
     }
 }

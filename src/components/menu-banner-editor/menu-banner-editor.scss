@@ -1,0 +1,43 @@
+.menu-banner-editor {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--margin-huge);
+
+    h1 {
+        font-size: var(--font-large);
+    }
+
+    .preview-section,
+    .options-section,
+    .form-block {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--margin-big);
+    }
+
+    .input-field,
+    .input-switch {
+        width: 100%;
+    }
+
+    .preview-container {
+        height: 20rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-secondary);
+        border-radius: var(--corner-small);
+    }
+
+    .preview-section .input-field,
+    button {
+        width: fit-content;
+    }
+
+    .image-upload {
+        width: 10rem;
+    }
+}
