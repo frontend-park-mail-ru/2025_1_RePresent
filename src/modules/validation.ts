@@ -87,14 +87,12 @@ export const topUpAmountMaxRub = 100_000;
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function topUpAmountGetError(value: string): string {
-    value = value.replace(',', '.');
     const amount = Number(value);
-    const isValid = !isNaN(amount)
-        && !isNaN(parseFloat(value))
+    const isValid = /^\d+$/.test(value)
         && amount >= topUpAmountMinRub
         && amount <= topUpAmountMaxRub;
     if (isValid) {
         return '';
     }
-    return `От ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
+    return `Целое число, от ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
 }
