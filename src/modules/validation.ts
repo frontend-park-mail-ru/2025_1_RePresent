@@ -74,3 +74,27 @@ export function codeGetError(value: string): string {
     }
     return 'Введите код';
 }
+
+/**
+ * Минимальная и максимальная суммы пополнения баланса
+ */
+export const topUpAmountMinRub = 100;
+export const topUpAmountMaxRub = 100_000;
+
+/**
+ * Проверка валидности суммы пополнения баланса
+ * @param {string} value - значение суммы пополнения
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function topUpAmountGetError(value: string): string {
+    value = value.replace(',', '.');
+    const amount = Number(value);
+    const isValid = !isNaN(amount)
+        && !isNaN(parseFloat(value))
+        && amount >= topUpAmountMinRub
+        && amount <= topUpAmountMaxRub;
+    if (isValid) {
+        return '';
+    }
+    return `От ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
+}

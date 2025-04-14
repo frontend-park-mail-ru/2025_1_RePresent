@@ -4,13 +4,16 @@ import './wallet-options\.scss';
 
 import { Component } from '../../component';
 import { Button } from '../button/button';
-import { InputSwitch } from '../input-switch/input-switch';
 import { InputField } from '../input-field/input-field';
+import { topUpAmountGetError, topUpAmountMaxRub, topUpAmountMinRub } from '../../modules/validation';
+import { PaymentAPI } from '../../api/paymentApi';
 
 /**
  * Настройки кошелька
  */
 export class WalletOptions extends Component {
+    private topUpAmountInput: InputField;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -20,36 +23,52 @@ export class WalletOptions extends Component {
     }
 
     /**
+     * Отрисовка текущего баланса
+     */
+    private async renderAmount(): Promise<void> {
+        const walletBalanceElement = this.rootElement.getElementsByClassName('wallet-balance')[0] as HTMLElement;
+        const response = await PaymentAPI.getBalance();
+        if (response.service.error) {
+            return;
+        }
+
+        walletBalanceElement.innerHTML = `${response.balance} руб.`;
+    }
+
+    /**
      * Обработчик нажатия на кнопку пополнения
      */
-    private onReplenishClick() {
-        // TODO redirect to payment page
+    private async onTopUpClick(): Promise<void> {
+        if (!this.topUpAmountInput.validate()) {
+            return;
+        }
+
+        const topUpAmount = Number(this.topUpAmountInput.getValue());
+        const response = await PaymentAPI.topUp(topUpAmount);
+        if (response.status == 'completed') {
+            this.renderAmount();
+        }
     }
 
     /**
      * Отрисовка страницы
      */
-    render(): void {
+    public render(): void {
         super.render();
 
         const walletMain = this.rootElement.getElementsByClassName('wallet-main')[0] as HTMLElement;
-        const replenishButton = new Button(walletMain);
-        replenishButton.render({ label: 'Пополнить', type: 'primary', onClick: this.onReplenishClick.bind(this) });
+        const topUpButton = new Button(walletMain);
+        topUpButton.render({ label: 'Пополнить', type: 'primary', onClick: this.onTopUpClick.bind(this) });
 
-        const autoReplenishSwitch = new InputSwitch(this.rootElement, {
-            label: 'Автопополнение',
-            name: 'auto-replenish-enabled',
-            checked: false,
-        });
-        autoReplenishSwitch.render();
-
-        const autoReplenishPeriod = new InputField(this.rootElement, {
-            label: 'Пополнять каждый(-ую)',
-            name: 'auto-replenish-enabled',
+        this.topUpAmountInput = new InputField(this.rootElement, {
+            label: 'Сумма пополнения',
+            name: 'top-up-amount',
             type: 'text',
-            placeholder: 'Период',
+            placeholder: 'Введите сумму',
+            getError: topUpAmountGetError,
         });
-        autoReplenishPeriod.render();
+        this.topUpAmountInput.render();
 
+        this.renderAmount();
     }
 }
