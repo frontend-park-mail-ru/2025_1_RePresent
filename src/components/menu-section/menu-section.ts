@@ -12,7 +12,7 @@ import { store } from '../../modules/store';
  * Раздел меню
  */
 export class MenuSection extends Component {
-    private selectedMenuName: string = 'editor';
+    private selectedMenuName: string = '';
 
     /**
      * Конструктор компонента
@@ -28,6 +28,9 @@ export class MenuSection extends Component {
 
         dispatcher.on('store-updated-selectedBanner', () => {
             store.update({ key: 'fileId', value: '' });
+            if (this.selectedMenuName == '') {
+                this.selectedMenuName = 'editor';
+            }
             dispatcher.dispatch('menu-select', this.selectedMenuName);
         });
 
@@ -66,9 +69,9 @@ export class MenuSection extends Component {
         const props: MenuListProps = {
             items: [
                 { label: 'Редактор', menuName: 'editor' },
-                { label: 'Статистика', menuName: 'statistics' },
-                { label: 'Оплата', menuName: 'billing' },
-                { label: 'Платформы', menuName: 'platforms' },
+                // { label: 'Статистика', menuName: 'statistics' },
+                // { label: 'Оплата', menuName: 'billing' },
+                // { label: 'Платформы', menuName: 'platforms' },
             ],
         };
 
