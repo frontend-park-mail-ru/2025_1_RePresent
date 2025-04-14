@@ -12,6 +12,7 @@
     line-height: 1.5rem;
     cursor: pointer;
     user-select: none;
+    overflow: hidden;
 
     &:hover {
         background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
