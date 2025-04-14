@@ -19,7 +19,7 @@ import { loadPath } from '../../modules/router';
  * Страница профиля пользователя
  */
 export class PageProfile extends Component {
-    private readonly DEFAULT_AVATAR = '../../static/images/default-pic.png';
+    private readonly DEFAULT_AVATAR = '/static/images/default-pic.png';
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
