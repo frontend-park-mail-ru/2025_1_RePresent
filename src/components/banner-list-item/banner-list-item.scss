@@ -31,6 +31,8 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        min-width: 0;
+        flex-grow: 1;
     }
 
     .status {
@@ -41,6 +43,9 @@
 
     .name {
         font-size: var(--font-medium);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .indicator {
