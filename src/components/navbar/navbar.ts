@@ -47,7 +47,7 @@ export class Navbar extends Component {
         }
 
         if (this.props.userRole == 'advertiser') {
-            this.renderPageLinks([{ label: 'Платформы', path: '/platforms' }, { label: 'Мои объявления', path: '/my-banners' }]);
+            this.renderPageLinks([{ label: 'Платформы', path: '/my-banners' }, { label: 'Мои объявления', path: '/my-banners' }]);
             return;
         }
 
