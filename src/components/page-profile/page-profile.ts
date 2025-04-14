@@ -6,13 +6,14 @@ import { Component } from '../../component';
 import { FormProfilePublic } from '../form-profile-public/form-profile-public';
 import { WalletOptions } from '../wallet-options/wallet-options';
 import { InputField } from '../input-field/input-field';
-import { FormEmailVerify } from '../form-email-verify/form-email-verify';
-import { FormPasswordChange } from '../form-password-change/form-password-change';
 import { Navbar } from '../navbar/navbar';
 import { API } from '../../modules/api';
 import { ImageUpload } from '../image-upload/image-upload';
 import { Profile, ProfileAPI } from '../../api/profileApi';
 import { store } from '../../modules/store';
+import { Button } from '../button/button';
+import { UserAPI } from '../../api/userApi';
+import { loadPath } from '../../modules/router';
 
 /**
  * Страница профиля пользователя
@@ -65,6 +66,22 @@ export class PageProfile extends Component {
     }
 
     /**
+     * Обработчик нажатия на кнопку выхода из аккаунта
+     */
+    private async onLogOutClick(): Promise<void> {
+        if (!confirm('Вы уверены, что хотите выйти?')) {
+            return;
+        }
+
+        const response = await UserAPI.logOut();
+        if (response.service.error) {
+            return;
+        }
+
+        loadPath('/signin');
+    }
+
+    /**
      * Отрисовка страницы
      */
     public render(): void {
@@ -99,10 +116,7 @@ export class PageProfile extends Component {
         });
         roleField.render();
 
-        const emailOptions = new FormEmailVerify(privateSection);
-        emailOptions.render();
-
-        const formPasswordChange = new FormPasswordChange(privateSection);
-        formPasswordChange.render();
+        const logOutButton = new Button(privateSection);
+        logOutButton.render({ label: 'Выйти из аккаунта', type: 'danger', onClick: this.onLogOutClick.bind(this) });
     }
 }
