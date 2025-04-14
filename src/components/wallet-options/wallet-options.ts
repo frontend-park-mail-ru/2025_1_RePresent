@@ -28,7 +28,7 @@ export class WalletOptions extends Component {
     private async renderAmount(): Promise<void> {
         const walletBalanceElement = this.rootElement.getElementsByClassName('wallet-balance')[0] as HTMLElement;
         const response = await PaymentAPI.getBalance();
-        if (response.service.error) {
+        if (response?.service.error) {
             return;
         }
 
