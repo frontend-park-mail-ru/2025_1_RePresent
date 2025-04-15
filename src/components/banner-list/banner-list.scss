@@ -25,7 +25,7 @@
     }
 
     .list {
-        min-height: 0;
+        flex: 1;
         overflow-y: scroll;
         padding-right: var(--margin-small);
 
