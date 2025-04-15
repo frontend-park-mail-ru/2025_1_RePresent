@@ -33,7 +33,7 @@ export class Navbar extends Component {
         dispatcher.on('store-updated-profile', () => {
             this.render();
         });
-        dispatcher.on('avater-updated', () => {
+        dispatcher.on('avatar-updated', () => {
             this.render();
         });
     }
