@@ -14,6 +14,7 @@ import { store } from '../../modules/store';
 import { Button } from '../button/button';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
+import { dispatcher } from '../../modules/dispatcher';
 
 /**
  * Страница профиля пользователя
@@ -42,8 +43,8 @@ export class PageProfile extends Component {
      */
     private async uploadAvatar(file: File): Promise<string> {
         const response = await ProfileAPI.uploadAvatar(file);
-        if (response.service.error) {
-            console.log(response.service.error);
+        if (response.service.success) {
+            dispatcher.dispatch('avatar-updated');
         }
 
         return this.getAvatarURL();
