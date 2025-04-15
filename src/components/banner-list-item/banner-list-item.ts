@@ -5,10 +5,14 @@ import './banner-list-item\.scss';
 import { Component, Props } from '../../component';
 import { dispatcher } from '../../modules/dispatcher';
 
+/**
+ * Интерфейс для описания параметров компонента
+ */
 export interface BannerListItemProps extends Props {
     bannerId: number;
     name: string;
-    status: number;
+    stats: string;
+    status: 'active' | 'awaiting' | 'rejected';
     selected: boolean;
 }
 
@@ -41,14 +45,8 @@ export class BannerListItem extends Component {
      * @param {BannerListItemProps} props - параметры компонента
      */
     render(props: BannerListItemProps): void {
-        const renderProps = {
-            bannerId: props.bannerId,
-            name: props.name,
-            stats: '',
-            status: ['active', 'awaiting', 'rejected'][props.Status - 1],
-            selected: props.selected ? 'selected' : '',
-        };
-        super.render(renderProps);
+        const selected = props.selected ? 'selected' : '';
+        super.render({ ...props, selected });
 
         this.rootElement.addEventListener('click', this.onClick.bind(this));
     }
