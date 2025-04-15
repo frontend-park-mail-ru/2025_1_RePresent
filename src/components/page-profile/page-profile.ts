@@ -125,5 +125,16 @@ export class PageProfile extends Component {
 
         const logOutButton = new Button(privateSection);
         logOutButton.render({ label: 'Выйти из аккаунта', type: 'danger', onClick: this.onLogOutClick.bind(this) });
+
+        const userId = store.get<Profile>('profile').ID;
+        const adLinkField = new InputField(privateSection, {
+            label: 'Ссылка на показ рекламы',
+            name: 'ad-link',
+            placeholder: 'Ваша ссылка',
+            type: 'text',
+            default: `${location.origin}/api/v1/banner/uniq_link/${userId}`,
+            disabled: true,
+        });
+        adLinkField.render();
     }
 }
