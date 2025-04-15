@@ -15,7 +15,6 @@ import { API } from '../../modules/api';
  * Меню редактора объявления
  */
 export class MenuBannerEditor extends Component {
-    private readonly DEFAULT_BANNER_IMAGE= '/static/images/default-pic.png';
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -82,13 +81,6 @@ export class MenuBannerEditor extends Component {
                 uploadCallback: this.uploadFile.bind(this),
             }
         );
-
-        const img = previewSection.querySelector('img');
-        if (img) {
-            img.onerror = () => {
-                img.src = this.DEFAULT_BANNER_IMAGE;
-            };
-        }
     }
 
     /**

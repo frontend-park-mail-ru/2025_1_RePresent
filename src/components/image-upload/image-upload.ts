@@ -4,6 +4,7 @@ import './image-upload\.scss';
 
 import { Component } from '../../component';
 import { InputFile } from '../input-file/input-file';
+import { API } from '../../modules/api';
 
 /**
  * Обработчик загрузки изображения
@@ -62,5 +63,11 @@ export class ImageUpload extends Component {
             }
         );
         inputFile.render();
+
+        const image = this.rootElement.getElementsByClassName('image')[0] as HTMLImageElement;
+        image.onerror = () => {
+            image.onerror = null;
+            image.src = API.PLACEHOLDER_IMAGE_PATH;
+        };
     }
 }

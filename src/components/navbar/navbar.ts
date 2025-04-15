@@ -4,6 +4,7 @@ import './navbar\.scss';
 
 import { Component } from '../../component';
 import { LinkInner, LinkInnerProps } from '../link-inner/link-inner';
+import { API } from '../../modules/api';
 
 /**
  * Интерфейс для описания параметров компонента
@@ -66,6 +67,13 @@ export class Navbar extends Component {
 
         const userSection = this.rootElement.getElementsByClassName('user-section')[0] as HTMLElement;
         new LinkInner(userSection).render({ label: 'Username', path: '/profile' });
+
+        const pfpImage = this.rootElement.getElementsByClassName('pfp-image')[0] as HTMLImageElement;
+        pfpImage.src = `${API.API_ORIGIN}/avatar/download?nocache=${Date.now()}`;
+        pfpImage.onerror = () => {
+            pfpImage.onerror = null;
+            pfpImage.src = API.PLACEHOLDER_IMAGE_PATH;
+        };
     }
 
     /**
