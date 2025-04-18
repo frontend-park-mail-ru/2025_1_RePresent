@@ -5,6 +5,7 @@ import './image-upload\.scss';
 import { Component } from '../../component';
 import { InputFile } from '../input-file/input-file';
 import { API } from '../../modules/api';
+import { ACCEPT_IMAGE } from '../../modules/validation';
 
 /**
  * Обработчик загрузки изображения
@@ -58,7 +59,7 @@ export class ImageUpload extends Component {
             {
                 name: 'imageInput',
                 label: props.btnLabel,
-                accept: 'image/*',
+                accept: ACCEPT_IMAGE,
                 chooseFilesCallback: this.onChooseFile.bind(this),
             }
         );

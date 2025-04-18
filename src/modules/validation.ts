@@ -143,3 +143,8 @@ export function bannerDescriptionGetError(value: string): string {
     }
     return `До ${maxLength} символов`;
 }
+
+/**
+ * Поддерживаемые типы изображений
+ */
+export const ACCEPT_IMAGE = 'image/jpeg, image/png, image/gif';
