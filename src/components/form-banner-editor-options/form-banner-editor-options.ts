@@ -80,7 +80,7 @@ export class FormBannerEditorOptions extends Form {
                 type: 'text',
                 label: 'Ссылка на источник',
                 name: 'link',
-                placeholder: 'Введите ссылку',
+                placeholder: 'https://example.com',
                 default: selectedBanner.link,
                 getError: bannerLinkGetError,
             }),
