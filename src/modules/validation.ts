@@ -55,11 +55,26 @@ export function getPasswordRepeatGetError(passwordInput: Input): (value: string)
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function organizationGetError(value: string): string {
-    const isValid = value.length >= 5;
+    const minLength = 3, maxLength = 30;
+    const isValid = value.length >= minLength && value.length <= maxLength;
     if (isValid) {
         return '';
     }
-    return 'Минимум 5 символов';
+    return `От ${minLength} до ${maxLength} символов`;
+}
+
+/**
+ * Проверка валидности описания организации
+ * @param {string} value - значение описания организации
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function orgDescriptionGetError(value: string): string {
+    const maxLength = 200;
+    const isValid = value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `До ${maxLength} символов`;
 }
 
 /**
