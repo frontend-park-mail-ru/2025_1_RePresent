@@ -124,6 +124,7 @@ export class BannerList extends Component {
         createBannerBtn.addEventListener('click', this.onBannerCreateClick.bind(this));
 
         this.banners = await BannerAPI.getAll();
+        store.update({ key: 'hasBanners', value: this.banners.length > 0 });
         this.renderList(null);
     }
 }
