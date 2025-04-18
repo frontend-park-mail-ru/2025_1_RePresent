@@ -26,7 +26,12 @@ export class MenuSection extends Component {
             this.renderMenu();
         });
 
+        dispatcher.on('store-updated-hasBanners', () => {
+            this.render();
+        });
+
         dispatcher.on('store-updated-selectedBanner', () => {
+            this.render();
             store.update({ key: 'fileId', value: '' });
             if (this.selectedMenuName == '') {
                 this.selectedMenuName = 'editor';
