@@ -96,3 +96,50 @@ export function topUpAmountGetError(value: string): string {
     }
     return `Целое число, от ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
 }
+
+/**
+ * Проверка валидности названия объявления
+ * @param {string} value - значение названия объявления
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function bannerTitleGetError(value: string): string {
+    const minLength = 3, maxLength = 30;
+    const isValid = value.length >= minLength && value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `От ${minLength} до ${maxLength} символов`;
+}
+
+/**
+ * Регулярное выражение для проверки на URL
+ */
+const URLregex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+
+/**
+ * Проверка валидности ссылки объявления
+ * @param {string} value - значение ссылки объявления
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function bannerLinkGetError(value: string): string {
+    const maxLength = 100;
+    const isValid = value.length <= maxLength && URLregex.test(value);
+    if (isValid) {
+        return '';
+    }
+    return `URL до ${maxLength} символов`;
+}
+
+/**
+ * Проверка валидности описания объявления
+ * @param {string} value - значение описания объявления
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function bannerDescriptionGetError(value: string): string {
+    const maxLength = 100;
+    const isValid = value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `До ${maxLength} символов`;
+}

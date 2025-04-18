@@ -3,6 +3,7 @@
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
 import { store } from '../../modules/store';
+import { bannerDescriptionGetError, bannerLinkGetError, bannerTitleGetError } from '../../modules/validation';
 import { Form, FormProps } from '../form/form';
 import { InputField } from '../input-field/input-field';
 import { InputSwitch } from '../input-switch/input-switch';
@@ -73,6 +74,7 @@ export class FormBannerEditorOptions extends Form {
                 name: 'name',
                 placeholder: 'Введите имя',
                 default: selectedBanner.title,
+                getError: bannerTitleGetError,
             }),
             linkInput: new InputField(root, {
                 type: 'text',
@@ -80,6 +82,7 @@ export class FormBannerEditorOptions extends Form {
                 name: 'link',
                 placeholder: 'Введите ссылку',
                 default: selectedBanner.link,
+                getError: bannerLinkGetError,
             }),
             textInput: new InputField(root, { // TODO make textarea input
                 type: 'text',
@@ -87,6 +90,7 @@ export class FormBannerEditorOptions extends Form {
                 name: 'text',
                 placeholder: 'Введите текст',
                 default: selectedBanner.description,
+                getError: bannerDescriptionGetError,
             }),
             isActive: new InputSwitch(root, {
                 name: 'is-active',
