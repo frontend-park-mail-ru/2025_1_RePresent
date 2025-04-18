@@ -40,6 +40,7 @@ export class BannerList extends Component {
      * Обработчик удаления баннера, перезапрашивющий список баннеров
      */
     private async onBannerDelete(): Promise<void> {
+        store.update({ key: 'selectedBanner', value: null });
         this.banners = await BannerAPI.getAll();
         this.renderList(null);
     }
