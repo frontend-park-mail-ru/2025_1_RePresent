@@ -38,7 +38,6 @@ export class FormProfilePublic extends Form {
         const props: FormProps = {
             inputs: {},
             submitLabel: 'Сохранить',
-            hasCancel: true,
             onSubmit: this.onSubmit.bind(this),
             className: 'form-profile-public'
         };
