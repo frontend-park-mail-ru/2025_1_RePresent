@@ -9,6 +9,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: var(--margin-small);
     line-height: 1.5rem;
     cursor: pointer;
     user-select: none;
@@ -41,14 +42,19 @@
         justify-content: end;
     }
 
-    .name {
-        font-size: var(--font-medium);
+    .name,
+    .stats {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
+    .name {
+        font-size: var(--font-medium);
+    }
+
     .indicator {
+        min-width: 25px;
         width: 25px;
         height: 25px;
         border-radius: 100%;
