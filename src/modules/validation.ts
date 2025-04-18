@@ -55,7 +55,7 @@ export function getPasswordRepeatGetError(passwordInput: Input): (value: string)
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function organizationGetError(value: string): string {
-    const isValid = value.trim().length >= 5;
+    const isValid = value.length >= 5;
     if (isValid) {
         return '';
     }
@@ -68,7 +68,7 @@ export function organizationGetError(value: string): string {
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function codeGetError(value: string): string {
-    const isValid = value.trim().length > 0;
+    const isValid = value.length > 0;
     if (isValid) {
         return '';
     }
