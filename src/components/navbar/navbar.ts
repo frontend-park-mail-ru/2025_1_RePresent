@@ -8,6 +8,7 @@ import { API } from '../../modules/api';
 import { store } from '../../modules/store';
 import { Profile } from '../../api/profileApi';
 import { dispatcher } from '../../modules/dispatcher';
+import { loadPath } from '../../modules/router';
 
 /**
  * Интерфейс для описания параметров компонента
@@ -84,6 +85,12 @@ export class Navbar extends Component {
         pfpImage.onerror = () => {
             pfpImage.onerror = null;
             pfpImage.src = API.PLACEHOLDER_IMAGE_PATH;
+        };
+
+        const profileLink = this.rootElement.getElementsByClassName('profile-link')[0] as HTMLLinkElement;
+        profileLink.onclick = (event) => {
+            event.preventDefault();
+            loadPath('/profile');
         };
     }
 
