@@ -77,7 +77,7 @@ export class Navbar extends Component {
 
         const userSection = this.rootElement.getElementsByClassName('user-section')[0] as HTMLElement;
         const username = store.get<Profile>('profile').username;
-        new LinkInner(userSection).render({ label: username, path: '/profile' });
+        userSection.insertAdjacentHTML('beforeend', `<p class="username">${username}</p>`);
 
         const pfpImage = this.rootElement.getElementsByClassName('pfp-image')[0] as HTMLImageElement;
         pfpImage.src = `${API.API_ORIGIN}/avatar/download?nocache=${Date.now()}`;
