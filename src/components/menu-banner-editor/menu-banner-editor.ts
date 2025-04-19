@@ -56,7 +56,6 @@ export class MenuBannerEditor extends Component {
 
         const response = await BannerAPI.upload(file);
         if (response.service.error) {
-            console.log(response.service.error);
             return contentSrc;
         }
 
@@ -107,7 +106,7 @@ export class MenuBannerEditor extends Component {
         const bannerId = store.get<Banner>('selectedBanner').id;
         const response = await BannerAPI.delete(bannerId);
         if (response.service.error) {
-            console.log(response.service.error);
+            return;
         }
         dispatcher.dispatch('banner-delete', bannerId);
     }
