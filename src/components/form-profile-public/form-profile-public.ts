@@ -4,7 +4,7 @@ import './form-profile-public\.scss';
 
 import { Form, FormProps } from '../form/form';
 import { InputField } from '../input-field/input-field';
-import { organizationGetError } from '../../modules/validation';
+import { orgDescriptionGetError, organizationGetError } from '../../modules/validation';
 import { store } from '../../modules/store';
 import { Profile, ProfileAPI } from '../../api/profileApi';
 
@@ -38,7 +38,6 @@ export class FormProfilePublic extends Form {
         const props: FormProps = {
             inputs: {},
             submitLabel: 'Сохранить',
-            hasCancel: true,
             onSubmit: this.onSubmit.bind(this),
             className: 'form-profile-public'
         };
@@ -62,6 +61,7 @@ export class FormProfilePublic extends Form {
                 label: 'Описание',
                 name: 'description',
                 placeholder: 'Введите текст',
+                getError: orgDescriptionGetError,
                 default: profile.description,
             }),
         };

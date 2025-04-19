@@ -21,8 +21,8 @@ export interface InputProps extends Props {
  * Базовый класс для input элементов с поддержкой валидации
  */
 export class Input extends Component {
-    #validatedValue: string | null = null;
-    #validateValue: ValidateCallback | undefined = undefined;
+    private validatedValue: string | null = null;
+    private validateValue: ValidateCallback | undefined = undefined;
 
     /**
      * Элемент input, должен быть установлен в производном классе
@@ -36,7 +36,7 @@ export class Input extends Component {
      */
     render(props?: InputProps): void {
         super.render(props);
-        this.#validateValue = props ? props.validate : undefined;
+        this.validateValue = props ? props.validate : undefined;
     }
 
     /**
@@ -45,15 +45,16 @@ export class Input extends Component {
      * @returns {boolean} - успешна ли валидация
      */
     validate(): boolean {
-        if (!this.#validateValue) {
+        if (!this.validateValue) {
             return true;
         }
 
-        const isValid = this.#validateValue(this.inputElement.value);
+        const trimmedValue = this.inputElement.value.trim();
+        const isValid = this.validateValue(trimmedValue);
         if (isValid) {
-            this.#validatedValue = this.inputElement.value;
+            this.validatedValue = this.inputElement.value;
         } else {
-            this.#validatedValue = null;
+            this.validatedValue = null;
         }
 
         return isValid;
@@ -64,9 +65,9 @@ export class Input extends Component {
      * @returns {string | boolean | null} - содержимое компонента
      */
     getValue(): string | boolean | null {
-        if (!this.#validateValue) {
+        if (!this.validateValue) {
             return this.inputElement.value;
         }
-        return this.#validatedValue;
+        return this.validatedValue;
     }
 }

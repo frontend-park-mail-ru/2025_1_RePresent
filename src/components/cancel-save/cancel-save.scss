@@ -2,5 +2,9 @@
     display: flex;
     flex-direction: row;
     gap: var(--margin-big);
-    justify-content: space-between;
+    justify-content: end;
+
+    &:has(button.neutral) {
+        justify-content: space-between;
+    }
 }

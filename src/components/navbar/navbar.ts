@@ -4,6 +4,11 @@ import './navbar\.scss';
 
 import { Component } from '../../component';
 import { LinkInner, LinkInnerProps } from '../link-inner/link-inner';
+import { API } from '../../modules/api';
+import { store } from '../../modules/store';
+import { Profile } from '../../api/profileApi';
+import { dispatcher } from '../../modules/dispatcher';
+import { loadPath } from '../../modules/router';
 
 /**
  * Интерфейс для описания параметров компонента
@@ -25,6 +30,13 @@ export class Navbar extends Component {
      */
     constructor(parent: HTMLElement) {
         super(parent, 'navbar/navbar', {});
+
+        dispatcher.on('store-updated-profile', () => {
+            this.render();
+        });
+        dispatcher.on('avatar-updated', () => {
+            this.render();
+        });
     }
 
     /**
@@ -65,14 +77,28 @@ export class Navbar extends Component {
         }
 
         const userSection = this.rootElement.getElementsByClassName('user-section')[0] as HTMLElement;
-        new LinkInner(userSection).render({ label: 'Username', path: '/profile' });
+        const username = store.get<Profile>('profile').username;
+        userSection.insertAdjacentHTML('beforeend', `<p class="username">${username}</p>`);
+
+        const pfpImage = this.rootElement.getElementsByClassName('pfp-image')[0] as HTMLImageElement;
+        pfpImage.src = `${API.API_ORIGIN}/avatar/download?nocache=${Date.now()}`;
+        pfpImage.onerror = () => {
+            pfpImage.onerror = null;
+            pfpImage.src = API.PLACEHOLDER_IMAGE_PATH;
+        };
+
+        const profileLink = this.rootElement.getElementsByClassName('profile-link')[0] as HTMLLinkElement;
+        profileLink.onclick = (event) => {
+            event.preventDefault();
+            loadPath('/profile');
+        };
     }
 
     /**
      * Отрисовка
-     * @param {NavbarProps} props - параметры компонента
+     * @param {NavbarProps?} props - параметры компонента
      */
-    render(props: NavbarProps): void {
+    render(props?: NavbarProps): void {
         super.render(props);
 
         this.renderPagesSection();

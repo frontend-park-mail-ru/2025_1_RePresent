@@ -13,4 +13,10 @@
         flex-direction: row;
         gap: var(--margin-huge);
     }
+
+    .empty-state-msg {
+        margin-top: var(--margin-huge);
+        font-size: var(--font-medium);
+        text-align: center;
+    }
 }

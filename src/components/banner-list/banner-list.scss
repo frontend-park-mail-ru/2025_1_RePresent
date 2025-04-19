@@ -1,14 +1,14 @@
 .banner-list {
-    width: 360px;
-    min-height: 500px;
+    width: 22rem;
+    height: calc(100vh - (var(--margin-medium) * 3 + var(--navbar-height)));
+    position: sticky;
+    top: calc(var(--margin-medium) * 2 + var(--navbar-height));
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-medium);
     padding: var(--margin-medium);
     background-color: var(--bg-primary);
     border-radius: var(--corner-small);
-
-    >* {
-        width: 100%;
-        margin-bottom: var(--margin-medium);
-    }
 
     h1 {
         font-size: var(--font-large);
@@ -24,8 +24,14 @@
         }
     }
 
-    .list>* {
-        width: 100%;
-        margin-bottom: var(--margin-small);
+    .list {
+        flex: 1;
+        overflow-y: scroll;
+        padding-right: var(--margin-small);
+
+        &>* {
+            width: 100%;
+            margin-bottom: var(--margin-small);
+        }
     }
 }

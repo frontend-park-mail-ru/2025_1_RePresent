@@ -8,10 +8,11 @@
         {{/if}}
     </div>
     {{#if userAuthed}}
-    <div class="user-section">
-        <img class="pfp-image" src="" alt="">
-        {{!-- profile link --}}
-        {{!-- wallet button --}}
-    </div>
+    <a href="/profile" class="profile-link">
+        <div class="user-section">
+            <img class="pfp-image" src="" alt="">
+            {{!-- username --}}
+        </div>
+    </a>
     {{/if}}
 </div>

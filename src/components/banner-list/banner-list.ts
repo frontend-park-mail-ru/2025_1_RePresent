@@ -40,6 +40,7 @@ export class BannerList extends Component {
      * Обработчик удаления баннера, перезапрашивющий список баннеров
      */
     private async onBannerDelete(): Promise<void> {
+        store.update({ key: 'selectedBanner', value: null });
         this.banners = await BannerAPI.getAll();
         this.renderList(null);
     }
@@ -101,7 +102,13 @@ export class BannerList extends Component {
         adList.innerHTML = '';
         this.banners.forEach(banner => {
             const isSelected = banner.id == selectedId;
-            new BannerListItem(adList).render({ bannerId: banner.id, name: banner.title, status: banner.status, selected: isSelected });
+            new BannerListItem(adList).render({
+                bannerId: banner.id,
+                name: banner.title,
+                stats: banner.link,
+                status: (banner.status == 1) ? 'active' : 'rejected',
+                selected: isSelected,
+            });
             if (isSelected) {
                 store.update({ key: 'selectedBanner', value: banner });
             }
@@ -118,6 +125,7 @@ export class BannerList extends Component {
         createBannerBtn.addEventListener('click', this.onBannerCreateClick.bind(this));
 
         this.banners = await BannerAPI.getAll();
+        store.update({ key: 'hasBanners', value: this.banners.length > 0 });
         this.renderList(null);
     }
 }

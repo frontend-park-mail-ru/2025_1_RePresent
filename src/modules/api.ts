@@ -16,9 +16,12 @@ export class API {
     /**
      * Адрес API, подставляемый сервером из конфига перед отправкой клиенту
      */
-    static get API_ORIGIN(): string {
-        return 'ENV_API_ORIGIN/api/ENV_API_VERSION';
-    }
+    public static readonly API_ORIGIN = 'ENV_API_ORIGIN/api/ENV_API_VERSION';
+
+    /**
+     * Путь к стандартному изображению
+     */
+    public static readonly PLACEHOLDER_IMAGE_PATH = '/static/images/default-pic.png';
 
     /**
      * Обертка fetch с обработкой неавторизованного запроса (JSON body по умолчанию)

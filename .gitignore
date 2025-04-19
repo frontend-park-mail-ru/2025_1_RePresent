@@ -1,4 +1,6 @@
 node_modules/
 package-lock.json
 src/hbs-precompiled.js
+dist/*
 !dist/index.html
+!dist/images/

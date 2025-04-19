@@ -47,6 +47,7 @@ export class WalletOptions extends Component {
         const response = await PaymentAPI.topUp(topUpAmount);
         if (response.status == 'completed') {
             this.renderAmount();
+            this.topUpAmountInput.inputElement.value = '';
         }
     }
 
