@@ -72,7 +72,7 @@ export class FormBannerEditorOptions extends Form {
                 type: 'text',
                 label: 'Название',
                 name: 'name',
-                placeholder: 'Введите имя',
+                placeholder: 'Введите название',
                 default: selectedBanner.title,
                 getError: bannerTitleGetError,
             }),
