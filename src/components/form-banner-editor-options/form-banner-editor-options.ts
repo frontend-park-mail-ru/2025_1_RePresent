@@ -70,7 +70,7 @@ export class FormBannerEditorOptions extends Form {
         props.inputs = {
             nameInput: new InputField(root, {
                 type: 'text',
-                label: 'Имя',
+                label: 'Название',
                 name: 'name',
                 placeholder: 'Введите имя',
                 default: selectedBanner.title,
