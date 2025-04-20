@@ -26,7 +26,12 @@ export class MenuSection extends Component {
             this.renderMenu();
         });
 
+        dispatcher.on('store-updated-hasBanners', () => {
+            this.render();
+        });
+
         dispatcher.on('store-updated-selectedBanner', () => {
+            this.render();
             store.update({ key: 'fileId', value: '' });
             if (this.selectedMenuName == '') {
                 this.selectedMenuName = 'editor';
@@ -61,10 +66,31 @@ export class MenuSection extends Component {
     }
 
     /**
+     * Отрисовка сообщения при отсутствии выбранного объявления
+     */
+    private renderEmptyState(): void {
+        const hasBanners = store.get<boolean>('hasBanners');
+        let emptyStateMsg;
+        if (hasBanners) {
+            emptyStateMsg = 'Чтобы начать работу, выберите объявление';
+        }
+        if (!hasBanners) {
+            emptyStateMsg = 'Чтобы начать работу, создайте объявление';
+        }
+        this.rootElement.insertAdjacentHTML('beforeend', `<p class="empty-state-msg">${emptyStateMsg}</p>`);
+    }
+
+    /**
      * Отрисовка
      */
     render(): void {
         super.render();
+
+        const hasSelectedBanner = store.get<boolean>('selectedBanner');
+        if (!hasSelectedBanner) {
+            this.renderEmptyState();
+            return;
+        }
 
         const props: MenuListProps = {
             items: [

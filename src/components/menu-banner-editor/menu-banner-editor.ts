@@ -15,7 +15,6 @@ import { API } from '../../modules/api';
  * Меню редактора объявления
  */
 export class MenuBannerEditor extends Component {
-    private readonly DEFAULT_BANNER_IMAGE= '/static/images/default-pic.png';
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -57,7 +56,6 @@ export class MenuBannerEditor extends Component {
 
         const response = await BannerAPI.upload(file);
         if (response.service.error) {
-            console.log(response.service.error);
             return contentSrc;
         }
 
@@ -82,13 +80,6 @@ export class MenuBannerEditor extends Component {
                 uploadCallback: this.uploadFile.bind(this),
             }
         );
-
-        const img = previewSection.querySelector('img');
-        if (img) {
-            img.onerror = () => {
-                img.src = this.DEFAULT_BANNER_IMAGE;
-            };
-        }
     }
 
     /**
@@ -115,7 +106,7 @@ export class MenuBannerEditor extends Component {
         const bannerId = store.get<Banner>('selectedBanner').id;
         const response = await BannerAPI.delete(bannerId);
         if (response.service.error) {
-            console.log(response.service.error);
+            return;
         }
         dispatcher.dispatch('banner-delete', bannerId);
     }

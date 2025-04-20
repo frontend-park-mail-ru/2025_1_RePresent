@@ -14,12 +14,12 @@ import { store } from '../../modules/store';
 import { Button } from '../button/button';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
+import { dispatcher } from '../../modules/dispatcher';
 
 /**
  * Страница профиля пользователя
  */
 export class PageProfile extends Component {
-    private readonly DEFAULT_AVATAR = '/static/images/default-pic.png';
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -43,8 +43,8 @@ export class PageProfile extends Component {
      */
     private async uploadAvatar(file: File): Promise<string> {
         const response = await ProfileAPI.uploadAvatar(file);
-        if (response.service.error) {
-            console.log(response.service.error);
+        if (response.service.success) {
+            dispatcher.dispatch('avatar-updated');
         }
 
         return this.getAvatarURL();
@@ -64,12 +64,6 @@ export class PageProfile extends Component {
                 uploadCallback: this.uploadAvatar.bind(this),
             }
         );
-        const img = publicSection.querySelector('img');
-        if (img) {
-            img.onerror = () => {
-                img.src = this.DEFAULT_AVATAR;
-            };
-        }
     }
 
     /**
@@ -125,5 +119,16 @@ export class PageProfile extends Component {
 
         const logOutButton = new Button(privateSection);
         logOutButton.render({ label: 'Выйти из аккаунта', type: 'danger', onClick: this.onLogOutClick.bind(this) });
+
+        const userId = store.get<Profile>('profile').ID;
+        const adLinkField = new InputField(privateSection, {
+            label: 'Ссылка на показ рекламы',
+            name: 'ad-link',
+            placeholder: 'Ваша ссылка',
+            type: 'text',
+            default: `${location.origin}/api/v1/banner/uniq_link/${userId}`,
+            disabled: true,
+        });
+        adLinkField.render();
     }
 }

@@ -55,11 +55,26 @@ export function getPasswordRepeatGetError(passwordInput: Input): (value: string)
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function organizationGetError(value: string): string {
-    const isValid = value.trim().length >= 5;
+    const minLength = 5, maxLength = 30;
+    const isValid = value.length >= minLength && value.length <= maxLength;
     if (isValid) {
         return '';
     }
-    return 'Минимум 5 символов';
+    return `От ${minLength} до ${maxLength} символов`;
+}
+
+/**
+ * Проверка валидности описания организации
+ * @param {string} value - значение описания организации
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function orgDescriptionGetError(value: string): string {
+    const maxLength = 200;
+    const isValid = value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `До ${maxLength} символов`;
 }
 
 /**
@@ -68,7 +83,7 @@ export function organizationGetError(value: string): string {
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function codeGetError(value: string): string {
-    const isValid = value.trim().length > 0;
+    const isValid = value.length > 0;
     if (isValid) {
         return '';
     }
@@ -96,3 +111,55 @@ export function topUpAmountGetError(value: string): string {
     }
     return `Целое число, от ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
 }
+
+/**
+ * Проверка валидности названия объявления
+ * @param {string} value - значение названия объявления
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function bannerTitleGetError(value: string): string {
+    const minLength = 3, maxLength = 30;
+    const isValid = value.length >= minLength && value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `От ${minLength} до ${maxLength} символов`;
+}
+
+/**
+ * Регулярное выражение для проверки на URL
+ */
+const URLregex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+
+/**
+ * Проверка валидности ссылки объявления
+ * @param {string} value - значение ссылки объявления
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function bannerLinkGetError(value: string): string {
+    const maxLength = 100;
+    const isValid = value.length <= maxLength && URLregex.test(value);
+    if (isValid) {
+        return '';
+    }
+    return `URL до ${maxLength} символов`;
+}
+
+/**
+ * Проверка валидности описания объявления
+ * @param {string} value - значение описания объявления
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function bannerDescriptionGetError(value: string): string {
+    const maxLength = 100;
+    const isValid = value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `До ${maxLength} символов`;
+}
+
+/**
+ * Поддерживаемые типы изображений
+ */
+export const ACCEPT_IMAGE = 'image/jpeg, image/png, image/gif';
