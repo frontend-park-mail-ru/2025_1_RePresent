@@ -89,7 +89,7 @@ export class CsatAPI {
                 'Content-Type': 'application/json',
             };
         }
-        const response = await fetch('http://109.120.190.243:8035/api/v1/csat/') as Response;
+        const response = await fetch('http://109.120.190.243:8035/api/v1/csat/my-reviews') as Response;
         return <APIresponse><unknown>response;
 
         // const response = await API.fetch('/csat/my-reviews', {
