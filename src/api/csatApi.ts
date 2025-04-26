@@ -61,23 +61,11 @@ export class CsatAPI {
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async submitReview(csatReview: CsatReview): Promise<APIresponse> {
-        // const response = await API.fetch('/csat/send', {
-        //     method: 'POST',
-        //     body: JSON.stringify(csatReview),
-        // });
-        // return response.json();
-
-        let init = {} as RequestInit;
-        init.mode = 'cors';
-        init.credentials = 'include';
-        if (!init.headers) {
-            init.headers = {
-                'Content-Type': 'application/json',
-            };
-        }
-        init.body = JSON.stringify(csatReview);
-        const response = await fetch('http://109.120.190.243:8035/api/v1/csat/send') as Response;
-        return <APIresponse><unknown>response;
+         const response = await API.fetch('/csat/send', {
+             method: 'POST',
+             body: JSON.stringify(csatReview),
+        });
+        return response.json();
     }
 
     static async getMyReviews(): Promise<APIresponse> {
@@ -89,36 +77,10 @@ export class CsatAPI {
                 'Content-Type': 'application/json',
             };
         }
-        const response = await fetch('http://109.120.190.243:8035/api/v1/csat/my-reviews') as Response;
-        return <APIresponse><unknown>response;
 
-        // const response = await API.fetch('/csat/my-reviews', {
-        //     method: 'GET',
-        // });
-        // return response.json();
-
-
-        // return {
-        //     service: {
-        //         error: '',
-        //         success: 'Отзывы',
-        //     },
-        //     body: {
-        //         reviews: [
-        //             {
-        //                 page_id: 'Profile',
-        //                 question: 'Понравился ли профиль?',
-        //                 comment: 'Все круто',
-        //                 rating: 5,
-        //             } as CsatReview,
-        //             {
-        //                 page_id: 'Profile',
-        //                 question: 'Понравился ли профиль?',
-        //                 comment: 'Все норм',
-        //                 rating: 3,
-        //             } as CsatReview,
-        //         ]
-        //     },
-        // };
+        const response = await API.fetch('/csat/my-reviews', {
+            method: 'GET',
+        });
+        return response.json();
     }
 }
