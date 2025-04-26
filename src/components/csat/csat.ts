@@ -16,9 +16,9 @@ interface CsatProps {
  * Customer satisfaction
  */
 export class CSAT extends Component {
-    protected props: CsatProps;
     private commentInput: InputField;
     private errorElement: HTMLElement;
+    private page: string;
     private question: string;
     private rating: number | null = null;
 
@@ -95,6 +95,7 @@ export class CSAT extends Component {
         this.question = response.body;
 
         const innerProps = {
+            page: this.page,
             question: this.question,
             stars: [1, 2, 3, 4, 5],
         };
@@ -127,7 +128,7 @@ export class CSAT extends Component {
      * @param {CsatProps} props - параметры компонента
      */
     public render(props: CsatProps): void {
-        this.props = props;
+        this.page = props.page;
         this.tryShow();
     }
 }
