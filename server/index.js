@@ -15,7 +15,7 @@ const rootDir = path.join(__dirname, '..');
 // Middleware для статических файлов с обработкой bundle.js
 app.use('/static', (req, res, next) => {
     // Проверяем, запрашивается ли файл bundle.js
-    if (req.url.endsWith('/bundle.js')) {
+    if (req.url.endsWith('.js')) {
         const filePath = path.join(rootDir, 'dist', req.url); // Полный путь к файлу
 
         // Читаем и изменяем содержимое файла
@@ -33,6 +33,10 @@ app.use('/static', (req, res, next) => {
         // Если запрашивается не api.js, передаем управление express.static
         express.static(path.join(rootDir, 'dist'))(req, res, next);
     }
+});
+
+app.get('/csat', (_, res) => {
+    res.sendFile(path.join(rootDir, '/dist/indexCsat.html'));
 });
 
 app.get('*', (_, res) => {
