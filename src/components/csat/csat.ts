@@ -88,7 +88,7 @@ export class CSAT extends Component {
      * Отобразит элемент, если опрос доступен
      */
     private async tryShow(): Promise<void> {
-        const response = await CsatAPI.getQuestion(this.props.page);
+        const response = await CsatAPI.getQuestion(this.page);
         if (response.service.error) {
             return;
         }
