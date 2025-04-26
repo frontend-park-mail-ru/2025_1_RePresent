@@ -64,4 +64,11 @@ export class CsatAPI {
         });
         return response.json();
     }
+
+    static async getMyReviews(): Promise<APIresponse> {
+        const response = await API.fetch('/csat/my-reviews', {
+            method: 'GET',
+        });
+        return response.json();
+    }
 }
