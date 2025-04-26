@@ -20,37 +20,40 @@ export class CsatAPI {
      */
     static async getQuestion(page_id: string): Promise<APIresponse> {
         const now = Date.now();
-    
+
         const cacheDataStr = localStorage.getItem('csatShowCache');
-        let cacheData: {[key: string]: number} = {};
-    
+        let cacheData: { [key: string]: number } = {};
+
         if (cacheDataStr) {
             cacheData = JSON.parse(cacheDataStr);
         }
-    
+
         const lastShownTime = cacheData[page_id];
         const ONE_MINUTE = 60 * 1000;
-    
+
         if (lastShownTime && (now - lastShownTime) < ONE_MINUTE) {
             return {
-                service: null,
+                service: {
+                    error: '',
+                    success: '',
+                },
                 body: {
-                  success: false,
-                  message: 'Запрос для этого page_id был сделан недавно. Попробуйте позже.',
-                  data: null
+                    success: false,
+                    message: 'Запрос для этого page_id был сделан недавно. Попробуйте позже.',
+                    data: null
                 }
-              } as APIresponse;
+            } as APIresponse;
         }
-    
+
         cacheData[page_id] = now;
         localStorage.setItem('csatShowCache', JSON.stringify(cacheData));
-    
+
         const response = await API.fetch(`/csat/show/${page_id}`, {
             method: 'GET',
         });
         return response.json();
     }
-    
+
 
     /**
      * Отправить отзыв CSAT

@@ -1,27 +1,46 @@
 const path = require('path');
 
-module.exports = {
-    mode: 'development',
-    devtool: 'source-map',
-    entry: './src/index.ts',
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-        ],
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
-    },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-    },
+const webpackModule = {
+    rules: [
+        {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+        },
+        {
+            test: /\.s[ac]ss$/i,
+            use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+    ],
 };
+
+const resolve = {
+    extensions: ['.tsx', '.ts', '.js'],
+};
+
+const distPath = path.resolve(__dirname, 'dist');
+
+module.exports = [
+    {
+        mode: 'development',
+        devtool: 'source-map',
+        entry: './src/index.ts',
+        module: webpackModule,
+        resolve,
+        output: {
+            filename: 'bundle.js',
+            path: distPath,
+        },
+    },
+    {
+        mode: 'development',
+        devtool: 'source-map',
+        entry: './src/indexCsat.ts',
+        module: webpackModule,
+        resolve,
+        output: {
+            filename: 'bundleCsat.js',
+            path: distPath,
+        },
+    },
+];
