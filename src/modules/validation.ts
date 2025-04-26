@@ -160,6 +160,20 @@ export function bannerDescriptionGetError(value: string): string {
 }
 
 /**
+ * Проверка валидности комментария CSAT
+ * @param {string} value - значение комментария CSAT
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function csatCommentGetError(value: string): string {
+    const maxLength = 200;
+    const isValid = value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `До ${maxLength} символов`;
+}
+
+/**
  * Поддерживаемые типы изображений
  */
 export const ACCEPT_IMAGE = 'image/jpeg, image/png, image/gif';
