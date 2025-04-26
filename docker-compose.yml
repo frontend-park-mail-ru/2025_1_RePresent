@@ -8,6 +8,8 @@ services:
     volumes:
       - .:/app
     command: sh -c "npm install && npm run build"
+    networks:
+      - retarget_network
     restart: "no"
 
   static-server:
@@ -21,3 +23,9 @@ services:
     command: sh -c "cd server && npm install && node index.js"
     depends_on:
       - static-builder
+    networks:
+      - retarget_network
+
+networks:
+  retarget_network:
+    external: true
