@@ -31,6 +31,10 @@
 
     .private-section {
         width: 36rem;
+
+        button {
+            width: fit-content;
+        }
     }
 
     .public-section>*,
