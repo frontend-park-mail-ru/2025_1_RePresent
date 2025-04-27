@@ -66,8 +66,8 @@ export class CsatAPI {
      * Получить все отзывы CSAT
      * @returns {Promise<APIresponse>} - ответ API
      */
-    static async getMyReviews(): Promise<APIresponse> {
-        const response = await API.fetch('/csat/my-reviews', {
+    static async getAllReviews(): Promise<APIresponse> {
+        const response = await API.fetch('/csat/reviews', {
             method: 'GET',
         });
         return response.json();

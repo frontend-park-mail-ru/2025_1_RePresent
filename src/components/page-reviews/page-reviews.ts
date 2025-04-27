@@ -22,7 +22,7 @@ export class PageReviews extends Component {
      * @param {HTMLElement} container - контейнер для отзывов
      */
     private async renderReviews(container: HTMLElement): Promise<void> {
-        const response = await CsatAPI.getMyReviews();
+        const response = await CsatAPI.getAllReviews();
 
         if (!response.service.success) {
             container.innerHTML = '<p class="reviews-message">Не удалось загрузить отзывы</p>';
