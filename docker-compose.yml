@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   static-builder:
-    image: node:16
+    image: node:23-alpine
     container_name: ReTargetStaticBuilder
     working_dir: /app
     volumes:
@@ -13,7 +11,7 @@ services:
     restart: "no"
 
   static-server:
-    image: node:16
+    image: node:23-alpine
     container_name: ReTargetStaticServer
     working_dir: /app
     volumes:
