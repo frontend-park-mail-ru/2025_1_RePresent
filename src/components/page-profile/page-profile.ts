@@ -15,7 +15,6 @@ import { Button } from '../button/button';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
 import { dispatcher } from '../../modules/dispatcher';
-import { CSAT } from '../csat/csat';
 
 /**
  * Страница профиля пользователя
@@ -132,7 +131,6 @@ export class PageProfile extends Component {
         });
         adLinkField.render();
 
-        const csat = new CSAT(privateSection);
-        csat.render({ page: 'Profile' });
+        privateSection.insertAdjacentHTML('beforeend', '<iframe src="/csat" width="400" height="300"></iframe>');
     }
 }

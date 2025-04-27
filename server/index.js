@@ -35,8 +35,18 @@ app.use('/static', (req, res, next) => {
     }
 });
 
-app.get('/csat', (_, res) => {
-    res.sendFile(path.join(rootDir, '/dist/indexCsat.html'));
+app.get('/csat', (req, res, next) => {
+    const filePath = path.join(rootDir, 'dist', 'indexCsat.html');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) return next(err);
+
+        const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+
+        const modifiedData = data.replace(/REFERRER_URL/g, url);
+
+        res.set('Content-Type', 'text/html; charset=UTF-8');
+        res.send(modifiedData);
+    });
 });
 
 app.get('*', (_, res) => {

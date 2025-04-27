@@ -29,19 +29,14 @@ export class CsatAPI {
         }
 
         const lastShownTime = cacheData[page_id];
-        const ONE_MINUTE = 60 * 1000;
+        const COOLDOWN_MS = 24 * 60 * 60 * 1000;
 
-        if (lastShownTime && (now - lastShownTime) < ONE_MINUTE) {
+        if (lastShownTime && (now - lastShownTime) < COOLDOWN_MS) {
             return {
                 service: {
-                    error: '',
+                    error: 'cooldown',
                     success: '',
                 },
-                body: {
-                    success: false,
-                    message: 'Запрос для этого page_id был сделан недавно. Попробуйте позже.',
-                    data: null
-                }
             } as APIresponse;
         }
 
@@ -54,30 +49,24 @@ export class CsatAPI {
         return response.json();
     }
 
-
     /**
      * Отправить отзыв CSAT
      * @param {CsatReview} csatReview - отзыв
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async submitReview(csatReview: CsatReview): Promise<APIresponse> {
-         const response = await API.fetch('/csat/send', {
-             method: 'POST',
-             body: JSON.stringify(csatReview),
+        const response = await API.fetch('/csat/send', {
+            method: 'POST',
+            body: JSON.stringify(csatReview),
         });
         return response.json();
     }
 
+    /**
+     * Получить все отзывы CSAT
+     * @returns {Promise<APIresponse>} - ответ API
+     */
     static async getMyReviews(): Promise<APIresponse> {
-        let init = {} as RequestInit;
-        init.mode = 'cors';
-        init.credentials = 'include';
-        if (!init.headers) {
-            init.headers = {
-                'Content-Type': 'application/json',
-            };
-        }
-
         const response = await API.fetch('/csat/my-reviews', {
             method: 'GET',
         });
