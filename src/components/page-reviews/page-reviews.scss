@@ -12,9 +12,16 @@
         background-color: var(--bg-primary);
         border-radius: var(--corner-small);
 
-        .reviews-title {
-            font-size: var(--font-large);
+        .header-bar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .reviews-title {
+                font-size: var(--font-large);
+            }
         }
+
 
         .reviews-message {
             text-align: center;

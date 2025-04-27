@@ -5,6 +5,8 @@ import './page-reviews.scss';
 import { Component } from '../../component';
 import { Navbar } from '../navbar/navbar';
 import { CsatAPI, CsatReview } from '../../api/csatApi';
+import { Button } from '../button/button';
+import { loadPath } from '../../modules/router';
 
 export class PageReviews extends Component {
     /**
@@ -28,10 +30,6 @@ export class PageReviews extends Component {
         }
 
         const reviews: CsatReview[] = response.body;
-        if (!reviews || reviews.length === 0) {
-            container.innerHTML = '<p class="reviews-message">У вас пока нет отзывов</p>';
-            return;
-        }
 
         reviews.forEach((review) => {
             const reviewElement = document.createElement('div');
@@ -61,5 +59,15 @@ export class PageReviews extends Component {
         const reviewsContainer = this.rootElement.querySelector('.reviews-container') as HTMLElement;
 
         this.renderReviews(reviewsContainer);
+
+        const headerBar = this.rootElement.querySelector('.header-bar') as HTMLElement;
+        const profileButton = new Button(headerBar);
+        profileButton.render({
+            label: 'Профиль',
+            type: 'neutral',
+            onClick: () => {
+                loadPath('/profile');
+            },
+        });
     }
 }

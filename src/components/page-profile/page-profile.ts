@@ -131,6 +131,15 @@ export class PageProfile extends Component {
         });
         adLinkField.render();
 
+        const reviewsButton = new Button(privateSection);
+        reviewsButton.render({
+            label: 'Отзывы пользователей',
+            type: 'neutral',
+            onClick: () => {
+                loadPath('/reviews');
+            },
+        });
+
         privateSection.insertAdjacentHTML('beforeend', '<iframe src="/csat" width="400" height="330" style="border: none;"></iframe>');
     }
 }
