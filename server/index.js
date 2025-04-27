@@ -40,9 +40,9 @@ app.get('/csat', (req, res, next) => {
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) return next(err);
 
-        const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+        const REFERRER_URL = req.get('Referer') ?? req.get('Referrer');
 
-        const modifiedData = data.replace(/REFERRER_URL/g, url);
+        const modifiedData = data.replace(/REFERRER_URL/g, REFERRER_URL);
 
         res.set('Content-Type', 'text/html; charset=UTF-8');
         res.send(modifiedData);
