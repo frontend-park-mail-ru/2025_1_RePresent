@@ -3,7 +3,7 @@ services:
     image: node:23-alpine
     container_name: ReTargetStaticBuilder
     working_dir: /app
-    user: "$(id -u):$(id -g)"
+    user: "${UID}:${GID}"
     volumes:
       - .:/app
     command: sh -c "npm install && npm run build"
@@ -15,7 +15,7 @@ services:
     image: node:23-alpine
     container_name: ReTargetStaticServer
     working_dir: /app
-    user: "$(id -u):$(id -g)"
+    user: "${UID}:${GID}"
     volumes:
       - .:/app
     ports:
