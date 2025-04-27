@@ -60,18 +60,4 @@
             }
         }
     }
-
-    .reviews-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: var(--margin-medium);
-    }
-
-    .no-reviews {
-        text-align: center;
-        padding: var(--margin-big);
-        color: var(--text-secondary);
-        font-size: var(--font-medium);
-    }
 }
