@@ -29,6 +29,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             gap: var(--margin-medium);
+            justify-content: center;
 
             .review-item {
                 width: 30rem;

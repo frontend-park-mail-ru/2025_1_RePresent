@@ -56,7 +56,7 @@ export class PageReviews extends Component {
         super.render();
 
         const navbarContainer = this.rootElement.querySelector('.navbar-container') as HTMLElement;
-        new Navbar(navbarContainer).render({ userAuthed: false, userRole: 'advertiser' });
+        new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'advertiser' });
 
         const reviewsContainer = this.rootElement.querySelector('.reviews-container') as HTMLElement;
 
