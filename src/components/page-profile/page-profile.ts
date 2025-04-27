@@ -131,6 +131,6 @@ export class PageProfile extends Component {
         });
         adLinkField.render();
 
-        privateSection.insertAdjacentHTML('beforeend', '<iframe src="/csat" width="400" height="300" style="border: none;"></iframe>');
+        privateSection.insertAdjacentHTML('beforeend', '<iframe src="/csat" width="400" height="330" style="border: none;"></iframe>');
     }
 }
