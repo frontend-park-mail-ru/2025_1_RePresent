@@ -33,9 +33,6 @@ export class PageReviews extends Component {
             return;
         }
 
-        const reviewsList = document.createElement('div');
-        reviewsList.className = 'reviews-list';
-
         reviews.forEach((review) => {
             const reviewElement = document.createElement('div');
             reviewElement.className = 'review-item';
@@ -48,11 +45,8 @@ export class PageReviews extends Component {
                 ${review.comment ? `<div class="review-comment">${review.comment}</div>` : ''}
             `;
 
-            reviewsList.appendChild(reviewElement);
+            container.appendChild(reviewElement);
         });
-
-        container.innerHTML = '';
-        container.appendChild(reviewsList);
     }
 
     /**
