@@ -1,16 +1,24 @@
 'use strict';
 
-import './page-review.scss';
+import './page-reviews.scss';
 
 import { Component } from '../../component';
 import { Navbar } from '../navbar/navbar';
 import { CsatAPI, CsatReview } from '../../api/csatApi';
 
-export class PageReview extends Component {
+export class PageReviews extends Component {
+    /**
+     * Конструктор компонента
+     * @param {HTMLElement} parent - родительский узел компонента
+     */
     constructor(parent: HTMLElement) {
-        super(parent, 'page-review/page-review', {});
+        super(parent, 'page-reviews/page-reviews', {});
     }
 
+    /**
+     * Отрисовать отзывы
+     * @param {HTMLElement} container - контейнер для отзывов
+     */
     private async renderReviews(container: HTMLElement): Promise<void> {
         const response = await CsatAPI.getMyReviews();
 
@@ -19,7 +27,7 @@ export class PageReview extends Component {
             return;
         }
 
-        const reviews: CsatReview[] = response.body.reviews;
+        const reviews: CsatReview[] = response.body;
         if (!reviews || reviews.length === 0) {
             container.innerHTML = '<p class="reviews-message">У вас пока нет отзывов</p>';
             return;
@@ -35,9 +43,6 @@ export class PageReview extends Component {
             const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
 
             reviewElement.innerHTML = `
-                <div class="review-header">
-                    <span class="review-page">${review.page_id}</span>
-                </div>
                 <div class="review-question">${review.question}</div>
                 <div class="review-rating">${stars}</div>
                 ${review.comment ? `<div class="review-comment">${review.comment}</div>` : ''}
@@ -50,11 +55,14 @@ export class PageReview extends Component {
         container.appendChild(reviewsList);
     }
 
+    /**
+     * Отрисовка страницы
+     */
     public render(): void {
         super.render();
 
         const navbarContainer = this.rootElement.querySelector('.navbar-container') as HTMLElement;
-        // new Navbar(navbarContainer).render({ userAuthed: false, userRole: 'advertiser' });
+        new Navbar(navbarContainer).render({ userAuthed: false, userRole: 'advertiser' });
 
         const reviewsContainer = this.rootElement.querySelector('.reviews-container') as HTMLElement;
 

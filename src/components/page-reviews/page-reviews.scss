@@ -34,36 +34,28 @@
 
             .review-item {
                 padding: var(--margin-medium);
-                background-color: var(--bg-secondary);
-                border-radius: var(--corner-small);
                 display: flex;
                 flex-direction: column;
                 gap: var(--margin-small);
-
-                .review-header {
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: var(--font-small);
-                    color: var(--text-secondary);
-                }
+                background-color: var(--bg-primary);
+                border: var(--border-width) solid var(--bg-secondary-dark);
+                border-radius: var(--corner-small);
 
                 .review-question {
-                    font-weight: bold;
-                    font-size: var(--font-medium);
+                    font-size: var(--font-large);
                 }
 
                 .review-rating {
-                    color: var(--rating-color, #ffc107);
+                    color: var(--active-primary);
                     font-size: var(--font-large);
                     letter-spacing: 0.2rem;
                 }
 
                 .review-comment {
                     padding: var(--margin-small);
-                    background-color: var(--bg-tertiary);
+                    background-color: var(--bg-secondary);
                     border-radius: var(--corner-small);
                     font-size: var(--font-small);
-                    line-height: 1.5;
                 }
             }
         }

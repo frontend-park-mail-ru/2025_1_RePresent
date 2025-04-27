@@ -8,7 +8,7 @@ import { Props } from '../component';
 import { dispatcher } from './dispatcher';
 import { ProfileAPI } from '../api/profileApi';
 import { store } from './store';
-import { PageReview } from '../components/page-review/page-review';
+import { PageReviews } from '../components/page-reviews/page-reviews';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -25,11 +25,11 @@ interface PageInfo {
  * @constant {Object.<string, PageInfo>} соответствие между путями URL и параметрами страниц
  */
 const pathPageInfo: { [key: string]: PageInfo } = {
-    '/reviews': {class: PageReview, title: 'ReTarget - Мои Отзывы', authRequired: false },
     '/signup': { class: PageSignUp, title: 'ReTarget - Sign up', authRequired: false },
     '/signin': { class: PageSignIn, title: 'ReTarget - Sign in', authRequired: false },
     '/my-banners': { class: PageMyBanners, title: 'ReTarget - Мои Объявления', authRequired: true },
     '/profile': { class: PageProfile, title: 'ReTarget - Мой профиль', authRequired: true },
+    '/reviews': { class: PageReviews, title: 'ReTarget - Отзывы пользователей', authRequired: true },
 };
 
 /**
