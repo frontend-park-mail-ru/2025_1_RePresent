@@ -2,7 +2,7 @@
 
 import './menu-banner-editor\.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { FormBannerEditorOptions } from '../form-banner-editor-options/form-banner-editor-options';
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { store } from '../../modules/store';

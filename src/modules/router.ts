@@ -4,7 +4,7 @@ import { PageSignUp } from '../components/page-sign-up/page-sign-up';
 import { PageSignIn } from '../components/page-sign-in/page-sign-in';
 import { PageMyBanners } from '../components/page-my-banners/page-my-banners';
 import { PageProfile } from '../components/page-profile/page-profile';
-import { Props } from '../component';
+import { Props } from './component';
 import { dispatcher } from './dispatcher';
 import { ProfileAPI } from '../api/profileApi';
 import { store } from './store';

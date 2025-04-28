@@ -2,7 +2,7 @@
 
 import './button\.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 
 /**
  * Обработчик нажатия на кнопку

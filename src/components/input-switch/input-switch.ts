@@ -2,7 +2,7 @@
 
 import './input-switch\.scss';
 
-import { Input } from '../../input';
+import { Input } from '../../modules/input';
 
 /**
  * Интерфейс для описания параметров компонента

@@ -2,7 +2,7 @@
 
 import './input-field\.scss';
 
-import { Input, InputProps } from '../../input';
+import { Input, InputProps } from '../../modules/input';
 
 /**
  * Генератор ошибок поля

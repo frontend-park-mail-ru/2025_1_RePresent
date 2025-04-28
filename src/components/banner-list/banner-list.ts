@@ -2,7 +2,7 @@
 
 import './banner-list\.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { BannerListItem } from '../banner-list-item/banner-list-item';
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';

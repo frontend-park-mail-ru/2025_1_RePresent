@@ -4,7 +4,7 @@ import '../button/button\.scss';
 import './menu-list-item\.scss';
 
 import { dispatcher } from '../../modules/dispatcher';
-import { Component, Props } from '../../component';
+import { Component, Props } from '../../modules/component';
 
 /**
  * Интерфейс для описания параметров компонента

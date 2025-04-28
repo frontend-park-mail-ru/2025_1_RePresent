@@ -2,7 +2,7 @@
 
 import './banner-list-item\.scss';
 
-import { Component, Props } from '../../component';
+import { Component, Props } from '../../modules/component';
 import { dispatcher } from '../../modules/dispatcher';
 
 /**

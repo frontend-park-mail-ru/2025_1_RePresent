@@ -1,7 +1,7 @@
 'use strict';
 
 import * as Handlebars from 'handlebars/runtime';
-import './hbs-precompiled';
+import '../hbs-precompiled';
 
 /**
  * Тип параметров компонента

@@ -3,7 +3,7 @@
 import './menu-list\.scss';
 
 import { dispatcher } from '../../modules/dispatcher';
-import { Component, Props } from '../../component';
+import { Component, Props } from '../../modules/component';
 import { MenuListItem, MenuListItemProps } from '../menu-list-item/menu-list-item';
 
 /**

@@ -2,7 +2,7 @@
 
 import './image-upload\.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { InputFile } from '../input-file/input-file';
 import { API } from '../../modules/api';
 import { ACCEPT_IMAGE } from '../../modules/validation';

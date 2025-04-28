@@ -2,7 +2,7 @@
 
 import './navbar\.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { LinkInner, LinkInnerProps } from '../link-inner/link-inner';
 import { API } from '../../modules/api';
 import { store } from '../../modules/store';

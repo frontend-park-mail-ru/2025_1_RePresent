@@ -2,8 +2,8 @@
 
 import '../../sign-in-up\.scss';
 
-import { Component, Props } from '../../component';
-import { Input } from '../../input';
+import { Component, Props } from '../../modules/component';
+import { Input } from '../../modules/input';
 import { CancelSave } from '../cancel-save/cancel-save';
 
 /**

@@ -2,7 +2,7 @@
 
 import './page-my-banners\.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { BannerList } from '../banner-list/banner-list';
 import { MenuSection } from '../menu-section/menu-section';
 import { Navbar } from '../navbar/navbar';

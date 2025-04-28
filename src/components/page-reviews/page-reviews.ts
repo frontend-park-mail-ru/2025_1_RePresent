@@ -2,7 +2,7 @@
 
 import './page-reviews.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { Navbar } from '../navbar/navbar';
 import { CsatAPI, CsatReview } from '../../api/csatApi';
 import { Button } from '../button/button';

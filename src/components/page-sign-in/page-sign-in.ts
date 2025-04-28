@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { loadPath } from '../../modules/router';
 import { Button } from '../button/button';
 import { FormSignIn } from '../form-sign-in/form-sign-in';

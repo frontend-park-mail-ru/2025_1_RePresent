@@ -2,7 +2,7 @@
 
 import './csat.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { InputField } from '../input-field/input-field';
 import { Button } from '../button/button';
 import { csatCommentGetError } from '../../modules/validation';

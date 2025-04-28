@@ -3,7 +3,7 @@
 import './menu-section\.scss';
 
 import { dispatcher } from '../../modules/dispatcher';
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';
 import { MenuBannerEditor } from '../menu-banner-editor/menu-banner-editor';
 import { store } from '../../modules/store';
