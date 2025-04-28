@@ -2,25 +2,16 @@
 
 import './input-field\.scss';
 
-import { Input, InputProps } from '../../modules/input';
-
-/**
- * Генератор ошибок поля
- * @callback InputField~getError
- * @param {string} value - значение текстового поля
- * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
- */
-type GetErrorCallback = (value: string) => string;
+import { InputWithError, InputWithErrorProps } from '../../modules/input-with-error';
 
 /**
  * Интерфейс для описания параметров поля ввода
  */
-interface InputFieldProps extends InputProps {
+interface InputFieldProps extends InputWithErrorProps {
     type: 'text' | 'email' | 'password';
     name: string;
     placeholder: string;
     label?: string;
-    getError?: GetErrorCallback;
     default?: string;
     disabled?: boolean;
 }
@@ -28,10 +19,7 @@ interface InputFieldProps extends InputProps {
 /**
  * Поле текстового ввода
  */
-export class InputField extends Input {
-    private errorElement: HTMLElement;
-    private prevValue: string = '';
-
+export class InputField extends InputWithError {
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -42,62 +30,15 @@ export class InputField extends Input {
     }
 
     /**
-     * Показать сообщение об ошибке
-     * @param {string} errorMsg - сообщение об ошибке
-     */
-    showError(errorMsg: string): void {
-        this.errorElement.innerText = errorMsg;
-        this.rootElement.classList.add('error');
-    }
-
-    /**
-     * Спрятать сообщение об ошибке
-     */
-    hideError(): void {
-        this.rootElement.classList.remove('error');
-    }
-
-    /**
-     * Валидировать значение поля
-     * @returns {boolean} - корректно ли значение поля
-     */
-    validate(): boolean {
-        const inputValue = this.inputElement.value.trim();
-        const isValid = super.validate();
-        if (isValid) {
-            this.hideError();
-        } else {
-            this.showError(this.props.getError ? this.props.getError(inputValue) : '');
-        }
-        return isValid;
-    }
-
-    /**
-     * Валидировать значение поля, если поле было редактировано
-     */
-    validateIfChanged(): void {
-        const inputValue = this.inputElement.value.trim();
-        if (inputValue === this.prevValue) {
-            return;
-        }
-        this.validate();
-        this.prevValue = inputValue;
-    }
-
-    /**
      * Отрисовка
      * @param {InputFieldProps} props - параметры компонента
      */
     render(props?: InputFieldProps): void {
         props = props || this.props as InputFieldProps;
 
-        props.validate = props.getError ? (value: string) => props.getError!(value) === '' : undefined;
         const disabled = props.disabled ? 'disabled' : '';
         super.render({ ...props, disabled });
 
-        this.errorElement = this.rootElement.querySelector('.error-msg') as HTMLElement;
-        this.inputElement = this.rootElement.querySelector('#' + props.name) as HTMLInputElement;
         this.inputElement.value = props.default || '';
-        this.inputElement.onblur = this.validateIfChanged.bind(this);
     }
 }
