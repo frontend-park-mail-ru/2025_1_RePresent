@@ -1,12 +1,16 @@
+#root {
+    height: 100%;
+}
+
 .sign-in-up {
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 
     .container {
-        width: 800px;
-        height: 580px;
+        width: 50rem;
+        height: 40rem;
         background: linear-gradient(to left, var(--active-primary), var(--active-secondary));
         border-radius: var(--corner-small);
         overflow: hidden;

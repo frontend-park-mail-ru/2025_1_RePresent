@@ -58,7 +58,7 @@ export class FormSignIn extends Form {
             }),
         };
 
-        root.insertAdjacentHTML('beforeend', '<h1>Войти в аккаунт Рекламодателя</h1>');
+        root.insertAdjacentHTML('beforeend', '<h1>Войти в аккаунт</h1>');
 
         super.renderFull(props);
     }

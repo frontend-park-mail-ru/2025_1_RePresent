@@ -174,6 +174,19 @@ export function csatCommentGetError(value: string): string {
 }
 
 /**
+ * Проверка валидности выбранной роли
+ * @param {string} value - значение роли
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function roleGetError(value: string): string {
+    const isValid = value.length > 0;
+    if (isValid) {
+        return '';
+    }
+    return 'Выберите роль';
+}
+
+/**
  * Поддерживаемые типы изображений
  */
 export const ACCEPT_IMAGE = 'image/jpeg, image/png, image/gif';
