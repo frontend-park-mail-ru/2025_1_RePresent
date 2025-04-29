@@ -1,0 +1,9 @@
+<div class="input-select {{disabled}}">
+    <p class="label">{{label}}</p>
+    <select class="select" name="{{name}}" id="{{name}}" {{disabled}}>
+        {{#each options}}
+        <option class="option" value="{{this.value}}">{{this.label}}</option>
+        {{/each}}
+    </select>
+    <p class="error-msg"></p>
+</div>
