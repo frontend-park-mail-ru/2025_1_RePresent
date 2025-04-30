@@ -3,7 +3,7 @@
 import './banner-list\.scss';
 
 import { Component } from '../../modules/component';
-import { BannerListItem } from '../banner-list-item/banner-list-item';
+import { BannerSlotListItem } from '../banner-slot-list-item/banner-slot-list-item';
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
 import { store } from '../../modules/store';
@@ -21,7 +21,7 @@ export class BannerList extends Component {
     constructor(parent: HTMLElement) {
         super(parent, 'banner-list/banner-list', {});
 
-        dispatcher.on('banner-select', this.onBannerSelect.bind(this));
+        dispatcher.on('item-select', this.onBannerSelect.bind(this));
         dispatcher.on('banner-update', this.onBannerUpdate.bind(this));
         dispatcher.on('banner-delete', this.onBannerDelete.bind(this));
         dispatcher.on('banner-create', this.onBannerCreate.bind(this));
@@ -102,8 +102,8 @@ export class BannerList extends Component {
         adList.innerHTML = '';
         this.banners.forEach(banner => {
             const isSelected = banner.id == selectedId;
-            new BannerListItem(adList).render({
-                bannerId: banner.id,
+            new BannerSlotListItem(adList).render({
+                itemId: banner.id,
                 name: banner.title,
                 stats: banner.link,
                 status: (banner.status == 1) ? 'active' : 'rejected',

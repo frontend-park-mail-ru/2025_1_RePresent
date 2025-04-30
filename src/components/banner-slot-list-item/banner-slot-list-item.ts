@@ -1,6 +1,6 @@
 'use strict';
 
-import './banner-list-item\.scss';
+import './banner-slot-list-item.scss';
 
 import { Component, Props } from '../../modules/component';
 import { dispatcher } from '../../modules/dispatcher';
@@ -8,8 +8,8 @@ import { dispatcher } from '../../modules/dispatcher';
 /**
  * Интерфейс для описания параметров компонента
  */
-export interface BannerListItemProps extends Props {
-    bannerId: number;
+export interface BannerSlotListItemProps extends Props {
+    itemId: number;
     name: string;
     stats: string;
     status: 'active' | 'awaiting' | 'rejected';
@@ -17,34 +17,34 @@ export interface BannerListItemProps extends Props {
 }
 
 /**
- * Элемент списка объявлений
+ * Элемент списка объявлений/слотов
  */
-export class BannerListItem extends Component {
-    protected props: BannerListItemProps;
+export class BannerSlotListItem extends Component {
+    protected props: BannerSlotListItemProps;
 
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'banner-list-item/banner-list-item', {});
+        super(parent, 'banner-slot-list-item/banner-slot-list-item', {});
     }
 
     /**
-     * Обработчик нажатия на компонентт
+     * Обработчик нажатия на компонент
      */
     private onClick() {
         if (this.props.selected) {
             return;
         }
-        dispatcher.dispatch('banner-select', this.props.bannerId);
+        dispatcher.dispatch('item-select', this.props.itemId);
     }
 
     /**
      * Отрисовка
-     * @param {BannerListItemProps} props - параметры компонента
+     * @param {BannerSlotListItemProps} props - параметры компонента
      */
-    render(props: BannerListItemProps): void {
+    render(props: BannerSlotListItemProps): void {
         const selected = props.selected ? 'selected' : '';
         super.render({ ...props, selected });
 
