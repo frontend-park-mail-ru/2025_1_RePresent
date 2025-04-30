@@ -19,7 +19,7 @@ export class ListBanner extends Component {
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'banner-list/banner-list', {});
+        super(parent, 'list-banner/list-banner', {});
 
         dispatcher.on('item-select', this.onBannerSelect.bind(this));
         dispatcher.on('banner-update', this.onBannerUpdate.bind(this));

@@ -27,7 +27,7 @@ export class ListItemBannerSlot extends Component {
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'banner-slot-list-item/banner-slot-list-item', {});
+        super(parent, 'list-item-banner-slot/list-item-banner-slot', {});
     }
 
     /**
