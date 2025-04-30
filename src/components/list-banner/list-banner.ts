@@ -1,9 +1,9 @@
 'use strict';
 
-import './banner-list\.scss';
+import './list-banner.scss';
 
 import { Component } from '../../modules/component';
-import { BannerSlotListItem } from '../banner-slot-list-item/banner-slot-list-item';
+import { ListItemBannerSlot } from '../list-item-banner-slot/list-item-banner-slot';
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
 import { store } from '../../modules/store';
@@ -11,7 +11,7 @@ import { store } from '../../modules/store';
 /**
  * Панель списка объявлений
  */
-export class BannerList extends Component {
+export class ListBanner extends Component {
     private banners: Banner[];
 
     /**
@@ -102,7 +102,7 @@ export class BannerList extends Component {
         adList.innerHTML = '';
         this.banners.forEach(banner => {
             const isSelected = banner.id == selectedId;
-            new BannerSlotListItem(adList).render({
+            new ListItemBannerSlot(adList).render({
                 itemId: banner.id,
                 name: banner.title,
                 stats: banner.link,

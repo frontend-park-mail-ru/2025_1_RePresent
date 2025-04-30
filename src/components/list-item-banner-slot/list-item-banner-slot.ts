@@ -1,6 +1,6 @@
 'use strict';
 
-import './banner-slot-list-item.scss';
+import './list-item-banner-slot.scss';
 
 import { Component, Props } from '../../modules/component';
 import { dispatcher } from '../../modules/dispatcher';
@@ -8,7 +8,7 @@ import { dispatcher } from '../../modules/dispatcher';
 /**
  * Интерфейс для описания параметров компонента
  */
-export interface BannerSlotListItemProps extends Props {
+export interface ListItemBannerSlotProps extends Props {
     itemId: number;
     name: string;
     stats: string;
@@ -19,8 +19,8 @@ export interface BannerSlotListItemProps extends Props {
 /**
  * Элемент списка объявлений/слотов
  */
-export class BannerSlotListItem extends Component {
-    protected props: BannerSlotListItemProps;
+export class ListItemBannerSlot extends Component {
+    protected props: ListItemBannerSlotProps;
 
     /**
      * Конструктор компонента
@@ -42,9 +42,9 @@ export class BannerSlotListItem extends Component {
 
     /**
      * Отрисовка
-     * @param {BannerSlotListItemProps} props - параметры компонента
+     * @param {ListItemBannerSlotProps} props - параметры компонента
      */
-    render(props: BannerSlotListItemProps): void {
+    render(props: ListItemBannerSlotProps): void {
         const selected = props.selected ? 'selected' : '';
         super.render({ ...props, selected });
 
