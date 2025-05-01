@@ -113,6 +113,26 @@ export function topUpAmountGetError(value: string): string {
 }
 
 /**
+ * Минимальная и максимальная суммы показа объявления
+ */
+export const perShowMinRub = 0.01;
+export const perShowMaxRub = 1;
+
+/**
+ * Проверка валидности суммы показа объявления
+ * @param {string} value - значение суммы показа
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function perShowGetError(value: string): string {
+    const amount = Number(value);
+    const isValid = amount >= perShowMinRub && amount <= perShowMaxRub;
+    if (isValid) {
+        return '';
+    }
+    return `От ${perShowMinRub} до ${perShowMaxRub} руб.`;
+}
+
+/**
  * Проверка валидности названия объявления
  * @param {string} value - значение названия объявления
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет

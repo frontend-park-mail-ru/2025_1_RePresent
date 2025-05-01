@@ -5,7 +5,7 @@ import './menu-section-slot.scss';
 import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../modules/component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';
-import { MenuBannerEditor } from '../menu-banner-editor/menu-banner-editor';
+import { MenuSlotEditor } from '../menu-slot-editor/menu-slot-editor';
 import { store } from '../../modules/store';
 
 /**
@@ -58,7 +58,7 @@ export class MenuSectionSlot extends Component {
 
         switch (this.selectedMenuName) {
             case 'editor':
-                new MenuBannerEditor(menuContents).render();
+                new MenuSlotEditor(menuContents).render();
                 break;
             default:
                 break;

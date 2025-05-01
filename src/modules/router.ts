@@ -3,6 +3,7 @@
 import { PageSignUp } from '../components/page-sign-up/page-sign-up';
 import { PageSignIn } from '../components/page-sign-in/page-sign-in';
 import { PageMyBanners } from '../components/page-my-banners/page-my-banners';
+import { PageMySlots } from '../components/page-my-slots/page-my-slots';
 import { PageProfile } from '../components/page-profile/page-profile';
 import { Props } from './component';
 import { dispatcher } from './dispatcher';
@@ -25,9 +26,10 @@ interface PageInfo {
  * @constant {Object.<string, PageInfo>} соответствие между путями URL и параметрами страниц
  */
 const pathPageInfo: { [key: string]: PageInfo } = {
-    '/signup': { class: PageSignUp, title: 'ReTarget - Sign up', authRequired: false },
-    '/signin': { class: PageSignIn, title: 'ReTarget - Sign in', authRequired: false },
-    '/my-banners': { class: PageMyBanners, title: 'ReTarget - Мои Объявления', authRequired: true },
+    '/signup': { class: PageSignUp, title: 'ReTarget - Создать аккаунт', authRequired: false },
+    '/signin': { class: PageSignIn, title: 'ReTarget - Войти в аккаунт', authRequired: false },
+    '/my-banners': { class: PageMyBanners, title: 'ReTarget - Мои объявления', authRequired: true },
+    '/my-slots': { class: PageMySlots, title: 'ReTarget - Мои слоты', authRequired: true },
     '/profile': { class: PageProfile, title: 'ReTarget - Мой профиль', authRequired: true },
     '/reviews': { class: PageReviews, title: 'ReTarget - Отзывы пользователей', authRequired: true },
 };

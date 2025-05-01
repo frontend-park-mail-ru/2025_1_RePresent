@@ -1,4 +1,4 @@
-.menu-banner-editor {
+.menu-slot-editor {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -9,7 +9,12 @@
         font-size: var(--font-large);
     }
 
-    .preview-section,
+    h2 {
+        font-size: var(--font-medium);
+        margin-top: 2rem;
+    }
+
+    .link-section,
     .options-section,
     .form-block {
         width: 100%;
@@ -19,7 +24,8 @@
     }
 
     .input-field,
-    .input-switch {
+    .input-switch,
+    .input-select {
         width: 100%;
     }
 
@@ -37,12 +43,24 @@
         border-radius: var(--corner-small);
     }
 
-    .preview-section .input-field,
+    .link-section .input-field,
     button {
         width: fit-content;
     }
 
-    .image-upload {
-        width: 10rem;
+    .link-copy {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: end;
+        gap: var(--margin-medium);
+
+        .input-field {
+            width: 100%;
+        }
+
+        button {
+            height: 40px;
+        }
     }
 }

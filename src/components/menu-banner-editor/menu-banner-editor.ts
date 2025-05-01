@@ -91,14 +91,17 @@ export class MenuBannerEditor extends Component {
             return;
         }
         const cancelSaveSection = this.rootElement.getElementsByClassName('cancel-save')[0] as HTMLElement;
-        new Button(cancelSaveSection).render(
-            {
-                label: 'Удалить',
-                type: 'danger',
-                onClick: this.onDeleteClick.bind(this),
-            });
+        const deleteButton = new Button(cancelSaveSection)
+        deleteButton.render({
+            label: 'Удалить',
+            type: 'danger',
+            onClick: this.onDeleteClick.bind(this),
+        });
     }
 
+    /**
+     * Обработка нажатия на кнопку Удалить
+     */
     private async onDeleteClick(): Promise<void> {
         if (!confirm('Вы уверены, что хотите удалить это объявление?')) {
             return;
