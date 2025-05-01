@@ -1,6 +1,6 @@
 'use strict';
 
-import './menu-section\.scss';
+import './menu-section-banner.scss';
 
 import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../modules/component';
@@ -9,9 +9,9 @@ import { MenuBannerEditor } from '../menu-banner-editor/menu-banner-editor';
 import { store } from '../../modules/store';
 
 /**
- * Раздел меню
+ * Раздел меню объявлений
  */
-export class MenuSection extends Component {
+export class MenuSectionBanner extends Component {
     private selectedMenuName: string = '';
 
     /**
@@ -19,7 +19,7 @@ export class MenuSection extends Component {
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'menu-section/menu-section', {});
+        super(parent, 'menu-section-banner/menu-section-banner', {});
 
         dispatcher.on('menu-select', (selectedName: string) => {
             this.selectedMenuName = selectedName;
@@ -97,7 +97,6 @@ export class MenuSection extends Component {
                 { label: 'Редактор', menuName: 'editor' },
                 // { label: 'Статистика', menuName: 'statistics' },
                 // { label: 'Оплата', menuName: 'billing' },
-                // { label: 'Платформы', menuName: 'platforms' },
             ],
         };
 

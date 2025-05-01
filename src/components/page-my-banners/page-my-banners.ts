@@ -4,7 +4,7 @@ import './page-my-banners\.scss';
 
 import { Component } from '../../modules/component';
 import { ListBanner } from '../list-banner/list-banner';
-import { MenuSection } from '../menu-section/menu-section';
+import { MenuSectionBanner } from '../menu-section-banner/menu-section-banner';
 import { Navbar } from '../navbar/navbar';
 
 /**
@@ -33,7 +33,7 @@ export class PageMyBanners extends Component {
         const bannerList = new ListBanner(contentsSection);
         bannerList.render();
 
-        const menuSection = new MenuSection(contentsSection);
+        const menuSection = new MenuSectionBanner(contentsSection);
         menuSection.render();
     }
 }
