@@ -59,12 +59,12 @@ export class Navbar extends Component {
         }
 
         if (this.props.userRole == 'advertiser') {
-            this.renderPageLinks([{ label: 'Платформы', path: '/my-banners' }, { label: 'Мои объявления', path: '/my-banners' }]);
+            this.renderPageLinks([{ label: 'Мои объявления', path: '/my-banners' }]);
             return;
         }
 
         if (this.props.userRole == 'platform') {
-            this.renderPageLinks([{ label: 'Объявления', path: '/banners' }, { label: 'Интеграция', path: '/integration' }, { label: 'Мои партнеры', path: '/my-partners' }]);
+            this.renderPageLinks([{ label: 'Мои слоты', path: '/my-slots' }]);
         }
     }
 
