@@ -1,8 +1,8 @@
 /* Setup */
 
-@import url("reset\.scss");
+@use './reset';
 
-@import url("vars\.scss");
+@use './vars';
 
 /* Global styles */
 
