@@ -11,6 +11,15 @@ const webpackModule = {
             test: /\.s[ac]ss$/i,
             use: ['style-loader', 'css-loader', 'sass-loader'],
         },
+        {
+            loader: 'string-replace-loader',
+            options: {
+                multiple: [
+                    { search: 'ENV_API_ORIGIN', replace: 'http://re-target.ru' },
+                    { search: 'ENV_API_VERSION', replace: 'v1' },
+                ],
+            },
+        }
     ],
 };
 
