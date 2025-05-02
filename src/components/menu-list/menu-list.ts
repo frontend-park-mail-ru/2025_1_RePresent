@@ -1,6 +1,6 @@
 'use strict';
 
-import './menu-list\.scss';
+import './menu-list.scss';
 
 import { dispatcher } from '../../modules/dispatcher';
 import { Component, Props } from '../../modules/component';

@@ -1,6 +1,6 @@
 'use strict';
 
-import './menu-banner-editor\.scss';
+import './menu-banner-editor.scss';
 
 import { Component } from '../../modules/component';
 import { FormBannerEditorOptions } from '../form-banner-editor-options/form-banner-editor-options';

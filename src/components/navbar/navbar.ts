@@ -1,6 +1,6 @@
 'use strict';
 
-import './navbar\.scss';
+import './navbar.scss';
 
 import { Component } from '../../modules/component';
 import { LinkInner, LinkInnerProps } from '../link-inner/link-inner';

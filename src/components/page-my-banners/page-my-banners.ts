@@ -1,6 +1,6 @@
 'use strict';
 
-import './page-my-banners\.scss';
+import './page-my-banners.scss';
 
 import { Component } from '../../modules/component';
 import { ListBanner } from '../list-banner/list-banner';

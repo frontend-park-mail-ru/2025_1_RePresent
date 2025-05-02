@@ -1,6 +1,6 @@
 'use strict';
 
-import './input-file\.scss';
+import './input-file.scss';
 
 import { Input } from '../../modules/input';
 import { Button } from '../button/button';
