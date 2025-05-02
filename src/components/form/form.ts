@@ -1,7 +1,5 @@
 'use strict';
 
-import '../../sign-in-up\.scss';
-
 import { Component, Props } from '../../modules/component';
 import { Input } from '../../modules/input';
 import { CancelSave } from '../cancel-save/cancel-save';

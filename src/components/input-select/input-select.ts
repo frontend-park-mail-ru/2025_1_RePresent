@@ -42,7 +42,7 @@ export class InputSelect extends InputWithError {
      */
     private updateTextStyle() {
         const color = this.inputElement.value ? '--text-primary' : '--text-secondary';
-        this.rootElement.querySelector('.select').setAttribute('style', `color: var(${color});`);
+        this.rootElement.querySelector('.input').setAttribute('style', `color: var(${color});`);
     }
 
     /**

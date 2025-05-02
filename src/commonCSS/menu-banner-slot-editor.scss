@@ -1,0 +1,43 @@
+.menu-banner-slot-editor {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--margin-huge);
+
+    h1 {
+        font-size: var(--font-large);
+    }
+
+    .options-section,
+    .form-block {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--margin-big);
+    }
+
+    .input-field,
+    .input-switch {
+        width: 100%;
+    }
+
+    .cancel-save {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
+    .preview-container {
+        height: 20rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-secondary);
+        border-radius: var(--corner-small);
+    }
+
+    .link-section .input-field,
+    button {
+        width: fit-content;
+    }
+}
