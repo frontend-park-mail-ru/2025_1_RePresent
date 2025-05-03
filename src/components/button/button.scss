@@ -1,7 +1,7 @@
 button {
     border: var(--border-width) solid;
     border-radius: var(--corner-small);
-    padding: 5px var(--margin-big);
+    padding: 0.375rem var(--margin-big);
     cursor: pointer;
 
     &.primary {

@@ -1,10 +1,10 @@
 .input-field-select {
-    width: 240px;
+    width: 15rem;
     text-align: left;
     background-color: var(--bg-primary);
 
     .label {
-        margin-bottom: 5px;
+        margin-bottom: 0.375rem;
 
         &:empty {
             display: none;
@@ -13,7 +13,7 @@
 
     .input {
         width: 100%;
-        height: 40px;
+        height: 2.5rem;
         padding: var(--margin-small);
         background-color: var(--bg-primary);
         border: var(--border-width) solid var(--bg-light-gray);
@@ -22,7 +22,7 @@
         transition: 0.2s;
 
         &:focus {
-            box-shadow: 0px 0px 0px 5px rgb(from var(--active-primary) r g b / 50%);
+            box-shadow: 0 0 0 0.375rem rgb(from var(--active-primary) r g b / 50%);
         }
 
         .option {
@@ -35,7 +35,7 @@
             border-color: var(--active-danger);
 
             &:focus {
-                box-shadow: 0px 0px 0px 5px rgb(from var(--active-danger) r g b / 50%);
+                box-shadow: 0 0 0 0.375rem rgb(from var(--active-danger) r g b / 50%);
             }
         }
 

@@ -1,5 +1,5 @@
 .input-switch {
-    width: 240px;
+    width: 15rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -21,7 +21,7 @@
 
         &:focus+.slider,
         &:active+.slider {
-            box-shadow: 0px 0px 0px 5px rgb(from var(--active-primary) r g b / 50%);
+            box-shadow: 0 0 0 0.375rem rgb(from var(--active-primary) r g b / 50%);
         }
 
         &:checked+.slider {

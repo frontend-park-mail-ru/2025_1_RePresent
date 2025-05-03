@@ -1,6 +1,6 @@
 .list-item-banner-slot {
-    width: 400px;
-    height: 65px;
+    width: 25rem;
+    height: 4rem;
     padding: 0 var(--margin-medium);
     background-color: var(--bg-secondary);
     border-radius: var(--corner-small);
@@ -54,9 +54,9 @@
     }
 
     .indicator {
-        min-width: 25px;
-        width: 25px;
-        height: 25px;
+        min-width: 1.6rem;
+        width: 1.6rem;
+        height: 1.6rem;
         border-radius: 100%;
     }
 
