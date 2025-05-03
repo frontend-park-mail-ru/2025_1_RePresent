@@ -1,5 +1,12 @@
+@use './vars';
+
+body:has(.list-banner-slot.list_expanded) {
+    overflow: hidden;
+}
+
 .list-banner-slot {
     width: 22rem;
+    min-width: 18rem;
     height: calc(100vh - (var(--margin-medium) * 3 + var(--navbar-height)));
     position: sticky;
     top: calc(var(--margin-medium) * 2 + var(--navbar-height));
@@ -9,6 +16,17 @@
     padding: var(--margin-medium);
     background-color: var(--bg-primary);
     border-radius: var(--corner-small);
+
+    @media (max-width: vars.$mobile-max-width) {
+        width: 100%;
+        flex-shrink: 0;
+        margin-left: -100%;
+        transition: margin-left 0.5s;
+
+        &.list_expanded {
+            margin-left: 0;
+        }
+    }
 
     h1 {
         font-size: var(--font-large);

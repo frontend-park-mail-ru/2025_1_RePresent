@@ -1,3 +1,5 @@
+@use './vars';
+
 .menu-section-banner-slot {
     width: 80rem;
     padding: var(--margin-small);
@@ -7,11 +9,13 @@
     background-color: var(--bg-primary);
     border-radius: var(--corner-small);
 
+    @media (max-width: vars.$mobile-max-width) {
+        width: calc(100% - var(--margin-medium));
+        flex-shrink: 0;
+    }
+
     .menu-contents {
-        padding: 0 var(--margin-big);
-        display: flex;
-        flex-direction: row;
-        gap: var(--margin-huge);
+        padding: 0 var(--margin-big) var(--margin-big);
     }
 
     .empty-state-msg {

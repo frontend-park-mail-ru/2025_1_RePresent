@@ -1,9 +1,15 @@
+@use './vars';
+
 .menu-banner-slot-editor {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: var(--margin-huge);
+
+    @media (max-width: vars.$mobile-max-width) {
+        flex-direction: column;
+    }
 
     h1 {
         font-size: var(--font-large);

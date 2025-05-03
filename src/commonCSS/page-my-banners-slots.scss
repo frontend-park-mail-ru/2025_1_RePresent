@@ -1,3 +1,5 @@
+@use './vars';
+
 .page-my-banners-slots {
     height: 100%;
     display: flex;
@@ -7,6 +9,7 @@
     .navbar-container {
         position: sticky;
         top: var(--margin-medium);
+        overflow: hidden;
     }
 
     .contents {
@@ -15,5 +18,9 @@
         justify-content: center;
         gap: var(--margin-medium);
         flex: 1;
+
+        @media (max-width: vars.$mobile-max-width) {
+            justify-content: start;
+        }
     }
 }

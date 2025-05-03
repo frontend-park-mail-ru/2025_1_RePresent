@@ -1,6 +1,6 @@
 @use './vars';
 
-#root {
+#root:has(.page-sign-in-up) {
     height: 100%;
 
     @media (max-width: vars.$mobile-max-width) {
