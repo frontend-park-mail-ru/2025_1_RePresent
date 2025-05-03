@@ -11,6 +11,7 @@ import { store } from '../../modules/store';
  */
 export class ListSlot extends Component {
     private slots: Slot[];
+    private listExpanded: boolean = true;
 
     /**
      * Конструктор компонента
@@ -41,6 +42,7 @@ export class ListSlot extends Component {
         store.update({ key: 'selectedSlot', value: null });
         this.slots = await SlotAPI.getAll();
         this.renderList(null);
+        this.showSlotList();
     }
 
     /**
@@ -58,6 +60,7 @@ export class ListSlot extends Component {
      */
     private onSlotSelect(slotId: number): void {
         this.renderList(slotId);
+        this.hideSlotList();
     }
 
     /**
@@ -81,6 +84,8 @@ export class ListSlot extends Component {
         this.renderList(null);
 
         dispatcher.dispatch('menu-select', 'editor');
+
+        this.hideSlotList();
     }
 
     /**
@@ -110,10 +115,42 @@ export class ListSlot extends Component {
     }
 
     /**
+     * Показать список слотов
+     */
+    private showSlotList() {
+        this.rootElement.classList.add('expanded');
+        this.listExpanded = true;
+    }
+
+    /**
+     * Спрятать список слотов
+     */
+    private hideSlotList() {
+        this.rootElement.classList.remove('expanded');
+        this.listExpanded = false;
+    }
+
+    /**
+     * Функциональность переключателя видимости списка на мобильных устройствах
+     */
+    private bindExpandToggle() {
+        const toggle = this.rootElement.querySelector('.toggle') as HTMLElement;
+        toggle.onclick = () => {
+            if (this.listExpanded) {
+                this.hideSlotList();
+                return;
+            }
+            this.showSlotList();
+        }
+    }
+
+    /**
      * Отрисовка страницы
      */
     public async render(): Promise<void> {
         super.render();
+
+        this.bindExpandToggle();
 
         const createSlotBtn = this.parent.querySelector('.create-slot-btn') as HTMLElement;
         createSlotBtn.addEventListener('click', this.onSlotCreateClick.bind(this));
