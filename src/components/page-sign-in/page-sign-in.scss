@@ -1,1 +1,14 @@
 @use '../../commonCSS/page-sign-in-up';
+@use '../../commonCSS/vars';
+
+@media (max-width: vars.$mobile-max-width) {
+    .page-sign-in-up.page-sign-in {
+        .container {
+            flex-direction: column;
+        }
+
+        .form-block {
+            height: 25rem;
+        }
+    }
+}
