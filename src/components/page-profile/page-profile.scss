@@ -3,6 +3,7 @@
         position: sticky;
         top: var(--margin-medium);
         margin-bottom: var(--margin-medium);
+        z-index: 1;
     }
 
     .contents {

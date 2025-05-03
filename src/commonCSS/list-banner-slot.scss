@@ -1,15 +1,19 @@
 $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
 @media (max-width: $mobile-max-width) {
+
+    html:has(.list-banner-slot.expanded),
     body:has(.list-banner-slot.expanded) {
         overflow: hidden;
     }
+
 }
 
 .list-banner-slot {
     width: 22rem;
     min-width: 18rem;
-    height: calc(100vh - (var(--margin-medium) * 3 + var(--navbar-height)));
+    min-height: 20rem;
+    height: calc(100svh - (var(--margin-medium) * 3 + var(--navbar-height)));
     position: sticky;
     top: calc(var(--margin-medium) * 2 + var(--navbar-height));
     display: flex;
