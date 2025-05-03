@@ -1,7 +1,5 @@
 'use strict';
 
-import './input-select.scss';
-
 import { InputWithError, InputWithErrorProps } from '../../modules/input-with-error';
 
 /**

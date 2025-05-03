@@ -1,7 +1,5 @@
 'use strict';
 
-import './menu-section-slot.scss';
-
 import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../modules/component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';

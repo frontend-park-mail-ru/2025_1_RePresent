@@ -1,7 +1,5 @@
 'use strict';
 
-import './page-my-slots.scss';
-
 import { Component } from '../../modules/component';
 import { ListSlot } from '../list-slot/list-slot';
 import { MenuSectionSlot } from '../menu-section-slot/menu-section-slot';

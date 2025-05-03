@@ -1,7 +1,5 @@
 'use strict';
 
-import './list-slot.scss';
-
 import { Component } from '../../modules/component';
 import { ListItemBannerSlot } from '../list-item-banner-slot/list-item-banner-slot';
 import { Slot, SlotAPI } from '../../api/slotApi';

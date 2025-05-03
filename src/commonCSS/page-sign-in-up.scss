@@ -1,9 +1,9 @@
-@use './vars';
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
 #root:has(.page-sign-in-up) {
     height: 100%;
 
-    @media (max-width: vars.$mobile-max-width) {
+    @media (max-width: $mobile-max-width) {
         height: fit-content;
     }
 }
@@ -23,7 +23,7 @@
         display: flex;
         flex-direction: row;
 
-        @media (max-width: vars.$mobile-max-width) {
+        @media (max-width: $mobile-max-width) {
             width: 100%;
             height: auto;
         }
@@ -41,7 +41,7 @@
         gap: var(--margin-medium);
     }
 
-    @media (max-width: vars.$mobile-max-width) {
+    @media (max-width: $mobile-max-width) {
         .offer-block {
             width: 100%;
             height: 15rem;

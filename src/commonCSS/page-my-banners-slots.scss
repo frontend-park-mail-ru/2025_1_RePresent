@@ -1,4 +1,4 @@
-@use './vars';
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
 .page-my-banners-slots {
     height: 100%;
@@ -19,7 +19,7 @@
         gap: var(--margin-medium);
         flex: 1;
 
-        @media (max-width: vars.$mobile-max-width) {
+        @media (max-width: $mobile-max-width) {
             justify-content: start;
         }
     }

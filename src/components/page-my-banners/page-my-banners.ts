@@ -1,7 +1,5 @@
 'use strict';
 
-import './page-my-banners.scss';
-
 import { Component } from '../../modules/component';
 import { ListBanner } from '../list-banner/list-banner';
 import { MenuSectionBanner } from '../menu-section-banner/menu-section-banner';

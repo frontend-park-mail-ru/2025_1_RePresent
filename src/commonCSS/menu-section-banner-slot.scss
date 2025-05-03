@@ -1,4 +1,4 @@
-@use './vars';
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
 .menu-section-banner-slot {
     width: 80rem;
@@ -9,7 +9,7 @@
     background-color: var(--bg-primary);
     border-radius: var(--corner-small);
 
-    @media (max-width: vars.$mobile-max-width) {
+    @media (max-width: $mobile-max-width) {
         width: calc(100% - var(--margin-medium));
         flex-shrink: 0;
     }

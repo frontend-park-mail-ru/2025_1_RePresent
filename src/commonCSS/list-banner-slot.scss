@@ -1,4 +1,4 @@
-@use './vars';
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
 body:has(.list-banner-slot.list_expanded) {
     overflow: hidden;
@@ -17,7 +17,7 @@ body:has(.list-banner-slot.list_expanded) {
     background-color: var(--bg-primary);
     border-radius: var(--corner-small);
 
-    @media (max-width: vars.$mobile-max-width) {
+    @media (max-width: $mobile-max-width) {
         width: 100%;
         flex-shrink: 0;
         margin-left: -100%;

@@ -1,7 +1,5 @@
 'use strict';
 
-import './list-banner.scss';
-
 import { Component } from '../../modules/component';
 import { ListItemBannerSlot } from '../list-item-banner-slot/list-item-banner-slot';
 import { Banner, BannerAPI } from '../../api/bannerApi';

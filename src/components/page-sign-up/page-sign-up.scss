@@ -1,7 +1,6 @@
-@use '../../commonCSS/page-sign-in-up';
-@use '../../commonCSS/vars';
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
-@media (max-width: vars.$mobile-max-width) {
+@media (max-width: $mobile-max-width) {
     .page-sign-in-up.page-sign-up {
         .container {
             flex-direction: column-reverse;

@@ -1,6 +1,6 @@
 'use strict';
 
-import './commonCSS/global.scss';
+import './commonCSS/index.scss';
 
 import { CSAT } from './components/csat/csat';
 
