@@ -4,3 +4,4 @@ dist/*
 !dist/index.html
 !dist/indexCsat.html
 !dist/images/
+!dist/icons/
