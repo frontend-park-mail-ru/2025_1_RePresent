@@ -1,3 +1,5 @@
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
+
 :root {
     --active-primary: #72E6BF;
     --active-primary-dark: #4CB894;
@@ -34,4 +36,8 @@
     --margin-huge: 6.25rem;
 
     --navbar-height: 4rem;
+
+    @media (max-width: $mobile-max-width) {
+        --font-small: 13px; // 1rem
+    }
 }
