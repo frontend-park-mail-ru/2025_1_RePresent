@@ -11,6 +11,7 @@ import { store } from '../../modules/store';
  */
 export class ListBanner extends Component {
     private banners: Banner[];
+    private listExpanded: boolean = true;
 
     /**
      * Конструктор компонента
@@ -41,6 +42,7 @@ export class ListBanner extends Component {
         store.update({ key: 'selectedBanner', value: null });
         this.banners = await BannerAPI.getAll();
         this.renderList(null);
+        this.showBannerList();
     }
 
     /**
@@ -58,6 +60,7 @@ export class ListBanner extends Component {
      */
     private onBannerSelect(bannerId: number): void {
         this.renderList(bannerId);
+        this.hideBannerList();
     }
 
     /**
@@ -85,6 +88,8 @@ export class ListBanner extends Component {
         this.renderList(null);
 
         dispatcher.dispatch('menu-select', 'editor');
+
+        this.hideBannerList();
     }
 
     /**
@@ -114,10 +119,41 @@ export class ListBanner extends Component {
     }
 
     /**
+     * Показать список объявлений
+     */
+    private showBannerList() {
+        this.rootElement.classList.add('expanded');
+    }
+
+    /**
+     * Спрятать список объявлений
+     */
+    private hideBannerList() {
+        this.rootElement.classList.remove('expanded');
+    }
+
+    /**
+     * Функциональность переключателя видимости списка на мобильных устройствах
+     */
+    private bindExpandToggle() {
+        const toggle = this.rootElement.querySelector('.toggle') as HTMLElement;
+        toggle.onclick = () => {
+            if (this.listExpanded) {
+                this.hideBannerList();
+            } else {
+                this.showBannerList();
+            }
+            this.listExpanded = !this.listExpanded;
+        }
+    }
+
+    /**
      * Отрисовка страницы
      */
     public async render(): Promise<void> {
         super.render();
+
+        this.bindExpandToggle();
 
         const createBannerBtn = this.parent.querySelector('.create-banner-btn') as HTMLElement;
         createBannerBtn.addEventListener('click', this.onBannerCreateClick.bind(this));

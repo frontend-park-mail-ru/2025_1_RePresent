@@ -1,7 +1,9 @@
 $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
-body:has(.list-banner-slot.list_expanded) {
-    overflow: hidden;
+@media (max-width: $mobile-max-width) {
+    body:has(.list-banner-slot.expanded) {
+        overflow: hidden;
+    }
 }
 
 .list-banner-slot {
@@ -22,10 +24,6 @@ body:has(.list-banner-slot.list_expanded) {
         flex-shrink: 0;
         margin-left: -100%;
         transition: margin-left 0.5s;
-
-        &.list_expanded {
-            margin-left: 0;
-        }
     }
 
     h1 {
@@ -50,6 +48,71 @@ body:has(.list-banner-slot.list_expanded) {
         &>* {
             width: 100%;
             margin-bottom: var(--margin-small);
+        }
+    }
+
+    $transition-time: 0.5s;
+
+    .toggle {
+        position: absolute;
+        top: 0;
+        right: -3.5rem;
+        transition: right $transition-time;
+        background-color: var(--bg-primary);
+        border-radius: var(--corner-small);
+        padding: var(--margin-small);
+        border: var(--border-width) solid var(--bg-secondary-dark);
+        box-sizing: content-box;
+        width: 3rem;
+        height: 3rem;
+        cursor: pointer;
+        display: none;
+        user-select: none;
+
+        @media (max-width: $mobile-max-width) {
+            display: block;
+        }
+
+        .icon-bars,
+        .icon-xmark {
+            width: 3rem;
+            height: 3rem;
+            display: block;
+            position: absolute;
+            left: 50%;
+            transition: transform $transition-time, opacity $transition-time;
+        }
+
+        .icon-bars {
+            opacity: 1;
+            pointer-events: all;
+            transform: translate(-50%, 0) rotate(0);
+        }
+
+        .icon-xmark {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 0) rotate(-360deg);
+        }
+    }
+
+    &.expanded {
+        margin-left: 0;
+
+        .toggle {
+            right: 0;
+
+            .icon-bars {
+                opacity: 0;
+                pointer-events: none;
+                transform: translate(-50%, 0) rotate(360deg);
+            }
+
+            .icon-xmark {
+                opacity: 1;
+                pointer-events: all;
+                transform: translate(-50%, 0) rotate(0);
+            }
         }
     }
 }
