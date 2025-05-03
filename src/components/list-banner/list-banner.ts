@@ -123,6 +123,7 @@ export class ListBanner extends Component {
      */
     private showBannerList() {
         this.rootElement.classList.add('expanded');
+        this.listExpanded = true;
     }
 
     /**
@@ -130,6 +131,7 @@ export class ListBanner extends Component {
      */
     private hideBannerList() {
         this.rootElement.classList.remove('expanded');
+        this.listExpanded = false;
     }
 
     /**
@@ -140,10 +142,9 @@ export class ListBanner extends Component {
         toggle.onclick = () => {
             if (this.listExpanded) {
                 this.hideBannerList();
-            } else {
-                this.showBannerList();
+                return;
             }
-            this.listExpanded = !this.listExpanded;
+            this.showBannerList();
         }
     }
 
