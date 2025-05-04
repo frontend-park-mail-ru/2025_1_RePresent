@@ -9,7 +9,6 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     .navbar-container {
         position: sticky;
         top: var(--margin-medium);
-        overflow: hidden;
         z-index: 1;
     }
 
