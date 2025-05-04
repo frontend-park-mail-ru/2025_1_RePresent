@@ -40,10 +40,10 @@ export class ListSlot extends Component {
      * @param {string} slotLink - ссылка удаленного слота
      */
     private async onSlotDelete(slotLink: string): Promise<void> {
-        store.update({ key: 'selectedSlot', value: null });
         this.slots = this.slots.filter(s => s.link != slotLink);
         this.renderList(null);
         this.showSlotList();
+        store.update({ key: 'selectedSlot', value: null });
     }
 
     /**
@@ -96,9 +96,12 @@ export class ListSlot extends Component {
     private renderList(selectedLink: string): void {
         const slotList = this.parent.querySelector('.list') as HTMLElement;
         if (this.slots.length == 0) {
+            store.update({ key: 'hasSlots', value: false });
             slotList.innerHTML = '<p class="none-msg">Нет слотов</p>';
             return;
         }
+        store.update({ key: 'hasSlots', value: true });
+
         slotList.innerHTML = '';
         this.slots.forEach(slot => {
             const isSelected = slot.link == selectedLink;
@@ -157,7 +160,6 @@ export class ListSlot extends Component {
         createSlotBtn.addEventListener('click', this.onSlotCreateClick.bind(this));
 
         this.slots = await SlotAPI.getAll();
-        store.update({ key: 'hasSlots', value: this.slots.length > 0 });
         this.renderList(null);
     }
 }
