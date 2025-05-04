@@ -60,10 +60,6 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
         @media (max-width: $mobile-max-width) {
             width: 100%;
-
-            iframe {
-                display: none;
-            }
         }
 
         button {
@@ -81,7 +77,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     }
 
     .image-upload {
-        width: 20.8rem;
+        width: 100%;
     }
 
     button.danger {
