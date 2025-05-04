@@ -1,3 +1,5 @@
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
+
 #page-profile {
     .navbar-container {
         position: sticky;
@@ -7,15 +9,34 @@
     }
 
     .contents {
-        width: 80rem;
-        margin: 0 auto;
-        padding: var(--margin-big);
+        $main-max-width: 80rem;
+
         display: flex;
         flex-direction: row;
-        gap: var(--margin-big);
-        justify-content: space-around;
-        background-color: var(--bg-primary);
-        border-radius: var(--corner-small);
+        justify-content: center;
+
+        @media (max-width: $main-max-width) {
+            justify-content: start;
+        }
+
+        .main {
+            width: $main-max-width;
+            min-width: 50rem;
+            flex-shrink: 1;
+            padding: var(--margin-big);
+            display: flex;
+            flex-direction: row;
+            gap: var(--margin-big);
+            justify-content: space-around;
+            background-color: var(--bg-primary);
+            border-radius: var(--corner-small);
+
+            @media (max-width: $mobile-max-width) {
+                width: 100%;
+                min-width: 0;
+                flex-direction: column;
+            }
+        }
     }
 
     .public-section,
