@@ -7,7 +7,7 @@ import { FormSlotEditorOptions } from '../form-slot-editor-options/form-slot-edi
 import { store } from '../../modules/store';
 import { Button } from '../button/button';
 import { dispatcher } from '../../modules/dispatcher';
-import { Slot, SlotAPI } from '../../api/slotApi';
+import { Slot, SlotAPI, SlotFormat } from '../../api/slotApi';
 import { InputSelect } from '../input-select/input-select';
 import { InputField } from '../input-field/input-field';
 
@@ -15,6 +15,8 @@ import { InputField } from '../input-field/input-field';
  * Меню редактора слота
  */
 export class MenuSlotEditor extends Component {
+    private linkField: InputField;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -68,9 +70,21 @@ export class MenuSlotEditor extends Component {
     }
 
     /**
+     * Обработка выбора формата слота
+     * @param {number} code - код выбранного формата
+     */
+    private onFormatSelect(code: number): void {
+        const slot = store.get<Slot>('selectedSlot');
+        const slotLink = `${location.origin}/slot/iframe/${slot.link}/${code}`;
+        this.linkField.inputElement.value = slotLink;
+
+        this.renderPreview();
+    }
+
+    /**
      * Отрисовка секции ссылки
      */
-    private renderLinkSection(): void {
+    private async renderLinkSection(): Promise<void> {
         const slot = store.get<Slot>('selectedSlot');
 
         const linkSection = this.rootElement.querySelector('.link-section') as HTMLElement;
@@ -80,39 +94,41 @@ export class MenuSlotEditor extends Component {
             return;
         }
 
+        let slotFormats = store.get<SlotFormat[]>('slotFormats');
+        if (!slotFormats) {
+            slotFormats = await SlotAPI.getFormats();
+            store.update({ key: 'slotFormats', value: slotFormats });
+        }
+
         const sizeSelect = new InputSelect(linkSection, {
             name: 'size',
             label: 'Размер',
-            options: [
-                { value: 'small', label: 'Маленький' },
-                { value: 'medium', label: 'Средний' },
-                { value: 'large', label: 'Большой' },
-            ],
+            options: slotFormats.map(f => { return { value: f.code.toString(), label: f.description } }),
             placeholder: 'Выберите размер',
         });
         sizeSelect.render();
-
-        const slotLink = `${location.origin}/slot/iframe/${slot.link}`;
+        sizeSelect.inputElement.addEventListener('change', () => {
+            this.onFormatSelect(+sizeSelect.getValue());
+        });
 
         linkSection.insertAdjacentHTML('beforeend', '<div class="link-copy"></div>');
         const linkCopy = linkSection.querySelector('.link-copy') as HTMLElement;
 
-        const linkField = new InputField(linkCopy, {
+        this.linkField = new InputField(linkCopy, {
             name: 'link',
             label: 'Ссылка на объявление',
-            placeholder: 'Ссылка',
+            placeholder: 'Выберите размер',
             type: 'text',
-            default: slotLink,
             disabled: true,
         });
-        linkField.render();
+        this.linkField.render();
 
         const linkCopyButton = new Button(linkCopy);
         linkCopyButton.render({
             type: 'neutral',
             label: '📋',
             onClick: () => {
-                navigator.clipboard.writeText(slotLink);
+                navigator.clipboard.writeText(<string>this.linkField.getValue());
             },
         });
 

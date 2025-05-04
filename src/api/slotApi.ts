@@ -14,6 +14,16 @@ export interface Slot {
     beingCreated?: boolean;
 }
 
+/**
+ * Интерфейс для описания формата отображения слотов
+ */
+export interface SlotFormat {
+    code: number;
+    width: number;
+    height: number;
+    description: string;
+}
+
 export class SlotAPI {
     /**
      * Получить все слоты текущего пользователя
@@ -66,5 +76,19 @@ export class SlotAPI {
             body: JSON.stringify({ link }),
         });
         return response.json();
+    }
+
+    /**
+     * Получить все форматы отображения слотов
+     * @returns {Promise<SlotFormat[]>} - ответ API
+     */
+    static async getFormats(): Promise<SlotFormat[]> {
+        const response = await API.fetch('/slot/formats', {
+            method: 'GET',
+        });
+        if (!response.ok) {
+            return [];
+        }
+        return (await response.json())['body'];
     }
 }
