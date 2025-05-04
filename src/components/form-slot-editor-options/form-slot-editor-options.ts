@@ -32,10 +32,10 @@ export class FormSlotEditorOptions extends Form {
 
         this.selectedSlot.slot_name = inputs.name.getValue();
         this.selectedSlot.is_active = inputs.isActive.getValue();
-        this.selectedSlot.beingCreated = false;
 
         if (this.selectedSlot.beingCreated) {
             await SlotAPI.create(this.selectedSlot);
+            this.selectedSlot.beingCreated = false;
             dispatcher.dispatch('slot-create', this.selectedSlot);
         } else {
             await SlotAPI.update(this.selectedSlot);
