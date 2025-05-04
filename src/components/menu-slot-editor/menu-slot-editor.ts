@@ -71,14 +71,19 @@ export class MenuSlotEditor extends Component {
 
     /**
      * Обработка выбора формата слота
-     * @param {number} code - код выбранного формата
+     * @param {number | null} code - код выбранного формата
      */
-    private onFormatSelect(code: number): void {
+    private onFormatSelect(code: number | null): void {
+        this.renderPreview();
+
+        if (code == null) {
+            this.linkField.inputElement.value = '';
+            return;
+        }
+
         const slot = store.get<Slot>('selectedSlot');
         const slotLink = `${location.origin}/slot/iframe/${slot.link}/${code}`;
         this.linkField.inputElement.value = slotLink;
-
-        this.renderPreview();
     }
 
     /**
@@ -108,7 +113,9 @@ export class MenuSlotEditor extends Component {
         });
         sizeSelect.render();
         sizeSelect.inputElement.addEventListener('change', () => {
-            this.onFormatSelect(+sizeSelect.getValue());
+            const size = sizeSelect.getValue();
+            const code = size ? +size : null;
+            this.onFormatSelect(code);
         });
 
         linkSection.insertAdjacentHTML('beforeend', '<div class="link-copy"></div>');
