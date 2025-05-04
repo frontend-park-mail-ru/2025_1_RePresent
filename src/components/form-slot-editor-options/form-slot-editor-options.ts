@@ -31,6 +31,7 @@ export class FormSlotEditorOptions extends Form {
         const inputs = this.props.inputs;
 
         this.selectedSlot.slot_name = inputs.name.getValue();
+        this.selectedSlot.min_price = inputs.perShow.getValue();
         this.selectedSlot.is_active = inputs.isActive.getValue();
 
         if (this.selectedSlot.beingCreated) {
