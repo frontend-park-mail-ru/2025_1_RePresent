@@ -35,11 +35,18 @@ export class FormSlotEditorOptions extends Form {
         this.selectedSlot.is_active = inputs.isActive.getValue();
 
         if (this.selectedSlot.beingCreated) {
-            await SlotAPI.create(this.selectedSlot);
+            const response = await SlotAPI.create(this.selectedSlot);
+            if (response.service.error) {
+                return;
+            }
+            this.selectedSlot = response.body;
             this.selectedSlot.beingCreated = false;
             dispatcher.dispatch('slot-create', this.selectedSlot);
         } else {
-            await SlotAPI.update(this.selectedSlot);
+            const response = await SlotAPI.update(this.selectedSlot);
+            if (response.service.error) {
+                return;
+            }
             dispatcher.dispatch('slot-update', this.selectedSlot);
         }
     }
