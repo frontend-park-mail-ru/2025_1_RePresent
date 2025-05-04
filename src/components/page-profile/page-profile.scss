@@ -49,10 +49,22 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
     .public-section {
         width: 24rem;
+
+        @media (max-width: $mobile-max-width) {
+            width: 100%;
+        }
     }
 
     .private-section {
         width: 36rem;
+
+        @media (max-width: $mobile-max-width) {
+            width: 100%;
+
+            iframe {
+                display: none;
+            }
+        }
 
         button {
             width: fit-content;
