@@ -37,21 +37,22 @@ export class ListSlot extends Component {
 
     /**
      * Обработчик удаления слота, перезапрашивющий список слотов
+     * @param {string} slotLink - ссылка удаленного слота
      */
-    private async onSlotDelete(): Promise<void> {
+    private async onSlotDelete(slotLink: string): Promise<void> {
         store.update({ key: 'selectedSlot', value: null });
-        this.slots = await SlotAPI.getAll();
+        this.slots = this.slots.filter(s => s.link != slotLink);
         this.renderList(null);
         this.showSlotList();
     }
 
     /**
      * Обработчик обновления слота, перезапрашивющий список слотов
-     * @param {string} slotLink - ссылка обновленного слота
+     * @param {Slot} slot - обновленный слот
      */
-    private async onSlotUpdate(slotLink: string): Promise<void> {
-        this.slots = await SlotAPI.getAll();
-        this.renderList(slotLink);
+    private async onSlotUpdate(slot: Slot): Promise<void> {
+        this.slots = this.slots.map(s => (s.link == slot.link) ? slot : s);
+        this.renderList(slot.link);
     }
 
     /**

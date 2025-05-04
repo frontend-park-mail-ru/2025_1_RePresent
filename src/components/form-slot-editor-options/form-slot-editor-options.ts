@@ -39,7 +39,7 @@ export class FormSlotEditorOptions extends Form {
             dispatcher.dispatch('slot-create', this.selectedSlot);
         } else {
             await SlotAPI.update(this.selectedSlot);
-            dispatcher.dispatch('slot-update', this.selectedSlot.link);
+            dispatcher.dispatch('slot-update', this.selectedSlot);
         }
     }
 

@@ -72,11 +72,13 @@ export class MenuSlotEditor extends Component {
      */
     private renderLinkSection(): void {
         const slot = store.get<Slot>('selectedSlot');
-        if (slot.beingCreated) {
-            return;
-        }
 
         const linkSection = this.rootElement.querySelector('.link-section') as HTMLElement;
+
+        if (slot.beingCreated) {
+            linkSection.insertAdjacentHTML('beforeend', '<p class="empty-state-msg">Чтобы увидеть ссылки, сохраните слот</p>');
+            return;
+        }
 
         const sizeSelect = new InputSelect(linkSection, {
             name: 'size',
