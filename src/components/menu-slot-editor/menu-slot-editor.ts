@@ -59,12 +59,12 @@ export class MenuSlotEditor extends Component {
         if (!confirm('Вы уверены, что хотите удалить этот слот?')) {
             return;
         }
-        const slotId = store.get<Slot>('selectedSlot').id;
-        const response = await SlotAPI.delete(slotId);
+        const slotLink = store.get<Slot>('selectedSlot').link;
+        const response = await SlotAPI.delete(slotLink);
         if (response.service.error) {
             return;
         }
-        dispatcher.dispatch('slot-delete', slotId);
+        dispatcher.dispatch('slot-delete', slotLink);
     }
 
     /**
@@ -73,7 +73,7 @@ export class MenuSlotEditor extends Component {
     private renderLinkSection(): void {
         const slot = store.get<Slot>('selectedSlot');
         if (slot.beingCreated) {
-            // return;
+            return;
         }
 
         const linkSection = this.rootElement.querySelector('.link-section') as HTMLElement;
@@ -90,7 +90,7 @@ export class MenuSlotEditor extends Component {
         });
         sizeSelect.render();
 
-        const slotLink = `${location.origin}/slot/iframe/${slot.id}`;
+        const slotLink = `${location.origin}/slot/iframe/${slot.link}`;
 
         linkSection.insertAdjacentHTML('beforeend', '<div class="link-copy"></div>');
         const linkCopy = linkSection.querySelector('.link-copy') as HTMLElement;

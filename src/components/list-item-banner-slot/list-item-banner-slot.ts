@@ -9,7 +9,7 @@ import { dispatcher } from '../../modules/dispatcher';
  * Интерфейс для описания параметров компонента
  */
 export interface ListItemBannerSlotProps extends Props {
-    itemId: number;
+    itemId: number | string;
     name: string;
     stats: string;
     status: 'active' | 'awaiting' | 'rejected';

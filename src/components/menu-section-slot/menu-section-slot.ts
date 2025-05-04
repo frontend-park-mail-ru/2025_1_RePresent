@@ -30,7 +30,6 @@ export class MenuSectionSlot extends Component {
 
         dispatcher.on('store-updated-selectedSlot', () => {
             this.render();
-            store.update({ key: 'fileId', value: '' });
             if (this.selectedMenuName == '') {
                 this.selectedMenuName = 'editor';
             }

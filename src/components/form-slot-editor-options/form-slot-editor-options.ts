@@ -30,16 +30,16 @@ export class FormSlotEditorOptions extends Form {
     private async onSubmit(): Promise<void> {
         const inputs = this.props.inputs;
 
-        this.selectedSlot.title = inputs.name.getValue();
-        this.selectedSlot.status = inputs.isActive.getValue() ? 1 : 0;
-
+        this.selectedSlot.slot_name = inputs.name.getValue();
+        this.selectedSlot.is_active = inputs.isActive.getValue();
+        this.selectedSlot.beingCreated = false;
 
         if (this.selectedSlot.beingCreated) {
             await SlotAPI.create(this.selectedSlot);
-            dispatcher.dispatch('slot-create');
+            dispatcher.dispatch('slot-create', this.selectedSlot);
         } else {
             await SlotAPI.update(this.selectedSlot);
-            dispatcher.dispatch('slot-update', this.selectedSlot.id);
+            dispatcher.dispatch('slot-update', this.selectedSlot.link);
         }
     }
 
@@ -62,7 +62,7 @@ export class FormSlotEditorOptions extends Form {
                 label: 'Название',
                 name: 'name',
                 placeholder: 'Введите название',
-                default: selectedSlot.title,
+                default: selectedSlot.slot_name,
                 getError: bannerTitleGetError,
             }),
             perShow: new InputField(root, {
@@ -70,34 +70,34 @@ export class FormSlotEditorOptions extends Form {
                 label: 'Минимальная стоимость показа объявления, руб.',
                 name: 'per-show',
                 placeholder: 'Введите стоимость',
-                default: selectedSlot.beingCreated ? '' : selectedSlot.perShow.toString(),
+                default: selectedSlot.min_price,
                 getError: perShowGetError,
             }),
             isActive: new InputSwitch(root, {
                 name: 'is-active',
                 label: 'Активно',
-                checked: selectedSlot.status != 0,
+                checked: selectedSlot.is_active,
             }),
-            filterMen: new InputSwitch(root, {
-                name: 'filter-men',
-                label: 'Для мужчин',
-                checked: true,
-            }),
-            filterWomen: new InputSwitch(root, {
-                name: 'filter-women',
-                label: 'Для женщин',
-                checked: true,
-            }),
-            filterMature: new InputSwitch(root, {
-                name: 'filter-mature',
-                label: 'Для совершеннолетних',
-                checked: true,
-            }),
+            // filterMen: new InputSwitch(root, {
+            //     name: 'filter-men',
+            //     label: 'Для мужчин',
+            //     checked: true,
+            // }),
+            // filterWomen: new InputSwitch(root, {
+            //     name: 'filter-women',
+            //     label: 'Для женщин',
+            //     checked: true,
+            // }),
+            // filterMature: new InputSwitch(root, {
+            //     name: 'filter-mature',
+            //     label: 'Для совершеннолетних',
+            //     checked: true,
+            // }),
         };
 
         super.renderFull(props);
 
-        const isActive = props.inputs.isActive.getRootElement();
-        isActive.insertAdjacentHTML('afterend', '<h2 class="filters-title">Фильтры</h2>');
+        // const isActive = props.inputs.isActive.getRootElement();
+        // isActive.insertAdjacentHTML('afterend', '<h2 class="filters-title">Фильтры</h2>');
     }
 }

@@ -6,10 +6,11 @@ import { API, APIresponse } from '../modules/api';
  * Интерфейс для описания параметров слота
  */
 export interface Slot {
-    id: number;
-    title: string;
-    status: number;
-    perShow: number;
+    slot_name: string;
+    is_active: boolean;
+    min_price: string;
+    format_code: number;
+    link?: string;
     beingCreated?: boolean;
 }
 
@@ -19,13 +20,13 @@ export class SlotAPI {
      * @returns {Promise<Slot[]>} - ответ API
      */
     static async getAll(): Promise<Slot[]> {
-        const response = await API.fetch('/slot', {
+        const response = await API.fetch('/slot/my', {
             method: 'GET',
         });
         if (!response.ok) {
             return [];
         }
-        return response.json();
+        return (await response.json())['body'];
     }
 
     /**
@@ -47,7 +48,7 @@ export class SlotAPI {
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async update(slot: Slot): Promise<APIresponse> {
-        const response = await API.fetch(`/slot/${slot.id}`, {
+        const response = await API.fetch(`/slot/edit`, {
             method: 'PUT',
             body: JSON.stringify(slot),
         });
@@ -56,12 +57,13 @@ export class SlotAPI {
 
     /**
      * Удалить слот для текущего пользователя
-     * @param {number} slotId - id слота
+     * @param {string} link - ссылка слота
      * @returns {Promise<APIresponse>} - ответ API
      */
-    static async delete(slotId: number): Promise<APIresponse> {
-        const response = await API.fetch(`/slot/${slotId}`, {
+    static async delete(link: string): Promise<APIresponse> {
+        const response = await API.fetch(`/slot/delete`, {
             method: 'DELETE',
+            body: JSON.stringify({ link }),
         });
         return response.json();
     }

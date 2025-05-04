@@ -67,6 +67,8 @@ export class ListBanner extends Component {
      * Обработчик нажатия на Создать объявление
      */
     private onBannerCreateClick(): void {
+        this.hideBannerList();
+
         if (store.get<Banner>('selectedBanner')?.beingCreated) {
             return;
         }
@@ -88,8 +90,6 @@ export class ListBanner extends Component {
         this.renderList(null);
 
         dispatcher.dispatch('menu-select', 'editor');
-
-        this.hideBannerList();
     }
 
     /**

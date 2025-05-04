@@ -27,12 +27,12 @@ export class ListSlot extends Component {
     }
 
     /**
-     * Обработчик создания слота, перезапрашивющий список слотов
+     * Обработчик создания слота, добавляющий слот в список
+     * @param {Slot} slot - созданный слот
      */
-    private async onSlotCreate(): Promise<void> {
-        this.slots = await SlotAPI.getAll();
-        const selectedId = Math.max(...this.slots.map(slot => slot.id));
-        this.renderList(selectedId);
+    private async onSlotCreate(slot: Slot): Promise<void> {
+        this.slots.push(slot);
+        this.renderList(slot.link);
     }
 
     /**
@@ -47,19 +47,19 @@ export class ListSlot extends Component {
 
     /**
      * Обработчик обновления слота, перезапрашивющий список слотов
-     * @param {number} slotId - id обновленного слота
+     * @param {string} slotLink - ссылка обновленного слота
      */
-    private async onSlotUpdate(slotId: number): Promise<void> {
+    private async onSlotUpdate(slotLink: string): Promise<void> {
         this.slots = await SlotAPI.getAll();
-        this.renderList(slotId);
+        this.renderList(slotLink);
     }
 
     /**
      * Обработчик выбора слота, обновляющий список слотов
-     * @param {number} slotId - id выбранного слота
+     * @param {string} slotLink - ссылка выбранного слота
      */
-    private onSlotSelect(slotId: number): void {
-        this.renderList(slotId);
+    private onSlotSelect(slotLink: string): void {
+        this.renderList(slotLink);
         this.hideSlotList();
     }
 
@@ -67,15 +67,17 @@ export class ListSlot extends Component {
      * Обработчик нажатия на Создать слот
      */
     private onSlotCreateClick(): void {
+        this.hideSlotList();
+
         if (store.get<Slot>('selectedSlot')?.beingCreated) {
             return;
         }
 
         const newSlot: Slot = {
-            id: 0,
-            title: '',
-            status: 0,
-            perShow: 0,
+            slot_name: '',
+            is_active: false,
+            min_price: '',
+            format_code: 0,
             beingCreated: true,
         };
 
@@ -84,15 +86,13 @@ export class ListSlot extends Component {
         this.renderList(null);
 
         dispatcher.dispatch('menu-select', 'editor');
-
-        this.hideSlotList();
     }
 
     /**
      * Отрисовка списка слотов
-     * @param {number} selectedId - id выбранного слота
+     * @param {string} selectedLink - id выбранного слота
      */
-    private renderList(selectedId: number): void {
+    private renderList(selectedLink: string): void {
         const slotList = this.parent.querySelector('.list') as HTMLElement;
         if (this.slots.length == 0) {
             slotList.innerHTML = '<p class="none-msg">Нет слотов</p>';
@@ -100,12 +100,12 @@ export class ListSlot extends Component {
         }
         slotList.innerHTML = '';
         this.slots.forEach(slot => {
-            const isSelected = slot.id == selectedId;
+            const isSelected = slot.link == selectedLink;
             new ListItemBannerSlot(slotList).render({
-                itemId: slot.id,
-                name: slot.title,
-                stats: `От ${slot.perShow} руб.`,
-                status: (slot.status == 1) ? 'active' : 'rejected',
+                itemId: slot.link,
+                name: slot.slot_name,
+                stats: `От ${slot.min_price} руб.`,
+                status: slot.is_active ? 'active' : 'rejected',
                 selected: isSelected,
             });
             if (isSelected) {
