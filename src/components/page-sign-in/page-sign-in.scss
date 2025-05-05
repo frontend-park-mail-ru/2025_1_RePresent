@@ -1,0 +1,13 @@
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
+
+@media (max-width: $mobile-max-width) {
+    .page-sign-in-up.page-sign-in {
+        .container {
+            flex-direction: column;
+        }
+
+        .form-block {
+            height: 25rem;
+        }
+    }
+}

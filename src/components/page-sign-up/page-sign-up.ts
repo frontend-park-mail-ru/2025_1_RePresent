@@ -1,6 +1,8 @@
 'use strict';
 
-import { Component } from '../../component';
+import './page-sign-up.scss';
+
+import { Component } from '../../modules/component';
 import { loadPath } from '../../modules/router';
 import { Button } from '../button/button';
 import { FormSignUp } from '../form-sign-up/form-sign-up';

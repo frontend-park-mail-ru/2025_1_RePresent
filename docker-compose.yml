@@ -1,23 +1,16 @@
-version: '3.8'
-
 services:
   static-builder:
-    image: node:16
+    image: node:23-alpine
     container_name: ReTargetStaticBuilder
     working_dir: /app
+    user: "1000:1000"
     volumes:
       - .:/app
-    command: sh -c "npm install && npm run build"
+    command: sh -c "npm install --production && npm run build"
+    networks:
+      - retarget_network
     restart: "no"
 
-  static-server:
-    image: node:16
-    container_name: ReTargetStaticServer
-    working_dir: /app
-    volumes:
-      - .:/app
-    ports:
-      - "${PORT}:${PORT}"
-    command: sh -c "cd server && npm install && node index.js"
-    depends_on:
-      - static-builder
+networks:
+  retarget_network:
+    external: true

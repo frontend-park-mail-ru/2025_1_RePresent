@@ -1,8 +1,8 @@
 'use strict';
 
-import './cancel-save\.scss';
+import './cancel-save.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { Button, ClickCallback } from '../button/button';
 
 interface CancelSaveProps {

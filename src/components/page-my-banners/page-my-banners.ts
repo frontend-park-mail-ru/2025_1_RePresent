@@ -1,10 +1,8 @@
 'use strict';
 
-import './page-my-banners\.scss';
-
-import { Component } from '../../component';
-import { BannerList } from '../banner-list/banner-list';
-import { MenuSection } from '../menu-section/menu-section';
+import { Component } from '../../modules/component';
+import { ListBanner } from '../list-banner/list-banner';
+import { MenuSectionBanner } from '../menu-section-banner/menu-section-banner';
 import { Navbar } from '../navbar/navbar';
 
 /**
@@ -30,10 +28,10 @@ export class PageMyBanners extends Component {
         new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'advertiser' });
 
         const contentsSection = this.rootElement.getElementsByClassName('contents')[0] as HTMLElement;
-        const bannerList = new BannerList(contentsSection);
+        const bannerList = new ListBanner(contentsSection);
         bannerList.render();
 
-        const menuSection = new MenuSection(contentsSection);
+        const menuSection = new MenuSectionBanner(contentsSection);
         menuSection.render();
     }
 }

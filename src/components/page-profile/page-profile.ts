@@ -1,8 +1,8 @@
 'use strict';
 
-import './page-profile\.scss';
+import './page-profile.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { FormProfilePublic } from '../form-profile-public/form-profile-public';
 import { WalletOptions } from '../wallet-options/wallet-options';
 import { InputField } from '../input-field/input-field';
@@ -130,5 +130,16 @@ export class PageProfile extends Component {
             disabled: true,
         });
         adLinkField.render();
+
+        const reviewsButton = new Button(privateSection);
+        reviewsButton.render({
+            label: 'Отзывы пользователей',
+            type: 'neutral',
+            onClick: () => {
+                loadPath('/reviews');
+            },
+        });
+
+        // privateSection.insertAdjacentHTML('beforeend', '<iframe src="/csat" width="400" height="330" style="border: none;"></iframe>');
     }
 }

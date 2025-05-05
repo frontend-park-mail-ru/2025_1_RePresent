@@ -1,8 +1,8 @@
 'use strict';
 
-import './wallet-options\.scss';
+import './wallet-options.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { Button } from '../button/button';
 import { InputField } from '../input-field/input-field';
 import { topUpAmountGetError } from '../../modules/validation';

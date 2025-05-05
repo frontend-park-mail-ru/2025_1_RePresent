@@ -1,0 +1,43 @@
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
+
+:root {
+    --active-primary: #72E6BF;
+    --active-primary-dark: #4CB894;
+    --active-secondary: #96F2EE;
+    --active-secondary-dark: #69CEC9;
+    --active-warning: #FFC423;
+    --active-danger-light: #FF867B;
+    --active-danger: #FF513A;
+    --active-danger-dark: #D22D2D;
+
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #E2EEF2;
+    --bg-secondary-dark: #AECDD8;
+    --bg-light-gray: #DFDFDF;
+    --bg-gray: #9c9c9c;
+    --bg-dark-gray: #747474;
+    --bg-transparent: rgba(0, 0, 0, 0);
+
+    --text-primary: #202020;
+    --text-inverted: #FFFFFF;
+    --text-secondary: #757575;
+
+    --font-small: 16px; // 1rem
+    --font-medium: 1.375rem;
+    --font-large: 1.75rem;
+
+    --corner-small: 0.75rem;
+    --corner-big: 2.25rem;
+    --border-width: 0.125rem;
+
+    --margin-small: 0.624rem;
+    --margin-medium: 1.25rem;
+    --margin-big: 1.875rem;
+    --margin-huge: 6.25rem;
+
+    --navbar-height: 4rem;
+
+    @media (max-width: $mobile-max-width) {
+        --font-small: 13px; // 1rem
+    }
+}

@@ -1,8 +1,8 @@
 'use strict';
 
-import './link-inner\.scss';
+import './link-inner.scss';
 
-import { Component } from '../../component';
+import { Component } from '../../modules/component';
 import { loadPath } from '../../modules/router';
 
 /**

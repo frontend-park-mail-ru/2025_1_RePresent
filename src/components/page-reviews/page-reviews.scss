@@ -1,0 +1,78 @@
+#page-review {
+    .navbar-container {
+        position: sticky;
+        top: var(--margin-medium);
+        margin-bottom: var(--margin-medium);
+        z-index: 1;
+    }
+
+    .contents {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .main {
+            width: 80rem;
+            flex-shrink: 1;
+            padding: var(--margin-big);
+            background-color: var(--bg-primary);
+            border-radius: var(--corner-small);
+
+            .header-bar {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .reviews-title {
+                    font-size: var(--font-large);
+                }
+            }
+        }
+
+        .reviews-message {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: var(--margin-big);
+        }
+
+        .reviews-container {
+            width: 100%;
+            margin-top: var(--margin-medium);
+            padding: 0 var(--margin-big);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: var(--margin-medium);
+            justify-content: center;
+
+            .review-item {
+                width: min(30rem, 100%);
+                padding: var(--margin-medium);
+                display: flex;
+                flex-direction: column;
+                gap: var(--margin-small);
+                background-color: var(--bg-primary);
+                border: var(--border-width) solid var(--bg-secondary-dark);
+                border-radius: var(--corner-small);
+
+                .review-question {
+                    font-size: var(--font-medium);
+                }
+
+                .review-rating {
+                    color: var(--active-primary);
+                    font-size: var(--font-large);
+                    letter-spacing: 0.2rem;
+                }
+
+                .review-comment {
+                    padding: var(--margin-small);
+                    background-color: var(--bg-secondary);
+                    border-radius: var(--corner-small);
+                    font-size: var(--font-small);
+                }
+            }
+        }
+    }
+}

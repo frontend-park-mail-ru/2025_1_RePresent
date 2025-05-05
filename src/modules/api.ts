@@ -7,6 +7,7 @@ export interface APIresponse {
         error: string;
         success: string;
     };
+    body: any;
 }
 
 /**

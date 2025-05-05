@@ -1,7 +1,5 @@
 'use strict';
 
-import '../../sign-in-up\.scss';
-
 import { Form, FormProps } from '../form/form';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
@@ -58,7 +56,7 @@ export class FormSignIn extends Form {
             }),
         };
 
-        root.insertAdjacentHTML('beforeend', '<h1>Войти в аккаунт Рекламодателя</h1>');
+        root.insertAdjacentHTML('beforeend', '<h1>Войти в аккаунт</h1>');
 
         super.renderFull(props);
     }

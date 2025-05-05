@@ -1,0 +1,74 @@
+.list-item-banner-slot {
+    width: 25rem;
+    height: 4rem;
+    padding: 0 var(--margin-medium);
+    background-color: var(--bg-secondary);
+    border-radius: var(--corner-small);
+    border: var(--border-width) solid var(--bg-secondary-dark);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--margin-small);
+    line-height: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--bg-secondary), var(--bg-secondary-dark));
+    }
+
+    &:active,
+    &.selected {
+        background-color: var(--bg-secondary-dark);
+    }
+
+    &.selected {
+        cursor: default;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+        flex-grow: 1;
+    }
+
+    .status {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+    }
+
+    .name,
+    .stats {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .name {
+        font-size: var(--font-medium);
+    }
+
+    .indicator {
+        min-width: 1.6rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        border-radius: 100%;
+    }
+
+    &.active .indicator {
+        background-color: var(--active-primary);
+    }
+
+    &.awaiting .indicator {
+        background-color: var(--active-warning);
+    }
+
+    &.rejected .indicator {
+        background-color: var(--active-danger);
+    }
+}

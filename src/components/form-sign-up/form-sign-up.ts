@@ -1,12 +1,11 @@
 'use strict';
 
-import '../../sign-in-up\.scss';
-
 import { Form, FormProps } from '../form/form';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
 import { InputField } from '../input-field/input-field';
-import { emailGetError, getPasswordRepeatGetError, organizationGetError, passwordGetError } from '../../modules/validation';
+import { emailGetError, getPasswordRepeatGetError, organizationGetError, passwordGetError, roleGetError } from '../../modules/validation';
+import { InputSelect } from '../input-select/input-select';
 
 /**
  * Форма регистрации
@@ -19,7 +18,7 @@ export class FormSignUp extends Form {
         const username = this.props.inputs.organizationInput.getValue();
         const email = this.props.inputs.emailInput.getValue();
         const password = this.props.inputs.passwordInput.getValue();
-        const role = 1;
+        const role = this.props.inputs.roleInput.getValue() == 'advertiser' ? 1 : 2;
 
         const response = await UserAPI.signUp({ username, email, password, role });
 
@@ -57,6 +56,15 @@ export class FormSignUp extends Form {
                 placeholder: 'Название организации',
                 getError: organizationGetError,
             }),
+            roleInput: new InputSelect(root, {
+                name: 'role',
+                options: [
+                    { value: 'advertiser', label: 'Рекламодатель' },
+                    { value: 'platform', label: 'Площадка' },
+                ],
+                placeholder: 'Выберите роль',
+                getError: roleGetError,
+            }),
             emailInput: new InputField(root, {
                 type: 'email',
                 name: 'email',
@@ -79,7 +87,7 @@ export class FormSignUp extends Form {
             getError: passwordRepeatGetError,
         });
 
-        root.insertAdjacentHTML('beforeend', '<h1>Создать аккаунт Рекламодателя</h1>');
+        root.insertAdjacentHTML('beforeend', '<h1>Создать аккаунт</h1>');
 
         super.renderFull(props);
 

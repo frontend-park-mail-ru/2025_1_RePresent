@@ -1,0 +1,73 @@
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
+
+#root:has(.page-sign-in-up) {
+    height: 100%;
+
+    @media (max-width: $mobile-max-width) {
+        height: fit-content;
+    }
+}
+
+.page-sign-in-up {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+        width: 50rem;
+        height: 40rem;
+        background: linear-gradient(to left, var(--active-primary), var(--active-secondary));
+        border-radius: var(--corner-small);
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+
+        @media (max-width: $mobile-max-width) {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .offer-block,
+    .form-block {
+        width: 50%;
+        height: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--margin-medium);
+    }
+
+    @media (max-width: $mobile-max-width) {
+        .offer-block {
+            width: 100%;
+            height: 15rem;
+        }
+
+        .form-block {
+            width: 100%;
+        }
+    }
+
+    .form-block {
+        background-color: var(--bg-primary);
+    }
+
+    h1 {
+        font-family: "Oswald";
+        font-size: var(--font-large);
+    }
+
+    button {
+        width: 100%;
+        border-radius: var(--corner-big);
+    }
+
+    .offer-block>*,
+    .form-block>* {
+        width: 70%;
+    }
+}

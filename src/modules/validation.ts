@@ -1,6 +1,6 @@
 'use strict';
 
-import { Input } from '../input';
+import { Input } from './input';
 
 /**
  * Проверка валидности email
@@ -113,6 +113,26 @@ export function topUpAmountGetError(value: string): string {
 }
 
 /**
+ * Минимальная и максимальная суммы показа объявления
+ */
+export const perShowMinRub = 0.01;
+export const perShowMaxRub = 1;
+
+/**
+ * Проверка валидности суммы показа объявления
+ * @param {string} value - значение суммы показа
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function perShowGetError(value: string): string {
+    const amount = Number(value);
+    const isValid = amount >= perShowMinRub && amount <= perShowMaxRub;
+    if (isValid) {
+        return '';
+    }
+    return `От ${perShowMinRub} до ${perShowMaxRub} руб.`;
+}
+
+/**
  * Проверка валидности названия объявления
  * @param {string} value - значение названия объявления
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
@@ -157,6 +177,33 @@ export function bannerDescriptionGetError(value: string): string {
         return '';
     }
     return `До ${maxLength} символов`;
+}
+
+/**
+ * Проверка валидности комментария CSAT
+ * @param {string} value - значение комментария CSAT
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function csatCommentGetError(value: string): string {
+    const maxLength = 200;
+    const isValid = value.length <= maxLength;
+    if (isValid) {
+        return '';
+    }
+    return `До ${maxLength} символов`;
+}
+
+/**
+ * Проверка валидности выбранной роли
+ * @param {string} value - значение роли
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+export function roleGetError(value: string): string {
+    const isValid = value.length > 0;
+    if (isValid) {
+        return '';
+    }
+    return 'Выберите роль';
 }
 
 /**

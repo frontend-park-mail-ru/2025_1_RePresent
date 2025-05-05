@@ -1,0 +1,42 @@
+.csat {
+    padding: var(--margin-medium);
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-medium);
+    background-color: var(--bg-primary);
+    border: var(--border-width) solid var(--bg-secondary-dark);
+    border-radius: var(--corner-small);
+
+    &__rating {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-small);
+    }
+
+    &__star {
+        width: 3rem;
+        fill: var(--bg-secondary-dark);
+        cursor: pointer;
+
+        &:hover,
+        &_selected,
+        &:has(~ &:hover),
+        &:has(~ &_selected) {
+            fill: var(--active-primary);
+        }
+    }
+
+    &__error-msg {
+        margin-top: var(--margin-small);
+        color: var(--active-danger);
+        display: none;
+
+        &_show {
+            display: block;
+        }
+    }
+
+    .input-field {
+        width: 100%;
+    }
+}
