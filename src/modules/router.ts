@@ -38,8 +38,9 @@ const pathPageInfo: { [key: string]: PageInfo } = {
  * Загрузить страницу по ее пути
  * @param {string} path - путь страницы
  * @param {Props?} state - параметры страницы
+ * @param {boolean?} replace - заменить текущую страницу в истории
  */
-export function loadPath(path: string, state: Props = {}): void {
+export function loadPath(path: string, state: Props = {}, replace: boolean = false): void {
     if (!(path in pathPageInfo)) {
         // TODO: remove this and show 404 page instead
         path = '/signin';
@@ -47,7 +48,12 @@ export function loadPath(path: string, state: Props = {}): void {
 
     const nextTitle = pathPageInfo[path].title;
     const nextURL = location.origin + path;
-    history.pushState(state, nextTitle, nextURL);
+    if (replace) {
+        history.replaceState(state, nextTitle, nextURL);
+    }
+    if (!replace) {
+        history.pushState(state, nextTitle, nextURL);
+    }
 
     renderPage(path);
 }
@@ -73,10 +79,10 @@ async function renderPage(path: string): Promise<void> {
             pageInfo.roleRequired == 'platform' && profile.role != 2
         ) {
             if (profile.role == 1) {
-                loadPath('/my-banners');
+                loadPath('/my-banners', {}, true);
             }
             if (profile.role == 2) {
-                loadPath('/my-slots');
+                loadPath('/my-slots', {}, true);
             }
             return;
         }
