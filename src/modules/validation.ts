@@ -154,12 +154,17 @@ const URLregex = /^(https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-
 /**
  * Проверка валидности ссылки объявления
  * @param {string} value - значение ссылки объявления
+ * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
-export function bannerLinkGetError(value: string): string {
+export function bannerLinkGetError(value: string, setValue: (value: string) => void): string {
     const maxLength = 100;
     if (!URLregex.test(value)) {
         return 'Неверный URL';
+    }
+    if (!value.startsWith('http')) {
+        value = `https://${value}`;
+        setValue(value);
     }
     if (value.length > maxLength) {
         return `До ${maxLength} символов`;

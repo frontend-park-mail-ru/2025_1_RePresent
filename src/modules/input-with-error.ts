@@ -5,10 +5,11 @@ import { Input, InputProps } from './input';
 /**
  * Генератор ошибок поля
  * @callback InputWithError~getError
- * @param {string} value - значение компонента
+ * @param {string} value - значение поля
+ * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
-type GetErrorCallback = (value: string) => string;
+type GetErrorCallback = (value: string, setValue: (value: string) => void) => string;
 
 /**
  * Интерфейс для описания параметров компонента
@@ -68,13 +69,21 @@ export class InputWithError extends Input {
     }
 
     /**
+     * Установить значение поля
+     * @param {string} value - значение поля
+     */
+    private setValue(value: string): void {
+        this.inputElement.value = value;
+    }
+
+    /**
      * Отрисовка
      * @param {InputWithErrorProps} props - параметры компонента
      */
     render(props?: InputWithErrorProps): void {
         props = props || this.props as InputWithErrorProps;
 
-        props.validate = props.getError ? (value: string) => props.getError!(value) === '' : undefined;
+        props.validate = props.getError ? (value: string) => props.getError!(value, this.setValue.bind(this)) === '' : undefined;
         super.render(props);
 
         this.errorElement = this.rootElement.querySelector('.error-msg') as HTMLElement;
