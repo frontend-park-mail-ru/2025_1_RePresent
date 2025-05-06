@@ -90,7 +90,7 @@ export class PageProfile extends Component {
 
         // TODO make Page class for pages, which will render navbar
         const navbarContainer = this.rootElement.getElementsByClassName('navbar-container')[0] as HTMLElement;
-        new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'advertiser' });
+        new Navbar(navbarContainer).render();
 
         const publicSection = this.rootElement.getElementsByClassName('public-section')[0] as HTMLElement;
 

@@ -25,7 +25,7 @@ export class PageMyBanners extends Component {
 
         // TODO make Page class for pages, which will render navbar
         const navbarContainer = this.rootElement.getElementsByClassName('navbar-container')[0] as HTMLElement;
-        new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'advertiser' });
+        new Navbar(navbarContainer).render();
 
         const contentsSection = this.rootElement.getElementsByClassName('contents')[0] as HTMLElement;
         const bannerList = new ListBanner(contentsSection);

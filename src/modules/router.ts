@@ -19,19 +19,19 @@ const root = document.getElementById('root') as HTMLElement;
 interface PageInfo {
     class: new (root: HTMLElement) => { render: () => void };
     title: string;
-    authRequired: boolean;
+    roleRequired: 'none' | 'authed' | 'advertiser' | 'platform';
 }
 
 /**
  * @constant {Object.<string, PageInfo>} соответствие между путями URL и параметрами страниц
  */
 const pathPageInfo: { [key: string]: PageInfo } = {
-    '/signup': { class: PageSignUp, title: 'ReTarget - Создать аккаунт', authRequired: false },
-    '/signin': { class: PageSignIn, title: 'ReTarget - Войти в аккаунт', authRequired: false },
-    '/my-banners': { class: PageMyBanners, title: 'ReTarget - Мои объявления', authRequired: true },
-    '/my-slots': { class: PageMySlots, title: 'ReTarget - Мои слоты', authRequired: true },
-    '/profile': { class: PageProfile, title: 'ReTarget - Мой профиль', authRequired: true },
-    '/reviews': { class: PageReviews, title: 'ReTarget - Отзывы пользователей', authRequired: true },
+    '/signup': { class: PageSignUp, title: 'ReTarget - Создать аккаунт', roleRequired: 'none' },
+    '/signin': { class: PageSignIn, title: 'ReTarget - Войти в аккаунт', roleRequired: 'none' },
+    '/my-banners': { class: PageMyBanners, title: 'ReTarget - Мои объявления', roleRequired: 'advertiser' },
+    '/my-slots': { class: PageMySlots, title: 'ReTarget - Мои слоты', roleRequired: 'platform' },
+    '/profile': { class: PageProfile, title: 'ReTarget - Мой профиль', roleRequired: 'authed' },
+    '/reviews': { class: PageReviews, title: 'ReTarget - Отзывы пользователей', roleRequired: 'authed' },
 };
 
 /**
@@ -62,12 +62,24 @@ async function renderPage(path: string): Promise<void> {
 
     const pageInfo = pathPageInfo[path];
 
-    if (pageInfo.authRequired) {
+    if (pageInfo.roleRequired != 'none') {
         const profile = await ProfileAPI.getMyInfo();
         if (!profile) {
             return;
         }
         store.update({ key: 'profile', value: profile });
+
+        if (pageInfo.roleRequired == 'advertiser' && profile.role != 1 ||
+            pageInfo.roleRequired == 'platform' && profile.role != 2
+        ) {
+            if (profile.role == 1) {
+                loadPath('/my-banners');
+            }
+            if (profile.role == 2) {
+                loadPath('/my-slots');
+            }
+            return;
+        }
     }
 
     document.title = pathPageInfo[path].title;

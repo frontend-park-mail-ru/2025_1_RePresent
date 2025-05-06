@@ -11,7 +11,7 @@ export interface Profile {
     email: string;
     description: string;
     balance: number;
-    role: number;
+    role: 1 | 2;
 }
 
 export class ProfileAPI {
