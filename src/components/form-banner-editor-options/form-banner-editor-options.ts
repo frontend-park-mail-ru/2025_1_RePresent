@@ -97,7 +97,7 @@ export class FormBannerEditorOptions extends Form {
                 name: 'link',
                 placeholder: 'https://example.com',
                 default: selectedBanner.link,
-                getError: this.bannerLinkEditGetError,
+                getError: this.bannerLinkEditGetError.bind(this),
             }),
             textInput: new InputField(root, { // TODO make textarea input
                 type: 'text',
