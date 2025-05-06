@@ -99,14 +99,17 @@ export const topUpAmountMaxRub = 100_000;
 /**
  * Проверка валидности суммы пополнения баланса
  * @param {string} value - значение суммы пополнения
+ * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
-export function topUpAmountGetError(value: string): string {
+export function topUpAmountGetError(value: string, setValue: (value: string) => void): string {
+    value = value.replace(',', '.');
     const amount = Number(value);
     const isValid = /^\d+$/.test(value)
         && amount >= topUpAmountMinRub
         && amount <= topUpAmountMaxRub;
     if (isValid) {
+        setValue(value);
         return '';
     }
     return `Целое число, от ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
@@ -121,12 +124,15 @@ export const perShowMaxRub = 1;
 /**
  * Проверка валидности суммы показа объявления
  * @param {string} value - значение суммы показа
+ * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
-export function perShowGetError(value: string): string {
+export function perShowGetError(value: string, setValue: (value: string) => void): string {
+    value = value.replace(',', '.');
     const amount = Number(value);
     const isValid = amount >= perShowMinRub && amount <= perShowMaxRub;
     if (isValid) {
+        setValue(value);
         return '';
     }
     return `От ${perShowMinRub} до ${perShowMaxRub} руб.`;
