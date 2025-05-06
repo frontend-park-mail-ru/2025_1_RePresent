@@ -90,7 +90,8 @@ export class Navbar extends Component {
      * Отрисовка
      */
     public render(): void {
-        super.render();
+        const userAuthed = store.get<boolean>('profile');
+        super.render({ userAuthed });
 
         this.renderPagesSection();
         this.renderUserSection();
