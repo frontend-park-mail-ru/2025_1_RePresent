@@ -6,7 +6,7 @@ const stringReplaceLoader = {
         multiple: [
             { search: 'ENV_API_ORIGIN', replace: 'http://re-target.ru' },
             { search: 'ENV_API_VERSION', replace: 'v1' },
-            { search: 'ENV_MOBILE_MAX_WIDTH_PX', replace: '500', flags: 'g' },
+            { search: 'ENV_MOBILE_MAX_WIDTH_PX', replace: '750', flags: 'g' },
         ],
     },
 };

@@ -9,62 +9,31 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     }
 
     .contents {
-        $main-max-width: 80rem;
-
         display: flex;
         flex-direction: row;
         justify-content: center;
 
-        @media (max-width: $main-max-width) {
-            justify-content: start;
-        }
-
         .main {
-            width: $main-max-width;
-            min-width: 50rem;
+            width: 80rem;
             flex-shrink: 1;
             padding: var(--margin-big);
             display: flex;
             flex-direction: row;
-            gap: var(--margin-big);
+            gap: var(--margin-huge);
+            flex-wrap: wrap;
             justify-content: space-around;
             background-color: var(--bg-primary);
             border-radius: var(--corner-small);
-
-            @media (max-width: $mobile-max-width) {
-                width: 100%;
-                min-width: 0;
-                flex-direction: column;
-            }
         }
     }
 
     .public-section,
     .private-section {
+        flex: 0.5 0 25rem;
         display: flex;
         flex-direction: column;
         gap: var(--margin-medium);
         align-items: end;
-    }
-
-    .public-section {
-        width: 24rem;
-
-        @media (max-width: $mobile-max-width) {
-            width: 100%;
-        }
-    }
-
-    .private-section {
-        width: 36rem;
-
-        @media (max-width: $mobile-max-width) {
-            width: 100%;
-        }
-
-        button {
-            width: fit-content;
-        }
     }
 
     .public-section>*,
