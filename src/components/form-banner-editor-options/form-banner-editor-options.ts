@@ -53,6 +53,23 @@ export class FormBannerEditorOptions extends Form {
     }
 
     /**
+     * Проверка валидности ссылки объявления и установка https:// в начало
+     * @param {string} value - значение ссылки объявления
+     * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+     */
+    private bannerLinkEditGetError(value: string): string {
+        let error = bannerLinkGetError(value);
+        if (error != '') {
+            return error;
+        }
+        if (!value.startsWith('http')) {
+            value = `https://${value}`;
+            this.props.inputs.linkInput.inputElement.value = value;
+        }
+        return bannerLinkGetError(value);
+    }
+
+    /**
      * Отрисовка
      */
     render(): void {
@@ -80,7 +97,7 @@ export class FormBannerEditorOptions extends Form {
                 name: 'link',
                 placeholder: 'https://example.com',
                 default: selectedBanner.link,
-                getError: bannerLinkGetError,
+                getError: this.bannerLinkEditGetError,
             }),
             textInput: new InputField(root, { // TODO make textarea input
                 type: 'text',

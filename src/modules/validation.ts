@@ -149,7 +149,7 @@ export function bannerTitleGetError(value: string): string {
 /**
  * Регулярное выражение для проверки на URL
  */
-const URLregex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+const URLregex = /^(https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 /**
  * Проверка валидности ссылки объявления
@@ -158,11 +158,13 @@ const URLregex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-
  */
 export function bannerLinkGetError(value: string): string {
     const maxLength = 100;
-    const isValid = value.length <= maxLength && URLregex.test(value);
-    if (isValid) {
-        return '';
+    if (!URLregex.test(value)) {
+        return 'Неверный URL';
     }
-    return `URL до ${maxLength} символов`;
+    if (value.length > maxLength) {
+        return `До ${maxLength} символов`;
+    }
+    return '';
 }
 
 /**
