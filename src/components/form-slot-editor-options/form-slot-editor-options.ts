@@ -12,6 +12,8 @@ import { InputSwitch } from '../input-switch/input-switch';
  * Форма параметров слота
  */
 export class FormSlotEditorOptions extends Form {
+    private selectedSlot: Slot;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -19,7 +21,9 @@ export class FormSlotEditorOptions extends Form {
     constructor(parent: HTMLElement) {
         super(parent);
 
-        dispatcher.on('store-updated-chosenSlot', this.render.bind(this));
+        dispatcher.on('setSlotFormatCode', (format_code: number) => {
+            this.selectedSlot.format_code = format_code;
+        });
     }
 
     /**
@@ -28,7 +32,7 @@ export class FormSlotEditorOptions extends Form {
     private async onSubmit(): Promise<void> {
         const inputs = this.props.inputs;
 
-        let selectedSlot = store.get<Slot>('selectedSlot');
+        let selectedSlot = this.selectedSlot;
 
         selectedSlot.slot_name = inputs.name.getValue();
         selectedSlot.min_price = inputs.perShow.getValue();
@@ -56,6 +60,7 @@ export class FormSlotEditorOptions extends Form {
      */
     public render(): void {
         const selectedSlot = store.get<Slot>('selectedSlot');
+        this.selectedSlot = selectedSlot;
 
         const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.onSubmit.bind(this), className: 'form-block' };
 

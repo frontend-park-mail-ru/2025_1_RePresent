@@ -81,9 +81,8 @@ export class MenuSlotEditor extends Component {
             return;
         }
 
-        let slot = store.get<Slot>('selectedSlot');
-        slot.format_code = code;
-        store.update({ key: 'selectedSlot', value: slot });
+        const slot = store.get<Slot>('selectedSlot');
+        dispatcher.dispatch('setSlotFormatCode', code);
 
         const slotLink = `${location.origin}/slot/iframe/${slot.link}/${code}`;
         this.linkField.inputElement.value = slotLink;
