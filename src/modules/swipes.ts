@@ -1,7 +1,7 @@
 import { dispatcher } from "./dispatcher";
 
-const swipeMinLengthPx = 50;
-const swipeStraightness = 3;
+const swipeMinLengthPx = 15;
+const swipeStraightness = 1;
 
 let touchStart = { x: 0, y: 0 };
 let touchEnd = { x: 0, y: 0 };

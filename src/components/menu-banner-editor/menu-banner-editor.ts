@@ -33,7 +33,7 @@ export class MenuBannerEditor extends Component {
         }
         const previewContainer = this.rootElement.getElementsByClassName('preview-container')[0] as HTMLElement;
         const iframeSrc = `${API.API_ORIGIN}/banner/iframe/${banner.id}`;
-        previewContainer.innerHTML = `<iframe class="banner" style="border: none;" title="Banner" width="300" height="300" src="${iframeSrc}"></iframe>`;
+        previewContainer.innerHTML = `<iframe class="banner" style="border: none; max-width: 90%;" title="Banner" width="300" height="300" src="${iframeSrc}"></iframe>`;
     }
 
     /**
