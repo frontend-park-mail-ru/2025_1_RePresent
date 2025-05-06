@@ -35,7 +35,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     }
 
     .preview-container {
-        height: 20rem;
+        padding: var(--margin-medium);
         display: flex;
         justify-content: center;
         align-items: center;
