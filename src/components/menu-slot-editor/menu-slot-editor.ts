@@ -116,14 +116,14 @@ export class MenuSlotEditor extends Component {
             defaultValue: slot.format_code ? slot.format_code.toString() : null,
         });
         sizeSelect.render();
+        if (slot.format_code) {
+            this.onFormatSelect(slot.format_code);
+        }
         sizeSelect.inputElement.addEventListener('change', () => {
             const size = sizeSelect.getValue();
             const code = size ? +size : null;
             this.onFormatSelect(code);
         });
-        if (slot.format_code) {
-            this.onFormatSelect(slot.format_code);
-        }
 
         linkSection.insertAdjacentHTML('beforeend', '<div class="link-copy"></div>');
         const linkCopy = linkSection.querySelector('.link-copy') as HTMLElement;
