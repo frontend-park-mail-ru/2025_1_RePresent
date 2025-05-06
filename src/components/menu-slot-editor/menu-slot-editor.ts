@@ -111,8 +111,9 @@ export class MenuSlotEditor extends Component {
         const sizeSelect = new InputSelect(linkSection, {
             name: 'size',
             label: 'Размер',
+            placeholder: 'Выберите размер',
             options: slotFormats.map(f => { return { value: f.code.toString(), label: f.description } }),
-            defaultValue: slot.format_code.toString(),
+            defaultValue: slot.format_code ? slot.format_code.toString() : null,
         });
         sizeSelect.render();
         sizeSelect.inputElement.addEventListener('change', () => {
@@ -120,6 +121,9 @@ export class MenuSlotEditor extends Component {
             const code = size ? +size : null;
             this.onFormatSelect(code);
         });
+        if (slot.format_code) {
+            this.onFormatSelect(slot.format_code);
+        }
 
         linkSection.insertAdjacentHTML('beforeend', '<div class="link-copy"></div>');
         const linkCopy = linkSection.querySelector('.link-copy') as HTMLElement;
