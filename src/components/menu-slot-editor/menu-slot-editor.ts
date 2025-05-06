@@ -81,7 +81,10 @@ export class MenuSlotEditor extends Component {
             return;
         }
 
-        const slot = store.get<Slot>('selectedSlot');
+        let slot = store.get<Slot>('selectedSlot');
+        slot.format_code = code;
+        store.update({ key: 'selectedSlot', value: slot });
+
         const slotLink = `${location.origin}/slot/iframe/${slot.link}/${code}`;
         this.linkField.inputElement.value = slotLink;
     }
@@ -109,7 +112,7 @@ export class MenuSlotEditor extends Component {
             name: 'size',
             label: 'Размер',
             options: slotFormats.map(f => { return { value: f.code.toString(), label: f.description } }),
-            placeholder: 'Выберите размер',
+            defaultValue: slot.format_code.toString(),
         });
         sizeSelect.render();
         sizeSelect.inputElement.addEventListener('change', () => {

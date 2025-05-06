@@ -12,8 +12,6 @@ import { InputSwitch } from '../input-switch/input-switch';
  * Форма параметров слота
  */
 export class FormSlotEditorOptions extends Form {
-    private selectedSlot: Slot;
-
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -30,24 +28,26 @@ export class FormSlotEditorOptions extends Form {
     private async onSubmit(): Promise<void> {
         const inputs = this.props.inputs;
 
-        this.selectedSlot.slot_name = inputs.name.getValue();
-        this.selectedSlot.min_price = inputs.perShow.getValue();
-        this.selectedSlot.is_active = inputs.isActive.getValue();
+        let selectedSlot = store.get<Slot>('selectedSlot');
 
-        if (this.selectedSlot.beingCreated) {
-            const response = await SlotAPI.create(this.selectedSlot);
+        selectedSlot.slot_name = inputs.name.getValue();
+        selectedSlot.min_price = inputs.perShow.getValue();
+        selectedSlot.is_active = inputs.isActive.getValue();
+
+        if (selectedSlot.beingCreated) {
+            const response = await SlotAPI.create(selectedSlot);
             if (response.service.error) {
                 return;
             }
-            this.selectedSlot = response.body;
-            this.selectedSlot.beingCreated = false;
-            dispatcher.dispatch('slot-create', this.selectedSlot);
+            selectedSlot = response.body;
+            selectedSlot.beingCreated = false;
+            dispatcher.dispatch('slot-create', selectedSlot);
         } else {
-            const response = await SlotAPI.update(this.selectedSlot);
+            const response = await SlotAPI.update(selectedSlot);
             if (response.service.error) {
                 return;
             }
-            dispatcher.dispatch('slot-update', this.selectedSlot);
+            dispatcher.dispatch('slot-update', selectedSlot);
         }
     }
 
@@ -56,7 +56,6 @@ export class FormSlotEditorOptions extends Form {
      */
     public render(): void {
         const selectedSlot = store.get<Slot>('selectedSlot');
-        this.selectedSlot = selectedSlot;
 
         const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.onSubmit.bind(this), className: 'form-block' };
 

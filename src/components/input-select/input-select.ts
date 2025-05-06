@@ -15,10 +15,10 @@ interface InputSelectOption {
  */
 interface InputSelectProps extends InputWithErrorProps {
     name: string;
-    placeholder: string;
     options: InputSelectOption[];
+    placeholder?: string;
     label?: string;
-    default?: string;
+    defaultValue?: string;
     disabled?: boolean;
 }
 
@@ -50,10 +50,15 @@ export class InputSelect extends InputWithError {
     public render(props?: InputSelectProps): void {
         props = props || this.props as InputSelectProps;
 
-        props.options.unshift({ value: '', label: props.placeholder });
+        if (props.placeholder) {
+            props.options.unshift({ value: '', label: props.placeholder });
+        }
         const disabled = props.disabled ? 'disabled' : '';
 
         super.render({ ...props, disabled });
+        if (props.defaultValue) {
+            this.inputElement.value = props.defaultValue;
+        }
         this.updateTextStyle();
 
         this.inputElement.onchange = this.updateTextStyle.bind(this);
