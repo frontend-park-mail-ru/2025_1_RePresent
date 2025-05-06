@@ -1,4 +1,4 @@
-import { dispatcher } from "./dispatcher";
+import { dispatcher } from './dispatcher';
 
 const swipeMinLengthPx = 15;
 const swipeStraightness = 1;
