@@ -109,7 +109,7 @@ export class MenuSlotEditor extends Component {
 
         const sizeSelect = new InputSelect(linkSection, {
             name: 'size',
-            label: 'Размер',
+            label: 'Размер объявления',
             placeholder: 'Выберите размер',
             options: slotFormats.map(f => { return { value: f.code.toString(), label: f.description } }),
             defaultValue: slot.format_code ? slot.format_code.toString() : null,
@@ -127,7 +127,7 @@ export class MenuSlotEditor extends Component {
         this.linkField = new InputField(linkCopy, {
             name: 'link',
             label: 'Ссылка на объявление',
-            placeholder: 'Выберите размер',
+            placeholder: 'Здесь появится ссылка',
             type: 'text',
             disabled: true,
         });
@@ -140,7 +140,7 @@ export class MenuSlotEditor extends Component {
         const linkCopyButton = new Button(linkCopy);
         linkCopyButton.render({
             type: 'neutral',
-            label: '📋',
+            label: '<img class="icon-copy" src="/static/icons/copy-solid.svg" alt="📋">',
             onClick: () => {
                 navigator.clipboard.writeText(<string>this.linkField.getValue());
             },
