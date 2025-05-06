@@ -115,9 +115,6 @@ export class MenuSlotEditor extends Component {
             defaultValue: slot.format_code ? slot.format_code.toString() : null,
         });
         sizeSelect.render();
-        if (slot.format_code) {
-            this.onFormatSelect(slot.format_code);
-        }
         sizeSelect.inputElement.addEventListener('change', () => {
             const size = sizeSelect.getValue();
             const code = size ? +size : null;
@@ -135,6 +132,10 @@ export class MenuSlotEditor extends Component {
             disabled: true,
         });
         this.linkField.render();
+
+        if (slot.format_code) {
+            this.onFormatSelect(slot.format_code);
+        }
 
         const linkCopyButton = new Button(linkCopy);
         linkCopyButton.render({
