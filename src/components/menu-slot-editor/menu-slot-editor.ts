@@ -141,10 +141,6 @@ export class MenuSlotEditor extends Component {
         });
         this.linkField.render();
 
-        if (slot.format_code) {
-            this.onFormatSelect(slot.format_code);
-        }
-
         const linkCopyButton = new Button(linkCopy);
         linkCopyButton.render({
             type: 'neutral',
@@ -157,7 +153,7 @@ export class MenuSlotEditor extends Component {
         linkSection.insertAdjacentHTML('beforeend', '<h2>Предпросмотр</h2>');
         linkSection.insertAdjacentHTML('beforeend', '<div class="preview-container"></div>');
 
-        this.renderPreview(slot.format_code);
+        this.onFormatSelect(slot.format_code);
     }
 
     /**
