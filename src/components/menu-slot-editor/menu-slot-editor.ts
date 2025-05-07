@@ -43,7 +43,9 @@ export class MenuSlotEditor extends Component {
         const format = slotFormats.filter(f => f.code == code)[0];
 
         const slotLink = `${API.API_ORIGIN}/adv/iframe/${slot.link}`;
-        previewContainer.innerHTML = `<iframe class="slot" style="border: none;" title="Slot preview" width="${format.width}" height="${format.height}" src="${slotLink}"></iframe>`;
+        const iframeHTML = `<iframe class="slot" style="border: none;" title="Slot preview" width="${format.width}" height="${format.height}" src="${slotLink}"></iframe>`;
+        previewContainer.innerHTML = iframeHTML;
+        this.linkField.inputElement.value = iframeHTML;
     }
 
     /**
@@ -88,12 +90,9 @@ export class MenuSlotEditor extends Component {
             return;
         }
 
-        const slot = store.get<Slot>('selectedSlot');
-        this.renderPreview(code);
         dispatcher.dispatch('setSlotFormatCode', code);
 
-        const slotLink = `${API.API_ORIGIN}/adv/iframe/${slot.link}`;
-        this.linkField.inputElement.value = slotLink;
+        this.renderPreview(code);
     }
 
     /**
@@ -134,7 +133,7 @@ export class MenuSlotEditor extends Component {
 
         this.linkField = new InputField(linkCopy, {
             name: 'link',
-            label: 'Ссылка на объявление',
+            label: 'Компонент объявления',
             placeholder: 'Здесь появится ссылка',
             type: 'text',
             disabled: true,
