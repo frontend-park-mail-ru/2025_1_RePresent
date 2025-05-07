@@ -1,9 +1,15 @@
+$mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
+
 .menu-banner-editor {
     .preview-section {
-        width: 100%;
+        flex: 1 0 15rem;
         display: flex;
         flex-direction: column;
         gap: var(--margin-big);
+
+        @media (max-width: $mobile-max-width) {
+            width: 100%;
+        }
     }
 
     .image-upload {

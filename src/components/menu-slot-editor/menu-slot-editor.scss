@@ -5,7 +5,7 @@
     }
 
     .link-section {
-        width: 100%;
+        flex: 1 0 15rem;
         display: flex;
         flex-direction: column;
         gap: var(--margin-big);
@@ -34,6 +34,10 @@
 
         button {
             height: 2.5rem;
+
+            .icon-copy {
+                height: 100%;
+            }
         }
     }
 }

@@ -21,7 +21,9 @@ export class FormSlotEditorOptions extends Form {
     constructor(parent: HTMLElement) {
         super(parent);
 
-        dispatcher.on('store-updated-chosenSlot', this.render.bind(this));
+        dispatcher.on('setSlotFormatCode', (format_code: number) => {
+            this.selectedSlot.format_code = format_code;
+        });
     }
 
     /**
@@ -30,24 +32,26 @@ export class FormSlotEditorOptions extends Form {
     private async onSubmit(): Promise<void> {
         const inputs = this.props.inputs;
 
-        this.selectedSlot.slot_name = inputs.name.getValue();
-        this.selectedSlot.min_price = inputs.perShow.getValue();
-        this.selectedSlot.is_active = inputs.isActive.getValue();
+        let selectedSlot = this.selectedSlot;
 
-        if (this.selectedSlot.beingCreated) {
-            const response = await SlotAPI.create(this.selectedSlot);
+        selectedSlot.slot_name = inputs.name.getValue();
+        selectedSlot.min_price = inputs.perShow.getValue();
+        selectedSlot.is_active = inputs.isActive.getValue();
+
+        if (selectedSlot.beingCreated) {
+            const response = await SlotAPI.create(selectedSlot);
             if (response.service.error) {
                 return;
             }
-            this.selectedSlot = response.body;
-            this.selectedSlot.beingCreated = false;
-            dispatcher.dispatch('slot-create', this.selectedSlot);
+            selectedSlot = response.body;
+            selectedSlot.beingCreated = false;
+            dispatcher.dispatch('slot-create', selectedSlot);
         } else {
-            const response = await SlotAPI.update(this.selectedSlot);
+            const response = await SlotAPI.update(selectedSlot);
             if (response.service.error) {
                 return;
             }
-            dispatcher.dispatch('slot-update', this.selectedSlot);
+            dispatcher.dispatch('slot-update', selectedSlot);
         }
     }
 

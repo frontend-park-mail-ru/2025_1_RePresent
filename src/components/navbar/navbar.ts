@@ -11,19 +11,9 @@ import { dispatcher } from '../../modules/dispatcher';
 import { loadPath } from '../../modules/router';
 
 /**
- * Интерфейс для описания параметров компонента
- */
-interface NavbarProps {
-    userAuthed: boolean;
-    userRole: 'advertiser' | 'platform';
-}
-
-/**
  * Строка навигации
  */
 export class Navbar extends Component {
-    protected props: NavbarProps;
-
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
@@ -54,16 +44,17 @@ export class Navbar extends Component {
      * Отрисовка зоны страниц
      */
     private renderPagesSection(): void {
-        if (!this.props.userAuthed) {
+        const profile = store.get<Profile>('profile');
+
+        if (!profile) {
             return;
         }
 
-        if (this.props.userRole == 'advertiser') {
+        if (profile.role == 1) {
             this.renderPageLinks([{ label: 'Мои объявления', path: '/my-banners' }]);
-            return;
         }
 
-        if (this.props.userRole == 'platform') {
+        if (profile.role == 2) {
             this.renderPageLinks([{ label: 'Мои слоты', path: '/my-slots' }]);
         }
     }
@@ -72,13 +63,14 @@ export class Navbar extends Component {
      * Отрисовка зоны пользователя
      */
     private renderUserSection(): void {
-        if (!this.props.userAuthed) {
+        const profile = store.get<Profile>('profile');
+
+        if (!profile) {
             return;
         }
 
         const userSection = this.rootElement.getElementsByClassName('user-section')[0] as HTMLElement;
-        const username = store.get<Profile>('profile').username;
-        userSection.insertAdjacentHTML('beforeend', `<p class="username">${username}</p>`);
+        userSection.insertAdjacentHTML('beforeend', `<p class="username">${profile.username}</p>`);
 
         const pfpImage = this.rootElement.getElementsByClassName('pfp-image')[0] as HTMLImageElement;
         pfpImage.src = `${API.API_ORIGIN}/avatar/download?nocache=${Date.now()}`;
@@ -96,10 +88,10 @@ export class Navbar extends Component {
 
     /**
      * Отрисовка
-     * @param {NavbarProps?} props - параметры компонента
      */
-    render(props?: NavbarProps): void {
-        super.render(props);
+    public render(): void {
+        const userAuthed = store.get<boolean>('profile');
+        super.render({ userAuthed });
 
         this.renderPagesSection();
         this.renderUserSection();

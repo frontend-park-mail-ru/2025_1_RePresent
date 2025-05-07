@@ -138,7 +138,7 @@ export class ListBanner extends Component {
     }
 
     /**
-     * Функциональность переключателя видимости списка на мобильных устройствах
+     * Функциональность переключателя и свайпа видимости списка на мобильных устройствах
      */
     private bindExpandToggle() {
         const toggle = this.rootElement.querySelector('.toggle') as HTMLElement;
@@ -149,6 +149,13 @@ export class ListBanner extends Component {
             }
             this.showBannerList();
         }
+
+        dispatcher.on('swipe-right', () => {
+            this.showBannerList();
+        });
+        dispatcher.on('swipe-left', () => {
+            this.hideBannerList();
+        });
     }
 
     /**

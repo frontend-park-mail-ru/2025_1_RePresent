@@ -25,7 +25,7 @@ export class PageMySlots extends Component {
 
         // TODO make Page class for pages, which will render navbar
         const navbarContainer = this.rootElement.getElementsByClassName('navbar-container')[0] as HTMLElement;
-        new Navbar(navbarContainer).render({ userAuthed: true, userRole: 'platform' });
+        new Navbar(navbarContainer).render();
 
         const contentsSection = this.rootElement.getElementsByClassName('contents')[0] as HTMLElement;
         const slotList = new ListSlot(contentsSection);

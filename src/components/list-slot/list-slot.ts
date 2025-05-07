@@ -146,6 +146,13 @@ export class ListSlot extends Component {
             }
             this.showSlotList();
         }
+
+        dispatcher.on('swipe-right', () => {
+            this.showSlotList();
+        });
+        dispatcher.on('swipe-left', () => {
+            this.hideSlotList();
+        });
     }
 
     /**

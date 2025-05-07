@@ -10,6 +10,7 @@ import { dispatcher } from '../../modules/dispatcher';
 import { Slot, SlotAPI, SlotFormat } from '../../api/slotApi';
 import { InputSelect } from '../input-select/input-select';
 import { InputField } from '../input-field/input-field';
+import { API } from '../../modules/api';
 
 /**
  * Меню редактора слота
@@ -27,14 +28,24 @@ export class MenuSlotEditor extends Component {
 
     /**
      * Отрисовка предпросмотра слота
+     * @param {number} code - код выбранного формата
      */
-    private renderPreview(): void {
-        const slot = store.get<Slot>('selectedSlot');
-
+    private renderPreview(code: number): void {
         const previewContainer = this.rootElement.querySelector('.preview-container') as HTMLElement;
-        // TODO create API
-        // const iframeSrc = `${location.origin}/slot/iframe/${slot.id}`;
-        // previewContainer.innerHTML = `<iframe class="slot" style="border: none;" title="Slot" width="300" height="300" src="${iframeSrc}"></iframe>`;
+
+        if (!code) {
+            previewContainer.innerHTML = '<p class="empty-state-msg">Выберите формат, чтобы увидеть объявление</p>';
+            return;
+        }
+
+        const slot = store.get<Slot>('selectedSlot');
+        const slotFormats = store.get<SlotFormat[]>('slotFormats');
+        const format = slotFormats.filter(f => f.code == code)[0];
+
+        const slotLink = `${API.API_ORIGIN}/adv/iframe/${slot.link}`;
+        const iframeHTML = `<iframe class="slot" style="border: none;" title="Slot preview" width="${format.width}" height="${format.height}" src="${slotLink}"></iframe>`;
+        previewContainer.innerHTML = iframeHTML;
+        this.linkField.inputElement.value = iframeHTML;
     }
 
     /**
@@ -43,7 +54,7 @@ export class MenuSlotEditor extends Component {
     private renderDeleteButton(): void {
         const slot = store.get<Slot>('selectedSlot');
         if (slot.beingCreated) {
-            // return;
+            return;
         }
         const cancelSaveSection = this.rootElement.querySelector('.cancel-save') as HTMLElement;
         const deleteButton = new Button(cancelSaveSection)
@@ -74,16 +85,14 @@ export class MenuSlotEditor extends Component {
      * @param {number | null} code - код выбранного формата
      */
     private onFormatSelect(code: number | null): void {
-        this.renderPreview();
-
         if (code == null) {
             this.linkField.inputElement.value = '';
             return;
         }
 
-        const slot = store.get<Slot>('selectedSlot');
-        const slotLink = `${location.origin}/slot/iframe/${slot.link}/${code}`;
-        this.linkField.inputElement.value = slotLink;
+        dispatcher.dispatch('setSlotFormatCode', code);
+
+        this.renderPreview(code);
     }
 
     /**
@@ -107,9 +116,10 @@ export class MenuSlotEditor extends Component {
 
         const sizeSelect = new InputSelect(linkSection, {
             name: 'size',
-            label: 'Размер',
-            options: slotFormats.map(f => { return { value: f.code.toString(), label: f.description } }),
+            label: 'Размер объявления',
             placeholder: 'Выберите размер',
+            options: slotFormats.map(f => { return { value: f.code.toString(), label: f.description } }),
+            defaultValue: slot.format_code ? slot.format_code.toString() : null,
         });
         sizeSelect.render();
         sizeSelect.inputElement.addEventListener('change', () => {
@@ -123,8 +133,8 @@ export class MenuSlotEditor extends Component {
 
         this.linkField = new InputField(linkCopy, {
             name: 'link',
-            label: 'Ссылка на объявление',
-            placeholder: 'Выберите размер',
+            label: 'Компонент объявления',
+            placeholder: 'Здесь появится ссылка',
             type: 'text',
             disabled: true,
         });
@@ -133,7 +143,7 @@ export class MenuSlotEditor extends Component {
         const linkCopyButton = new Button(linkCopy);
         linkCopyButton.render({
             type: 'neutral',
-            label: '📋',
+            label: '<img class="icon-copy" src="/static/icons/copy-solid.svg" alt="📋">',
             onClick: () => {
                 navigator.clipboard.writeText(<string>this.linkField.getValue());
             },
@@ -142,7 +152,7 @@ export class MenuSlotEditor extends Component {
         linkSection.insertAdjacentHTML('beforeend', '<h2>Предпросмотр</h2>');
         linkSection.insertAdjacentHTML('beforeend', '<div class="preview-container"></div>');
 
-        this.renderPreview();
+        this.onFormatSelect(slot.format_code);
     }
 
     /**

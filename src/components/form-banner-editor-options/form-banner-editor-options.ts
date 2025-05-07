@@ -20,8 +20,6 @@ export class FormBannerEditorOptions extends Form {
      */
     constructor(parent: HTMLElement) {
         super(parent);
-
-        dispatcher.on('store-updated-chosenBanner', this.render.bind(this));
     }
 
     /**

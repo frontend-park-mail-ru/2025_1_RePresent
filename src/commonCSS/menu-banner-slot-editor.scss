@@ -6,6 +6,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     flex-direction: row;
     justify-content: space-between;
     gap: var(--margin-huge);
+    flex-wrap: wrap;
 
     @media (max-width: $mobile-max-width) {
         flex-direction: column;
@@ -17,10 +18,14 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
     .options-section,
     .form-block {
-        width: 100%;
+        flex: 1 0 15rem;
         display: flex;
         flex-direction: column;
         gap: var(--margin-big);
+
+        @media (max-width: $mobile-max-width) {
+            width: 100%;
+        }
     }
 
     .input-field,
@@ -31,10 +36,12 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     .cancel-save {
         flex-direction: row-reverse;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .preview-container {
-        height: 20rem;
+        width: 100%;
+        padding: var(--margin-medium);
         display: flex;
         justify-content: center;
         align-items: center;

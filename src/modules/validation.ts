@@ -99,14 +99,17 @@ export const topUpAmountMaxRub = 100_000;
 /**
  * Проверка валидности суммы пополнения баланса
  * @param {string} value - значение суммы пополнения
+ * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
-export function topUpAmountGetError(value: string): string {
+export function topUpAmountGetError(value: string, setValue: (value: string) => void): string {
+    value = value.replace(',', '.');
     const amount = Number(value);
     const isValid = /^\d+$/.test(value)
         && amount >= topUpAmountMinRub
         && amount <= topUpAmountMaxRub;
     if (isValid) {
+        setValue(value);
         return '';
     }
     return `Целое число, от ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
@@ -121,12 +124,15 @@ export const perShowMaxRub = 1;
 /**
  * Проверка валидности суммы показа объявления
  * @param {string} value - значение суммы показа
+ * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
-export function perShowGetError(value: string): string {
+export function perShowGetError(value: string, setValue: (value: string) => void): string {
+    value = value.replace(',', '.');
     const amount = Number(value);
     const isValid = amount >= perShowMinRub && amount <= perShowMaxRub;
     if (isValid) {
+        setValue(value);
         return '';
     }
     return `От ${perShowMinRub} до ${perShowMaxRub} руб.`;
@@ -149,20 +155,27 @@ export function bannerTitleGetError(value: string): string {
 /**
  * Регулярное выражение для проверки на URL
  */
-const URLregex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+const URLregex = /^(https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 /**
  * Проверка валидности ссылки объявления
  * @param {string} value - значение ссылки объявления
+ * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
-export function bannerLinkGetError(value: string): string {
+export function bannerLinkGetError(value: string, setValue: (value: string) => void): string {
     const maxLength = 100;
-    const isValid = value.length <= maxLength && URLregex.test(value);
-    if (isValid) {
-        return '';
+    if (!URLregex.test(value)) {
+        return 'Неверный URL';
     }
-    return `URL до ${maxLength} символов`;
+    if (!value.startsWith('http')) {
+        value = `https://${value}`;
+        setValue(value);
+    }
+    if (value.length > maxLength) {
+        return `До ${maxLength} символов`;
+    }
+    return '';
 }
 
 /**
