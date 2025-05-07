@@ -10,6 +10,7 @@ import { dispatcher } from '../../modules/dispatcher';
 import { Slot, SlotAPI, SlotFormat } from '../../api/slotApi';
 import { InputSelect } from '../input-select/input-select';
 import { InputField } from '../input-field/input-field';
+import { API } from '../../modules/api';
 
 /**
  * Меню редактора слота
@@ -27,14 +28,22 @@ export class MenuSlotEditor extends Component {
 
     /**
      * Отрисовка предпросмотра слота
+     * @param {number} code - код выбранного формата
      */
-    private renderPreview(): void {
-        const slot = store.get<Slot>('selectedSlot');
-
+    private renderPreview(code: number): void {
         const previewContainer = this.rootElement.querySelector('.preview-container') as HTMLElement;
-        // TODO create API
-        // const iframeSrc = `${location.origin}/slot/iframe/${slot.id}`;
-        // previewContainer.innerHTML = `<iframe class="slot" style="border: none;" title="Slot" width="300" height="300" src="${iframeSrc}"></iframe>`;
+
+        if (!code) {
+            previewContainer.innerHTML = '<p class="empty-state-msg">Выберите формат, чтобы увидеть объявление</p>';
+            return;
+        }
+
+        const slot = store.get<Slot>('selectedSlot');
+        const slotFormats = store.get<SlotFormat[]>('slotFormats');
+        const format = slotFormats.filter(f => f.code == code)[0];
+
+        const slotLink = `${API.API_ORIGIN}/adv/iframe/${slot.link}`;
+        previewContainer.innerHTML = `<iframe class="slot" style="border: none;" title="Slot preview" width="${format.width}" height="${format.height}" src="${slotLink}"></iframe>`;
     }
 
     /**
@@ -43,7 +52,7 @@ export class MenuSlotEditor extends Component {
     private renderDeleteButton(): void {
         const slot = store.get<Slot>('selectedSlot');
         if (slot.beingCreated) {
-            // return;
+            return;
         }
         const cancelSaveSection = this.rootElement.querySelector('.cancel-save') as HTMLElement;
         const deleteButton = new Button(cancelSaveSection)
@@ -74,17 +83,16 @@ export class MenuSlotEditor extends Component {
      * @param {number | null} code - код выбранного формата
      */
     private onFormatSelect(code: number | null): void {
-        this.renderPreview();
-
         if (code == null) {
             this.linkField.inputElement.value = '';
             return;
         }
 
         const slot = store.get<Slot>('selectedSlot');
+        this.renderPreview(code);
         dispatcher.dispatch('setSlotFormatCode', code);
 
-        const slotLink = `${location.origin}/slot/iframe/${slot.link}/${code}`;
+        const slotLink = `${API.API_ORIGIN}/adv/iframe/${slot.link}`;
         this.linkField.inputElement.value = slotLink;
     }
 
@@ -149,7 +157,7 @@ export class MenuSlotEditor extends Component {
         linkSection.insertAdjacentHTML('beforeend', '<h2>Предпросмотр</h2>');
         linkSection.insertAdjacentHTML('beforeend', '<div class="preview-container"></div>');
 
-        this.renderPreview();
+        this.renderPreview(slot.format_code);
     }
 
     /**
