@@ -30,5 +30,5 @@ app.get('*', (_, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Development server started on http://localhost:${PORT}`);
+    console.log(`Development server started on https://localhost:${PORT}`);
 });

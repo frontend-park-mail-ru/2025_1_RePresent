@@ -5,8 +5,8 @@ import './commonCSS/index.scss';
 import { CSAT } from './components/csat/csat';
 
 const REFERRER_PAGE: Record<string, string> = {
-    'http://re-target.ru/profile': 'Profile',
-    'http://re-target.ru/my-banners': 'BannerEditor',
+    'https://re-target.ru/profile': 'Profile',
+    'https://re-target.ru/my-banners': 'BannerEditor',
 };
 
 const root = document.getElementById('root') as HTMLElement;
