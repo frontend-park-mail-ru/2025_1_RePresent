@@ -72,8 +72,7 @@ export class LineChart extends Component {
         const font = rootStyles.getPropertyValue('font');
 
         // Настройка масштаба холста
-        this.rootElement.style.width = `${props.width}px`;
-        this.rootElement.style.height = `${props.height}px`;
+        this.rootElement.style.aspectRatio = String(props.width / props.height);
         this.rootElement.width = props.width * props.scale;
         this.rootElement.height = props.height * props.scale;
 

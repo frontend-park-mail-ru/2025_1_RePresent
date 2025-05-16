@@ -1,0 +1,21 @@
+.menu-slot-statistics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-big);
+
+    h1 {
+        font-size: var(--font-large);
+    }
+
+    .options {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-big);
+    }
+
+    .aggregates {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-huge);
+    }
+}

@@ -4,7 +4,9 @@ import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../modules/component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';
 import { MenuSlotEditor } from '../menu-slot-editor/menu-slot-editor';
+import { MenuSlotStatistics } from '../menu-slot-statistics/menu-slot-statistics';
 import { store } from '../../modules/store';
+import { Slot } from '../../api/slotApi';
 
 /**
  * Раздел меню слотов
@@ -57,6 +59,9 @@ export class MenuSectionSlot extends Component {
             case 'editor':
                 new MenuSlotEditor(menuContents).render();
                 break;
+            case 'statistics':
+                new MenuSlotStatistics(menuContents).render();
+                break;
             default:
                 break;
         }
@@ -83,17 +88,21 @@ export class MenuSectionSlot extends Component {
     render(): void {
         super.render();
 
-        const hasSelectedSlot = store.get<boolean>('selectedSlot');
-        if (!hasSelectedSlot) {
+        const selectedSlot = store.get<Slot>('selectedSlot');
+        if (!selectedSlot) {
             this.renderEmptyState();
             return;
         }
 
         const props: MenuListProps = {
-            items: [
-                { label: 'Редактор', menuName: 'editor' },
-                // { label: 'Статистика', menuName: 'statistics' },
-            ],
+            items: (selectedSlot.beingCreated) ?
+                [
+                    { label: 'Редактор', menuName: 'editor' },
+                ]
+                : [
+                    { label: 'Редактор', menuName: 'editor' },
+                    { label: 'Статистика', menuName: 'statistics' },
+                ],
         };
 
         new MenuList(this.rootElement).render(props);
