@@ -1,3 +1,7 @@
+'use strict';
+
+import './confirm.scss';
+
 import { Component } from '../../modules/component';
 
 interface ConfirmProps {
