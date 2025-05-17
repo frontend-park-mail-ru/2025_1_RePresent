@@ -112,7 +112,7 @@ export class MenuBannerEditor extends Component {
             confirmText: 'Удалить',
             confirmType: 'danger',
         });
-        if (!confirmPopup.confirm()) {
+        if (!await confirmPopup.confirm()) {
             return;
         }
         const bannerId = store.get<Banner>('selectedBanner').id;
