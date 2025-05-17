@@ -1,0 +1,32 @@
+.alerts-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: min(20rem, 50%);
+    height: 100%;
+    padding: var(--margin-big);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: var(--margin-small);
+    pointer-events: none;
+
+    &__alert {
+        padding: var(--margin-small) var(--margin-medium);
+        border-radius: var(--corner-small);
+        user-select: none;
+        cursor: pointer;
+        pointer-events: all;
+
+        &_success {
+            background-color: var(--active-primary);
+            box-shadow: 0 0 var(--margin-big) rgb(from var(--active-primary-dark) r g b / 0.5);
+        }
+
+        &_error {
+            background-color: var(--active-danger);
+            box-shadow: 0 0 var(--margin-big) rgb(from var(--active-danger-dark) r g b / 0.5);
+            color: var(--text-inverted);
+        }
+    }
+}
