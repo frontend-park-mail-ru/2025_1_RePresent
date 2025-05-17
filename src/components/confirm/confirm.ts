@@ -4,7 +4,7 @@ import './confirm.scss';
 
 import { Component } from '../../modules/component';
 
-interface ConfirmProps {
+export interface ConfirmProps {
     message: string;
     confirmText?: string;
     cancelText?: string;

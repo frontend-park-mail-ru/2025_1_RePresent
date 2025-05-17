@@ -10,7 +10,7 @@ import { ImageUpload } from '../image-upload/image-upload';
 import { Button } from '../button/button';
 import { dispatcher } from '../../modules/dispatcher';
 import { API } from '../../modules/api';
-import { Confirm } from '../confirm/confirm';
+import { reConfirm } from '../../modules/re-confirm';
 
 /**
  * Меню редактора объявления
@@ -104,15 +104,12 @@ export class MenuBannerEditor extends Component {
      * Обработка нажатия на кнопку Удалить
      */
     private async onDeleteClick(): Promise<void> {
-        const root = document.getElementById('root') as HTMLElement;
-        const confirmPopup = new Confirm(root);
         const bannerTitle = store.get<Banner>('selectedBanner').title;
-        confirmPopup.render({
+        if (!await reConfirm({
             message: `Удалить объявление "${bannerTitle}"?`,
             confirmText: 'Удалить',
             confirmType: 'danger',
-        });
-        if (!await confirmPopup.confirm()) {
+        })) {
             return;
         }
         const bannerId = store.get<Banner>('selectedBanner').id;
