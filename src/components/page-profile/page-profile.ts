@@ -15,6 +15,8 @@ import { Button } from '../button/button';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
 import { dispatcher } from '../../modules/dispatcher';
+import { reAlert } from '../../modules/re-alert';
+import { reConfirm } from '../../modules/re-confirm';
 
 /**
  * Страница профиля пользователя
@@ -70,7 +72,11 @@ export class PageProfile extends Component {
      * Обработчик нажатия на кнопку выхода из аккаунта
      */
     private async onLogOutClick(): Promise<void> {
-        if (!confirm('Вы уверены, что хотите выйти?')) {
+        if (!await reConfirm({
+            message: 'Выйти из аккаунта?',
+            confirmType: 'danger',
+            confirmText: 'Выйти',
+        })) {
             return;
         }
 
@@ -80,6 +86,12 @@ export class PageProfile extends Component {
         }
 
         loadPath('/signin');
+
+        reAlert({
+            message: 'Вы вышли',
+            type: 'success',
+            lifetimeS: '5',
+        });
     }
 
     /**

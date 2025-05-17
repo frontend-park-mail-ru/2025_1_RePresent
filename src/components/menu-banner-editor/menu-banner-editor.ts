@@ -11,6 +11,7 @@ import { Button } from '../button/button';
 import { dispatcher } from '../../modules/dispatcher';
 import { API } from '../../modules/api';
 import { reConfirm } from '../../modules/re-confirm';
+import { reAlert } from '../../modules/re-alert';
 
 /**
  * Меню редактора объявления
@@ -62,6 +63,11 @@ export class MenuBannerEditor extends Component {
 
         contentId = response.service.success;
         store.update({ key: 'fileId', value: contentId });
+        reAlert({
+            message: 'Файл загружен',
+            type: 'success',
+            lifetimeS: '5',
+        });
         return this.getContentSrcFromId(contentId);
     }
 
@@ -118,6 +124,11 @@ export class MenuBannerEditor extends Component {
             return;
         }
         dispatcher.dispatch('banner-delete', bannerId);
+        reAlert({
+            message: 'Объявление удалено',
+            type: 'success',
+            lifetimeS: '5',
+        });
     }
 
     /**

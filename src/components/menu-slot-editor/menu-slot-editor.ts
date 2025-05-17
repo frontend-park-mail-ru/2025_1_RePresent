@@ -12,6 +12,7 @@ import { InputSelect } from '../input-select/input-select';
 import { InputField } from '../input-field/input-field';
 import { API } from '../../modules/api';
 import { reConfirm } from '../../modules/re-confirm';
+import { reAlert } from '../../modules/re-alert';
 
 /**
  * Меню редактора слота
@@ -84,6 +85,11 @@ export class MenuSlotEditor extends Component {
             return;
         }
         dispatcher.dispatch('slot-delete', slotLink);
+        reAlert({
+            message: 'Слот удален',
+            type: 'success',
+            lifetimeS: '5',
+        });
     }
 
     /**
