@@ -7,43 +7,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  transition: all 0.3s ease;
-
-  &__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
 
   &__content {
-    position: relative;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 24px;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  &__title {
-    margin-top: 0;
-    margin-bottom: 16px;
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  &__message {
-    margin-bottom: 24px;
-    color: #666;
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-medium);
+    background-color: var(--bg-primary);
+    border-radius: var(--corner-small);
+    padding: var(--margin-medium);
   }
 
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
+    gap: var(--margin-medium);
   }
 }

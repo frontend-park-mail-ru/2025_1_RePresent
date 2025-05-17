@@ -52,8 +52,8 @@ export class Confirm extends Component {
 
         super.render(props);
 
-        const cancelButton = this.rootElement.getElementsByClassName('confirm-modal__button_cancel')[0] as HTMLElement;
-        const confirmButton = this.rootElement.getElementsByClassName('confirm-modal__button_confirm')[0] as HTMLElement;
+        const cancelButton = this.rootElement.querySelector('.confirm__button_cancel') as HTMLElement;
+        const confirmButton = this.rootElement.querySelector('.confirm__button_confirm') as HTMLElement;
         cancelButton.onclick = this.onCancel.bind(this);
         confirmButton.onclick = this.onConfirm.bind(this);
     }
