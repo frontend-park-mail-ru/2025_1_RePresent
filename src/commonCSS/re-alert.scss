@@ -1,8 +1,8 @@
 .alerts-container {
     position: fixed;
-    right: 0;
+    left: 0;
     bottom: 0;
-    width: min(20rem, 50%);
+    width: min(30rem, 50%);
     height: 100%;
     padding: var(--margin-big);
     display: flex;
@@ -12,8 +12,9 @@
     pointer-events: none;
 
     &__alert {
-        padding: var(--margin-small) var(--margin-medium);
+        padding: var(--margin-medium);
         border-radius: var(--corner-small);
+        font-size: var(--font-medium);
         user-select: none;
         cursor: pointer;
         pointer-events: all;
