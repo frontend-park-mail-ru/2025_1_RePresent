@@ -43,12 +43,20 @@ export class WalletOptions extends Component {
             return;
         }
 
-        const topUpAmount = Number(this.topUpAmountInput.getValue());
-        const response = await PaymentAPI.topUp(topUpAmount);
-        if (response.status == 'completed') {
-            this.renderAmount();
-            this.topUpAmountInput.inputElement.value = '';
+        const topUpAmount = <string>this.topUpAmountInput.getValue();
+        const key = crypto.randomUUID();
+        const response = await PaymentAPI.topUp({
+            Value: topUpAmount,
+            Currency: 'RUB',
+            ReturnURL: `${location.origin}/profile`,
+            Description: 'Пополнение счета',
+            IdempotenceKey: key,
+        });
+
+        if (!response.confirmation_url) {
+            alert('Ошибка пополнения счета');
         }
+        location.href = response.confirmation_url;
     }
 
     /**
