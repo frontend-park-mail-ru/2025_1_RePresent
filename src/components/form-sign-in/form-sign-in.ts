@@ -5,6 +5,7 @@ import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
 import { InputField } from '../input-field/input-field';
 import { emailGetError, passwordGetError } from '../../modules/validation';
+import { reAlert } from '../../modules/re-alert';
 
 /**
  * Форма входа
@@ -20,15 +21,19 @@ export class FormSignIn extends Form {
 
         const response = await UserAPI.logIn({ email, password, role });
 
-        if (response.service.success) {
-            const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
-            loadPath(redirectPath);
+        if (response.service.error) {
+            this.props.inputs.passwordInput.showError('Неправильный email или пароль');
             return;
         }
 
-        if (response.service.error) {
-            this.props.inputs.passwordInput.showError('Неправильный email или пароль');
-        }
+        const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
+        loadPath(redirectPath);
+
+        reAlert({
+            message: 'Вы вошли',
+            type: 'success',
+            lifetimeS: '5',
+        });
     }
 
     /**

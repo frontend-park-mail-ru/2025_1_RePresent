@@ -11,6 +11,8 @@ import { Slot, SlotAPI, SlotFormat } from '../../api/slotApi';
 import { InputSelect } from '../input-select/input-select';
 import { InputField } from '../input-field/input-field';
 import { API } from '../../modules/api';
+import { reConfirm } from '../../modules/re-confirm';
+import { reAlert } from '../../modules/re-alert';
 
 /**
  * Меню редактора слота
@@ -69,7 +71,12 @@ export class MenuSlotEditor extends Component {
      * Обработка нажатия на кнопку Удалить
      */
     private async onDeleteClick(): Promise<void> {
-        if (!confirm('Вы уверены, что хотите удалить этот слот?')) {
+        const slotName = store.get<Slot>('selectedSlot').slot_name;
+        if (!await reConfirm({
+            message: `Удалить слот "${slotName}"?`,
+            confirmText: 'Удалить',
+            confirmType: 'danger',
+        })) {
             return;
         }
         const slotLink = store.get<Slot>('selectedSlot').link;
@@ -78,6 +85,11 @@ export class MenuSlotEditor extends Component {
             return;
         }
         dispatcher.dispatch('slot-delete', slotLink);
+        reAlert({
+            message: 'Слот удален',
+            type: 'success',
+            lifetimeS: '5',
+        });
     }
 
     /**

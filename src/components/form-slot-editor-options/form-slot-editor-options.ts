@@ -2,6 +2,7 @@
 
 import { Slot, SlotAPI } from '../../api/slotApi';
 import { dispatcher } from '../../modules/dispatcher';
+import { reAlert } from '../../modules/re-alert';
 import { store } from '../../modules/store';
 import { bannerTitleGetError, perShowGetError } from '../../modules/validation';
 import { Form, FormProps } from '../form/form';
@@ -46,12 +47,22 @@ export class FormSlotEditorOptions extends Form {
             selectedSlot = response.body;
             selectedSlot.beingCreated = false;
             dispatcher.dispatch('slot-create', selectedSlot);
+            reAlert({
+                message: 'Слот создан',
+                type: 'success',
+                lifetimeS: '5',
+            });
         } else {
             const response = await SlotAPI.update(selectedSlot);
             if (response.service.error) {
                 return;
             }
             dispatcher.dispatch('slot-update', selectedSlot);
+            reAlert({
+                message: 'Слот обновлен',
+                type: 'success',
+                lifetimeS: '5',
+            });
         }
     }
 

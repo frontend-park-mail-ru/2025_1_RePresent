@@ -7,6 +7,7 @@ import { InputField } from '../input-field/input-field';
 import { orgDescriptionGetError, organizationGetError } from '../../modules/validation';
 import { store } from '../../modules/store';
 import { Profile, ProfileAPI } from '../../api/profileApi';
+import { reAlert } from '../../modules/re-alert';
 
 /**
  * Форма публичных данных профиля
@@ -29,6 +30,12 @@ export class FormProfilePublic extends Form {
 
         store.update({ key: 'profile', value: profile });
         this.render();
+
+        reAlert({
+            message: 'Данные профиля обновлены',
+            type: 'success',
+            lifetimeS: '5',
+        });
     }
 
     /**
