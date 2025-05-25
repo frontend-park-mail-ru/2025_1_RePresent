@@ -49,9 +49,11 @@ export class MenuSlotStatistics extends Component {
         const dataRaw = Object.entries(response.body) as [string, string][];
 
         const noDataMsg = this.rootElement.querySelector('.no-data-msg');
+        const aggregates = this.rootElement.querySelector('.aggregates');
         const chart = this.rootElement.querySelector('#chart');
         if (dataRaw.length < 2) {
             noDataMsg.classList.remove('hidden');
+            aggregates.innerHTML = '';
             chart?.classList.add('hidden');
             return;
         }
@@ -59,12 +61,14 @@ export class MenuSlotStatistics extends Component {
 
         const msInDay = 24 * 60 * 60 * 1000;
         const data = dataRaw.map(e => [Date.parse(e[0]) / msInDay, parseFloat(e[1])]) as [number, number][];
-        const dataXtoLabel = Object.fromEntries(data.map((e, i) => [e[0], dataRaw[i][0]]));
+        const dataXtoLabel = Object.fromEntries(data.map((e, i) => {
+            const date = new Date(e[0] * msInDay);
+            return [e[0], `${('0' + date.getDate()).slice(-2)}.${('0' + (date.getMonth() + 1)).slice(-2)}`];
+        }));
         const dataY = data.map(e => e[1]);
         const sum = Math.round(dataY.reduce((a, b) => a + b, 0));
         const avg = Math.round(sum / dataY.length);
 
-        const aggregates = this.rootElement.querySelector('.aggregates') as HTMLElement;
         aggregates.innerHTML = `<p class="metric-avg">Среднее: ${avg}</p><p class="metric-sum">Сумма: ${sum}</p>`
 
         const metricToYLabel = {
