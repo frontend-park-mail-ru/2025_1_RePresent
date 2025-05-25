@@ -20,7 +20,7 @@ export class AdvAPI {
      * @returns {string} - строка даты
      */
     private static formatDateUTC(date: Date): string {
-        return `${date.getUTCFullYear()}-${('0' + date.getUTCMonth()).slice(-2)}-${('0' + date.getUTCDate()).slice(-2)}`;
+        return `${date.getUTCFullYear()}-${('0' + (date.getUTCMonth() + 1)).slice(-2)}-${('0' + date.getUTCDate()).slice(-2)}`;
     }
 
     /**
