@@ -49,8 +49,10 @@ export class MenuSlotStatistics extends Component {
         const dataRaw = Object.entries(response.body) as [string, string][];
 
         const noDataMsg = this.rootElement.querySelector('.no-data-msg');
+        const chart = this.rootElement.querySelector('#chart');
         if (dataRaw.length < 2) {
             noDataMsg.classList.remove('hidden');
+            chart?.classList.add('hidden');
             return;
         }
         noDataMsg.classList.add('hidden');
@@ -96,6 +98,8 @@ export class MenuSlotStatistics extends Component {
                 x: (n: number) => dataXtoLabel[n],
             },
         });
+
+        chart?.classList.remove('hidden');
     }
 
     /**

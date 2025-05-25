@@ -28,4 +28,8 @@
         flex-direction: row;
         gap: var(--margin-huge);
     }
+
+    #chart.hidden {
+        display: none;
+    }
 }
