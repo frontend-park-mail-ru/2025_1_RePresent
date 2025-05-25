@@ -32,7 +32,7 @@ export class AdvAPI {
             from: this.formatDateUTC(request.from),
             to: this.formatDateUTC(request.to),
             activity: request.activity,
-            banner: request.banner.toString(),
+            banner: request.banner?.toString(),
             slot: request.slot,
         };
         const response = await API.fetch('/adv/my-metrics/?' + new URLSearchParams(requestStr).toString(), {
