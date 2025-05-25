@@ -10,7 +10,7 @@ let balanceCheckInterval: NodeJS.Timeout;
 
 async function checkInfo() {
     const balanceResponse = await PaymentAPI.getBalance();
-    if (balanceResponse.service.error) {
+    if (balanceResponse.service?.error) {
         return;
     }
     const banners = await BannerAPI.getAll();
