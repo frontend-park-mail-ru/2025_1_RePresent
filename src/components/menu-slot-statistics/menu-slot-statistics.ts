@@ -66,6 +66,7 @@ export class MenuSlotStatistics extends Component {
             return [e[0], `${('0' + date.getDate()).slice(-2)}.${('0' + (date.getMonth() + 1)).slice(-2)}`];
         }));
         const dataY = data.map(e => e[1]);
+        const rangeY = Math.max(...dataY) - Math.min(...dataY);
         const sum = Math.round(dataY.reduce((a, b) => a + b, 0));
         const avg = Math.round(sum / dataY.length);
 
@@ -95,8 +96,8 @@ export class MenuSlotStatistics extends Component {
                 y: metricToYLabel[metric],
             },
             gridInterval: {
-                x: (days < 10) ? 1 : 5,
-                y: 10,
+                x: (data.length < 10) ? 1 : 5,
+                y: 10 ** Math.floor(Math.log10(rangeY)),
             },
             dataLabelMap: {
                 x: (n: number) => dataXtoLabel[n],
