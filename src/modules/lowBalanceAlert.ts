@@ -2,6 +2,8 @@
 
 import { BannerAPI } from '../api/bannerApi';
 import { PaymentAPI } from '../api/paymentApi';
+import { Profile } from '../api/profileApi';
+import { store } from './store';
 
 const LOW_BALANCE_THRESHOLD_RUB = 100;
 const BALANCE_CHECK_INTERVAL_S = 5 * 60;
@@ -25,6 +27,10 @@ async function checkInfo() {
 
 export function startBalanceChecks() {
     stopBalanceChecks();
+    const profile = store.get<Profile>('profile');
+    if (profile?.role != 1) {
+        return;
+    }
     balanceCheckInterval = setInterval(checkInfo, BALANCE_CHECK_INTERVAL_S * 1000);
     checkInfo();
 }

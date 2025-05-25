@@ -1,10 +1,14 @@
 'use strict';
 
 import './commonCSS/index.scss';
-import { startBalanceChecks } from './modules/lowBalanceAlert';
 
+import { startBalanceChecks } from './modules/lowBalanceAlert';
 import { loadPath } from './modules/router';
 import './modules/swipes';
 
-loadPath(location.pathname);
-startBalanceChecks(); 
+async function start() {
+    await loadPath(location.pathname);
+    startBalanceChecks();
+}
+
+start();

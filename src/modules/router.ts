@@ -40,7 +40,7 @@ const pathPageInfo: { [key: string]: PageInfo } = {
  * @param {Props?} state - параметры страницы
  * @param {boolean?} replace - заменить текущую страницу в истории
  */
-export function loadPath(path: string, state: Props = {}, replace: boolean = false): void {
+export async function loadPath(path: string, state: Props = {}, replace: boolean = false): Promise<void> {
     if (!(path in pathPageInfo)) {
         // TODO: remove this and show 404 page instead
         path = '/signin';
@@ -55,7 +55,7 @@ export function loadPath(path: string, state: Props = {}, replace: boolean = fal
         history.pushState(state, nextTitle, nextURL);
     }
 
-    renderPage(path);
+    await renderPage(path);
 }
 
 /**
