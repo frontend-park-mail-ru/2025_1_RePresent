@@ -4,7 +4,7 @@ import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../modules/component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';
 import { MenuSlotEditor } from '../menu-slot-editor/menu-slot-editor';
-import { MenuSlotStatistics } from '../menu-slot-statistics/menu-slot-statistics';
+import { MenuBannerSlotStatistics } from '../menu-banner-slot-statistics/menu-banner-slot-statistics';
 import { store } from '../../modules/store';
 import { Slot } from '../../api/slotApi';
 
@@ -60,7 +60,7 @@ export class MenuSectionSlot extends Component {
                 new MenuSlotEditor(menuContents).render();
                 break;
             case 'statistics':
-                new MenuSlotStatistics(menuContents).render();
+                new MenuBannerSlotStatistics(menuContents).render({ type: 'slot' });
                 break;
             default:
                 break;

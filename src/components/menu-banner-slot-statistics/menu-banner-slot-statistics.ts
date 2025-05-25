@@ -1,18 +1,27 @@
 'use strict';
 
-import './menu-slot-statistics.scss';
+import './menu-banner-slot-statistics.scss';
 
-import { Component } from '../../modules/component';
+import { Component, Props } from '../../modules/component';
 import { InputSelect } from '../input-select/input-select';
 import { LineChart } from '../line-chart/line-chart';
 import { AdvAPI } from '../../api/advApi';
 import { store } from '../../modules/store';
 import { Slot } from '../../api/slotApi';
+import { Banner } from '../../api/bannerApi';
 
 /**
- * Меню ститистики слота
+ * Интерфейс для описания параметров компонента
  */
-export class MenuSlotStatistics extends Component {
+export interface MenuBannerSlotStatisticsProps extends Props {
+    type: 'banner' | 'slot';
+}
+
+/**
+ * Меню ститистики баннера/слота
+ */
+export class MenuBannerSlotStatistics extends Component {
+    protected props: MenuBannerSlotStatisticsProps;
     private selectMetric: InputSelect;
     private selectPeriod: InputSelect;
     private chart: LineChart;
@@ -22,7 +31,7 @@ export class MenuSlotStatistics extends Component {
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
-        super(parent, 'menu-slot-statistics/menu-slot-statistics', {});
+        super(parent, 'menu-banner-slot-statistics/menu-banner-slot-statistics', {});
     }
 
     /**
@@ -39,11 +48,12 @@ export class MenuSlotStatistics extends Component {
                 from: from,
                 to: new Date(),
                 activity: metric as 'click' | 'shown',
-                slot: store.get<Slot>('selectedSlot').link,
+                banner: (this.props.type == 'banner') ? store.get<Banner>('selectedBanner').id : undefined,
+                slot: (this.props.type == 'slot') ? store.get<Slot>('selectedSlot').link : undefined,
             }
         );
         if (response.service.error) {
-            alert('Не удалось получить статистику слота');
+            alert('Не удалось получить статистику');
             return;
         }
         const dataRaw = Object.entries(response.body) as [string, string][];
@@ -109,9 +119,10 @@ export class MenuSlotStatistics extends Component {
 
     /**
      * Отрисовка
+     * @param {MenuBannerSlotStatisticsProps} props - параметры компонента
      */
-    public render(): void {
-        super.render();
+    public render(props: MenuBannerSlotStatisticsProps): void {
+        super.render(props);
 
         const options = this.rootElement.querySelector('.options') as HTMLElement;
         this.selectMetric = new InputSelect(options, {
