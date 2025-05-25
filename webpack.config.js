@@ -30,10 +30,11 @@ const resolveScripts = {
 };
 
 const distPath = path.resolve(__dirname, 'dist');
+const mode = (process.env.PRODUCTION == 'true') ? 'production' : 'development';
 
 module.exports = [
     {
-        mode: 'development',
+        mode,
         devtool: 'source-map',
         entry: './src/index.ts',
         module: webpackModule,
@@ -44,7 +45,7 @@ module.exports = [
         },
     },
     {
-        mode: 'development',
+        mode,
         devtool: 'source-map',
         entry: './src/indexCsat.ts',
         module: webpackModule,

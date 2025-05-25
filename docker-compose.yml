@@ -4,6 +4,8 @@ services:
     container_name: ReTargetStaticBuilder
     working_dir: /app
     user: "1000:1000"
+    environment:
+      - PRODUCTION: "true"
     volumes:
       - .:/app
     command: sh -c "npm install --production && npm run build"
