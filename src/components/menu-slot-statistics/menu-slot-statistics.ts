@@ -55,7 +55,8 @@ export class MenuSlotStatistics extends Component {
         }
         noDataMsg.classList.add('hidden');
 
-        const data = dataRaw.map(e => [Date.parse(e[0]) / 1000, parseFloat(e[1])]) as [number, number][];
+        const msInDay = 24 * 60 * 60 * 1000;
+        const data = dataRaw.map(e => [Date.parse(e[0]) / msInDay, parseFloat(e[1])]) as [number, number][];
         const dataXtoLabel = Object.fromEntries(data.map((e, i) => [e[0], dataRaw[i][0]]));
         const dataY = data.map(e => e[1]);
         const sum = Math.round(dataY.reduce((a, b) => a + b, 0));
