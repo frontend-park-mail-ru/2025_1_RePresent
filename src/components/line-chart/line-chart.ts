@@ -76,6 +76,13 @@ export class LineChart extends Component {
         this.rootElement.width = props.width * props.scale;
         this.rootElement.height = props.height * props.scale;
 
+        const ctx = this.rootElement.getContext('2d');
+        ctx.clearRect(0, 0, this.rootElement.width, this.rootElement.height);
+
+        if (props.data.length < 2) {
+            throw new Error('Should be at least 2 data points');
+        }
+
         // Инициализация основных размеров
         const frameWidth = props.width - props.padding.left - props.padding.right;
         const frameHeight = props.height - props.padding.top - props.padding.bottom;
@@ -87,8 +94,6 @@ export class LineChart extends Component {
         const yDataBegin = Math.floor(Math.min(...props.data.map(e => e[1])) / props.gridInterval.y) * props.gridInterval.y;
         const yDataEnd = Math.ceil(Math.max(...props.data.map(e => e[1])) / props.gridInterval.y) * props.gridInterval.y;
         const yDataScale = frameHeight / (yDataEnd - yDataBegin);
-
-        const ctx = this.rootElement.getContext('2d');
 
         // Трансформация внутреннего уровня
         ctx.setTransform(props.scale, 0, 0, props.scale, (props.padding.left - xDataBegin * xDataScale) * props.scale, this.rootElement.height - (props.padding.bottom - yDataBegin * yDataScale) * props.scale);

@@ -13,6 +13,16 @@
         gap: var(--margin-big);
     }
 
+    .no-data-msg {
+        margin-top: var(--margin-big);
+        font-size: var(--font-large);
+        text-align: center;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
     .aggregates {
         display: flex;
         flex-direction: row;

@@ -48,6 +48,13 @@ export class MenuSlotStatistics extends Component {
         }
         const dataRaw = Object.entries(response.body) as [string, string][];
 
+        const noDataMsg = this.rootElement.querySelector('.no-date-msg');
+        if (dataRaw.length < 2) {
+            noDataMsg.classList.remove('hidden');
+            return;
+        }
+        noDataMsg.classList.add('hidden');
+
         const data = dataRaw.map(e => [Date.parse(e[0]) / 1000, parseFloat(e[1])]) as [number, number][];
         const dataXtoLabel = Object.fromEntries(data.map((e, i) => [e[0], dataRaw[i][0]]));
         const dataY = data.map(e => e[1]);
@@ -118,7 +125,7 @@ export class MenuSlotStatistics extends Component {
                     label: 'Ср. стоимость показа',
                 },
             ],
-            defaultValue: 'shows',
+            defaultValue: 'shown',
         });
         this.selectMetric.render();
 
