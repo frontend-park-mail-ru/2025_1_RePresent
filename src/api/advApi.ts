@@ -25,6 +25,7 @@ export class AdvAPI {
 
     /**
      * Получить статистику баннера/слота
+     * @param {GetStatsRequest} request - запрос
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async getStats(request: GetStatsRequest): Promise<APIresponse> {

@@ -13,11 +13,11 @@ interface GetBalanceResponse extends APIresponse {
  * Запрос пополнения счета
  */
 interface TopUpRequest {
-    Value: string;
-    Currency: string;
-    ReturnURL: string;
-    Description: string;
-    IdempotenceKey: string;
+    value: string;
+    currency: string;
+    return_url: string;
+    description: string;
+    idempotence_key: string;
 }
 
 /**
@@ -41,7 +41,7 @@ export class PaymentAPI {
 
     /**
      * Пополнить счет текущего пользователя
-     * @param {number} amount - сумма пополнения
+     * @param {TopUpRequest} request - запрос
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async topUp(request: TopUpRequest): Promise<TopUpResponse> {
