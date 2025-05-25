@@ -5,6 +5,7 @@ import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
 import { InputField } from '../input-field/input-field';
 import { emailGetError, passwordGetError } from '../../modules/validation';
+import { startBalanceChecks } from '../../modules/lowBalanceAlert';
 
 /**
  * Форма входа
@@ -23,6 +24,7 @@ export class FormSignIn extends Form {
         if (response.service.success) {
             const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
             loadPath(redirectPath);
+            startBalanceChecks();
             return;
         }
 

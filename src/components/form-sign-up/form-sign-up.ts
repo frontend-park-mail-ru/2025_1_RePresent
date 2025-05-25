@@ -6,6 +6,7 @@ import { loadPath } from '../../modules/router';
 import { InputField } from '../input-field/input-field';
 import { emailGetError, getPasswordRepeatGetError, organizationGetError, passwordGetError, roleGetError } from '../../modules/validation';
 import { InputSelect } from '../input-select/input-select';
+import { startBalanceChecks } from '../../modules/lowBalanceAlert';
 
 /**
  * Форма регистрации
@@ -25,6 +26,7 @@ export class FormSignUp extends Form {
         if (response.service.success) {
             const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
             loadPath(redirectPath);
+            startBalanceChecks();
             return;
         }
 
