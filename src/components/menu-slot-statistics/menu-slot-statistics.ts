@@ -48,7 +48,7 @@ export class MenuSlotStatistics extends Component {
         }
         const dataRaw = Object.entries(response.body) as [string, string][];
 
-        const noDataMsg = this.rootElement.querySelector('.no-date-msg');
+        const noDataMsg = this.rootElement.querySelector('.no-data-msg');
         if (dataRaw.length < 2) {
             noDataMsg.classList.remove('hidden');
             return;
