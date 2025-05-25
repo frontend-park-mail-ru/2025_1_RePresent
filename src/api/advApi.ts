@@ -35,7 +35,7 @@ export class AdvAPI {
             banner: request.banner?.toString() || '',
             slot: request.slot || '',
         };
-        const response = await API.fetch('/adv/my-metrics/?' + new URLSearchParams(requestStr).toString(), {
+        const response = await API.fetch('/adv/my-metrics?' + new URLSearchParams(requestStr).toString(), {
             method: 'GET',
         });
         return response.json();
