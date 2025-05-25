@@ -6,6 +6,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    pointer-events: none;
 
     @media (max-width: $mobile-max-width) {
         background-color: var(--bg-primary);
@@ -17,6 +18,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     .pages-list {
         display: flex;
         flex-direction: row;
+        pointer-events: all;
     }
 
     .pages-section,
