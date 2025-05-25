@@ -7,6 +7,7 @@ import { InputField } from '../input-field/input-field';
 import { emailGetError, getPasswordRepeatGetError, organizationGetError, passwordGetError, roleGetError } from '../../modules/validation';
 import { InputSelect } from '../input-select/input-select';
 import { startBalanceChecks } from '../../modules/lowBalanceAlert';
+import { reAlert } from '../../modules/re-alert';
 
 /**
  * Форма регистрации
@@ -23,13 +24,6 @@ export class FormSignUp extends Form {
 
         const response = await UserAPI.signUp({ username, email, password, role });
 
-        if (response.service.success) {
-            const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
-            loadPath(redirectPath);
-            startBalanceChecks();
-            return;
-        }
-
         if (response.service.error) {
             const errorMessage = response.service.error;
             if (errorMessage.includes('username')) {
@@ -38,7 +32,19 @@ export class FormSignUp extends Form {
             if (errorMessage.includes('email')) {
                 this.props.inputs.emailInput.showError(errorMessage);
             }
+            return;
         }
+
+        const redirectPath = history.state['signInRedirectPath'] || '/my-banners';
+        loadPath(redirectPath);
+
+        reAlert({
+            message: 'Вы зарегистрировались',
+            type: 'success',
+            lifetimeS: '5',
+        });
+
+        startBalanceChecks();
     }
 
     /**

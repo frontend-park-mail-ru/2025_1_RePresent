@@ -4,6 +4,7 @@ import './commonCSS/index.scss';
 
 import { startBalanceChecks } from './modules/lowBalanceAlert';
 import { loadPath } from './modules/router';
+import './modules/re-alert';
 import './modules/swipes';
 
 async function start() {

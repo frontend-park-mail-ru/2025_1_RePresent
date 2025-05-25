@@ -1,6 +1,7 @@
 'use strict';
 
 import { stopBalanceChecks } from './lowBalanceAlert';
+import { reAlert } from './re-alert';
 import { loadPath } from './router';
 
 export interface APIresponse {
@@ -51,7 +52,11 @@ export class API {
         }
 
         if (response.status >= 500) {
-            alert('Сервис временно недоступен');
+            reAlert({
+                message: 'Сервис временно недоступен',
+                type: 'error',
+                lifetimeS: '30',
+            });
         }
 
         return response;

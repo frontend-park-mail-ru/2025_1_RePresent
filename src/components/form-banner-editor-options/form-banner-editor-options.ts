@@ -2,6 +2,7 @@
 
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
+import { reAlert } from '../../modules/re-alert';
 import { store } from '../../modules/store';
 import { bannerDescriptionGetError, bannerLinkGetError, bannerTitleGetError, perShowGetError } from '../../modules/validation';
 import { Form, FormProps } from '../form/form';
@@ -40,7 +41,11 @@ export class FormBannerEditorOptions extends Form {
         }
 
         if (!this.selectedBanner.content) {
-            alert('Загрузите изображение');
+            reAlert({
+                message: 'Загрузите изображение',
+                type: 'error',
+                lifetimeS: '5',
+            });
             return;
         }
 
