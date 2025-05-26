@@ -45,10 +45,12 @@ export class MenuBannerSlotStatistics extends Component {
 
         const from = new Date();
         from.setUTCDate(from.getUTCDate() - days);
+        const to = new Date();
+        from.setUTCDate(to.getUTCDate() + 1);
         const response = await AdvAPI.getStats(
             {
                 from: from,
-                to: new Date(),
+                to: to,
                 activity: metric,
                 banner: (this.props.type == 'banner') ? store.get<Banner>('selectedBanner').id : undefined,
                 slot: (this.props.type == 'slot') ? store.get<Slot>('selectedSlot').link : undefined,
