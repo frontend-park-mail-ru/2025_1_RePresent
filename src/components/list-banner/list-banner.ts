@@ -86,11 +86,11 @@ export class ListBanner extends Component {
             beingCreated: true,
         };
 
-        dispatcher.dispatch('menu-select', 'editor');
-
         store.update({ key: 'selectedBanner', value: newBanner });
 
         this.renderList(null);
+
+        dispatcher.dispatch('menu-select', 'editor');
     }
 
     /**

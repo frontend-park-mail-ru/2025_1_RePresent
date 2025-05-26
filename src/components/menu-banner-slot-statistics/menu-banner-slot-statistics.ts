@@ -135,6 +135,10 @@ export class MenuBannerSlotStatistics extends Component {
      * @param {MenuBannerSlotStatisticsProps} props - параметры компонента
      */
     public render(props: MenuBannerSlotStatisticsProps): void {
+        if (store.get<Banner>('selectedBanner')?.beingCreated || store.get<Slot>('selectedSlot')?.beingCreated) {
+            return;
+        }
+
         super.render(props);
 
         const options = this.rootElement.querySelector('.options') as HTMLElement;
