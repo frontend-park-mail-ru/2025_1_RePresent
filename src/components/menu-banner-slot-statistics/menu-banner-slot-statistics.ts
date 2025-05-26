@@ -9,6 +9,7 @@ import { AdvAPI } from '../../api/advApi';
 import { store } from '../../modules/store';
 import { Slot } from '../../api/slotApi';
 import { Banner } from '../../api/bannerApi';
+import { reAlert } from '../../modules/re-alert';
 
 /**
  * Интерфейс для описания параметров компонента
@@ -53,7 +54,11 @@ export class MenuBannerSlotStatistics extends Component {
             }
         );
         if (response.service.error) {
-            alert('Не удалось получить статистику');
+            reAlert({
+                message: 'Не удалось получить статистику',
+                type: 'error',
+                lifetimeS: '5',
+            });
             return;
         }
         const dataRaw = Object.entries(response.body) as [string, string][];

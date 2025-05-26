@@ -3,6 +3,7 @@
 import { BannerAPI } from '../api/bannerApi';
 import { PaymentAPI } from '../api/paymentApi';
 import { Profile } from '../api/profileApi';
+import { reAlert } from './re-alert';
 import { store } from './store';
 
 const LOW_BALANCE_THRESHOLD_RUB = 100;
@@ -21,7 +22,11 @@ async function checkInfo() {
     }
     const hasActiveBanners = banners.some(b => b.status == 1);
     if (hasActiveBanners && balanceResponse.balance < LOW_BALANCE_THRESHOLD_RUB) {
-        alert('Низкий баланс. Перейдите в профиль, чтобы пополнить его');
+        reAlert({
+            message: 'Низкий баланс. Перейдите в профиль, чтобы пополнить его',
+            type: 'error',
+            lifetimeS: '30',
+        });
     }
 }
 
