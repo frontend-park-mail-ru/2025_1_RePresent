@@ -10,6 +10,7 @@ import { store } from '../../modules/store';
 import { Slot } from '../../api/slotApi';
 import { Banner } from '../../api/bannerApi';
 import { reAlert } from '../../modules/re-alert';
+import { Profile } from '../../api/profileApi';
 
 /**
  * Интерфейс для описания параметров компонента
@@ -48,7 +49,7 @@ export class MenuBannerSlotStatistics extends Component {
             {
                 from: from,
                 to: new Date(),
-                activity: metric as 'click' | 'shown',
+                activity: metric,
                 banner: (this.props.type == 'banner') ? store.get<Banner>('selectedBanner').id : undefined,
                 slot: (this.props.type == 'slot') ? store.get<Slot>('selectedSlot').link : undefined,
             }
@@ -75,7 +76,10 @@ export class MenuBannerSlotStatistics extends Component {
         noDataMsg.classList.add('hidden');
 
         const msInDay = 24 * 60 * 60 * 1000;
-        const data = dataRaw.map(e => [Date.parse(e[0]) / msInDay, parseFloat(e[1])]) as [number, number][];
+        let data = dataRaw.map(e => [Date.parse(e[0]) / msInDay, parseFloat(e[1])]) as [number, number][];
+        if (metric == 'ctr') {
+            data = data.map(e => [e[0], e[1] * 100]);
+        }
         const dataXtoLabel = Object.fromEntries(data.map((e, i) => {
             const date = new Date(e[0] * msInDay);
             return [e[0], `${('0' + date.getDate()).slice(-2)}.${('0' + (date.getMonth() + 1)).slice(-2)}`];
@@ -90,8 +94,10 @@ export class MenuBannerSlotStatistics extends Component {
         const metricToYLabel = {
             'shown': 'показы',
             'click': 'клики',
-            'revenue': 'доход, руб.',
+            'ctr': 'CTR, %',
+            'expenses': 'расходы, руб.',
             'avg-show-price': 'ср. показ, руб.',
+            'revenue': 'доход, руб.',
         } as Record<string, string>;
 
         this.chart.render({
@@ -130,27 +136,39 @@ export class MenuBannerSlotStatistics extends Component {
         super.render(props);
 
         const options = this.rootElement.querySelector('.options') as HTMLElement;
+        const role = store.get<Profile>('profile').role;
+        const commonMetrics = [
+            {
+                value: 'shown',
+                label: 'Показы',
+            },
+            {
+                value: 'click',
+                label: 'Клики',
+            },
+            {
+                value: 'ctr',
+                label: 'CTR',
+            },
+        ];
         this.selectMetric = new InputSelect(options, {
             name: 'metric',
             label: 'Метрика',
-            options: [
+            options: (role == 1) ? commonMetrics.concat([
                 {
-                    value: 'shown',
-                    label: 'Показы',
+                    value: 'expenses',
+                    label: 'Расходы',
                 },
+            ]) : commonMetrics.concat([
                 {
-                    value: 'click',
-                    label: 'Клики',
+                    value: 'avg-show-price',
+                    label: 'Ср. стоимость показа',
                 },
                 {
                     value: 'revenue',
                     label: 'Доход',
                 },
-                {
-                    value: 'avg-show-price',
-                    label: 'Ср. стоимость показа',
-                },
-            ],
+            ]),
             defaultValue: 'shown',
         });
         this.selectMetric.render();

@@ -8,7 +8,7 @@ import { API, APIresponse } from '../modules/api';
 interface GetStatsRequest {
     from: Date;
     to: Date;
-    activity: 'click' | 'shown';
+    activity: string;
     banner?: number;
     slot?: string;
 }
