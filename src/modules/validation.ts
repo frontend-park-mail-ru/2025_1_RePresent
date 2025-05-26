@@ -72,7 +72,7 @@ export function getPasswordRepeatGetError(passwordInput: Input): (value: string)
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function organizationGetError(value: string): string {
-    const minLength = 5, maxLength = 30;
+    const minLength = 5, maxLength = 20;
     const isValid = value.length >= minLength && value.length <= maxLength;
     if (isValid) {
         return '';
