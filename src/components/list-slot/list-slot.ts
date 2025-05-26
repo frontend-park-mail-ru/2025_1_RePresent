@@ -82,11 +82,11 @@ export class ListSlot extends Component {
             beingCreated: true,
         };
 
+        dispatcher.dispatch('menu-select', 'editor');
+
         store.update({ key: 'selectedSlot', value: newSlot });
 
         this.renderList(null);
-
-        dispatcher.dispatch('menu-select', 'editor');
     }
 
     /**
