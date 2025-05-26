@@ -91,7 +91,11 @@ export class MenuBannerSlotStatistics extends Component {
         const sum = Math.round(dataY.reduce((a, b) => a + b, 0));
         const avg = Math.round(sum / dataY.length);
 
-        aggregates.innerHTML = `<p class="metric-avg">Среднее: ${avg}</p><p class="metric-sum">Сумма: ${sum}</p>`
+        if (metric == 'ctr' || metric == 'avg-show-price') {
+            aggregates.innerHTML = `<p class="metric-avg">Среднее: ${avg}</p>`;
+        } else {
+            aggregates.innerHTML = `<p class="metric-avg">Среднее: ${avg}</p><p class="metric-sum">Сумма: ${sum}</p>`;
+        }
 
         const metricToYLabel = {
             'shown': 'показы',
