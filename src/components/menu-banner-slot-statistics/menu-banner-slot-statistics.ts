@@ -148,7 +148,7 @@ export class MenuBannerSlotStatistics extends Component {
             },
             {
                 value: 'ctr',
-                label: 'CTR',
+                label: 'CTR = клики / показы',
             },
         ];
         this.selectMetric = new InputSelect(options, {
