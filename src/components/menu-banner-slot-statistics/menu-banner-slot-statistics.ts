@@ -88,8 +88,9 @@ export class MenuBannerSlotStatistics extends Component {
         }));
         const dataY = data.map(e => e[1]);
         const rangeY = Math.max(...dataY) - Math.min(...dataY);
-        const sum = Math.round(dataY.reduce((a, b) => a + b, 0));
-        const avg = Math.round(sum / dataY.length);
+        const roundCoef = 100;
+        const sum = Math.round(dataY.reduce((a, b) => a + b, 0) * roundCoef) / roundCoef;
+        const avg = Math.round(sum / dataY.length * roundCoef) / roundCoef;
 
         if (metric == 'ctr' || metric == 'avg-show-price') {
             aggregates.innerHTML = `<p class="metric-avg">Среднее: ${avg}</p>`;
