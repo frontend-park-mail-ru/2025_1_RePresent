@@ -136,7 +136,7 @@ export class PageProfile extends Component {
         logOutButton.render({ label: 'Выйти из аккаунта', type: 'danger', onClick: this.onLogOutClick.bind(this) });
 
         if (roleNum == 1) {
-            const userId = store.get<Profile>('profile').ID;
+            const userId = store.get<Profile>('profile').id;
             const adLinkField = new InputField(privateSection, {
                 label: 'Тестовая ссылка на показ Вашей рекламы',
                 name: 'ad-link',

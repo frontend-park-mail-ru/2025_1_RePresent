@@ -6,7 +6,7 @@ import { API, APIresponse } from '../modules/api';
  * Интерфейс для описания данных профиля
  */
 export interface Profile {
-    ID: number;
+    id: number;
     username: string;
     email: string;
     description: string;
