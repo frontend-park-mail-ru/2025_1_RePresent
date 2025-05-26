@@ -46,7 +46,7 @@ export class MenuBannerSlotStatistics extends Component {
         const from = new Date();
         from.setUTCDate(from.getUTCDate() - days);
         const to = new Date();
-        from.setUTCDate(to.getUTCDate() + 1);
+        to.setUTCDate(to.getUTCDate() + 1);
         const response = await AdvAPI.getStats(
             {
                 from: from,
