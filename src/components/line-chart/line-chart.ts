@@ -91,8 +91,12 @@ export class LineChart extends Component {
         const xDataEnd = Math.ceil(Math.max(...props.data.map(e => e[0])) / props.gridInterval.x) * props.gridInterval.x;
         const xDataScale = frameWidth / (xDataEnd - xDataBegin);
 
-        const yDataBegin = Math.floor(Math.min(...props.data.map(e => e[1])) / props.gridInterval.y) * props.gridInterval.y;
-        const yDataEnd = Math.ceil(Math.max(...props.data.map(e => e[1])) / props.gridInterval.y) * props.gridInterval.y;
+        let yDataBegin = Math.floor(Math.min(...props.data.map(e => e[1])) / props.gridInterval.y) * props.gridInterval.y;
+        let yDataEnd = Math.ceil(Math.max(...props.data.map(e => e[1])) / props.gridInterval.y) * props.gridInterval.y;
+        if (yDataBegin == yDataEnd) {
+            yDataBegin -= props.gridInterval.y;
+            yDataEnd += props.gridInterval.y;
+        }
         const yDataScale = frameHeight / (yDataEnd - yDataBegin);
 
         // Трансформация внутреннего уровня

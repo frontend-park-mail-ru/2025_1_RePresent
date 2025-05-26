@@ -112,7 +112,7 @@ export class MenuBannerSlotStatistics extends Component {
             },
             gridInterval: {
                 x: (data.length < 10) ? 1 : 5,
-                y: 10 ** Math.floor(Math.log10(rangeY)),
+                y: Math.min(1, 10 ** Math.floor(Math.log10(rangeY))),
             },
             dataLabelMap: {
                 x: (n: number) => dataXtoLabel[n],
