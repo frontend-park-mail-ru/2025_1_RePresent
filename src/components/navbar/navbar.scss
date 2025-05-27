@@ -102,6 +102,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         width: calc(var(--navbar-height) * 0.75);
         aspect-ratio: 1;
         border-radius: 100%;
+        object-fit: cover;
     }
 
     @media (max-width: $mobile-max-width) {
