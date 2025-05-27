@@ -26,6 +26,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         flex-shrink: 0;
         background-color: var(--bg-primary);
         border-radius: var(--corner-small);
+        border: var(--border-width) solid var(--bg-secondary-dark);
         overflow: hidden;
     }
 
