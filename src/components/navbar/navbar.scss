@@ -11,6 +11,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     @media (max-width: $mobile-max-width) {
         background-color: var(--bg-primary);
         border-radius: var(--corner-small);
+        border: var(--border-width) solid var(--bg-secondary-dark);
     }
 
     .pages-section,
@@ -28,6 +29,10 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         border-radius: var(--corner-small);
         border: var(--border-width) solid var(--bg-secondary-dark);
         overflow: hidden;
+
+        @media (max-width: $mobile-max-width) {
+            border: none;
+        }
     }
 
     .logo-box {
