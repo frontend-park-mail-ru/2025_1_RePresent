@@ -4,6 +4,7 @@
     &.selected,
     &.selected:hover,
     &.selected:active {
+        border: none;
         background-color: var(--bg-secondary);
         box-shadow: 0 0 0 0.375rem rgb(from var(--active-primary) r g b / 50%);
         cursor: default;
