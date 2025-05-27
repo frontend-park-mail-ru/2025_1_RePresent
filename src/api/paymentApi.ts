@@ -10,12 +10,21 @@ interface GetBalanceResponse extends APIresponse {
 }
 
 /**
+ * Запрос пополнения счета
+ */
+interface TopUpRequest {
+    value: string;
+    currency: string;
+    return_url: string;
+    description: string;
+    idempotence_key: string;
+}
+
+/**
  * Ответ пополнения счета
  */
-interface TopUpResponse extends APIresponse {
-    transactionId: string;
-    status: string;
-    nextAction: string;
+interface TopUpResponse {
+    confirmation_url: string;
 }
 
 export class PaymentAPI {
@@ -32,13 +41,13 @@ export class PaymentAPI {
 
     /**
      * Пополнить счет текущего пользователя
-     * @param {number} amount - сумма пополнения
+     * @param {TopUpRequest} request - запрос
      * @returns {Promise<APIresponse>} - ответ API
      */
-    static async topUp(amount: number): Promise<TopUpResponse> {
-        const response = await API.fetch('/payment/accounts/topup', {
-            method: 'PUT',
-            body: JSON.stringify({ amount }),
+    static async topUp(request: TopUpRequest): Promise<TopUpResponse> {
+        const response = await API.fetch('/payment/transactions', {
+            method: 'POST',
+            body: JSON.stringify(request),
         });
         return response.json();
     }

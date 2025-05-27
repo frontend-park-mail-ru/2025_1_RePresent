@@ -5,6 +5,7 @@ import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
 import { InputField } from '../input-field/input-field';
 import { emailGetError, passwordGetError } from '../../modules/validation';
+import { startBalanceChecks } from '../../modules/lowBalanceAlert';
 import { reAlert } from '../../modules/re-alert';
 
 /**
@@ -34,6 +35,8 @@ export class FormSignIn extends Form {
             type: 'success',
             lifetimeS: '5',
         });
+
+        startBalanceChecks();
     }
 
     /**

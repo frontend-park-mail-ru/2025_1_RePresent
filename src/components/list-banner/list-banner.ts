@@ -79,6 +79,7 @@ export class ListBanner extends Component {
             description: '',
             content: '',
             link: '',
+            max_price: '',
             balance: 0,
             status: 0,
             owner: 0,

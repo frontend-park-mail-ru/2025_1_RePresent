@@ -11,6 +11,7 @@ export interface Banner {
     description: string;
     content: string;
     link: string;
+    max_price: string;
     balance: number;
     status: number;
     owner: number;

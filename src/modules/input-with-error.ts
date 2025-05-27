@@ -51,7 +51,7 @@ export class InputWithError extends Input {
         if (isValid) {
             this.hideError();
         } else {
-            this.showError(this.props.getError(inputValue));
+            this.showError(this.props.getError(inputValue, this.setValue.bind(this)));
         }
         return isValid;
     }

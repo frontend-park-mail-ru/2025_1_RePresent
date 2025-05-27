@@ -3,6 +3,23 @@
 import { Input } from './input';
 
 /**
+ * Проверка валидности суммы в рублях
+ * @param {string} value - значение суммы
+ * @param {(value: string) => void} setValue - функция установки значения поля
+ * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
+ */
+function rublesGetError(value: string, setValue: (value: string) => void): string {
+    const amount = Number(value);
+    const rublesRegexp = /^\d+(\.\d\d?)?$/;
+    const isValid = !isNaN(amount) && rublesRegexp.test(value);
+    if (isValid) {
+        setValue(amount.toString());
+        return '';
+    }
+    return 'Сумма в рублях';
+}
+
+/**
  * Проверка валидности email
  * @param {string} value - значение email
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
@@ -55,7 +72,7 @@ export function getPasswordRepeatGetError(passwordInput: Input): (value: string)
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function organizationGetError(value: string): string {
-    const minLength = 5, maxLength = 30;
+    const minLength = 5, maxLength = 20;
     const isValid = value.length >= minLength && value.length <= maxLength;
     if (isValid) {
         return '';
@@ -104,35 +121,39 @@ export const topUpAmountMaxRub = 100_000;
  */
 export function topUpAmountGetError(value: string, setValue: (value: string) => void): string {
     value = value.replace(',', '.');
+    const rublesError = rublesGetError(value, setValue);
+    if (rublesError) {
+        return rublesError;
+    }
     const amount = Number(value);
-    const isValid = /^\d+$/.test(value)
-        && amount >= topUpAmountMinRub
-        && amount <= topUpAmountMaxRub;
+    const isValid = amount >= topUpAmountMinRub && amount <= topUpAmountMaxRub;
     if (isValid) {
-        setValue(value);
         return '';
     }
-    return `Целое число, от ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
+    return `От ${topUpAmountMinRub} до ${topUpAmountMaxRub} руб.`;
 }
 
 /**
  * Минимальная и максимальная суммы показа объявления
  */
 export const perShowMinRub = 0.01;
-export const perShowMaxRub = 1;
+export const perShowMaxRub = 1000;
 
 /**
- * Проверка валидности суммы показа объявления
+ * Проверка валидности суммы показа объявления для баннера/слота
  * @param {string} value - значение суммы показа
  * @param {(value: string) => void} setValue - функция установки значения поля
  * @returns {string} - сообщение об ошибке или пустая строка, если ошибок нет
  */
 export function perShowGetError(value: string, setValue: (value: string) => void): string {
     value = value.replace(',', '.');
+    const rublesError = rublesGetError(value, setValue);
+    if (rublesError) {
+        return rublesError;
+    }
     const amount = Number(value);
     const isValid = amount >= perShowMinRub && amount <= perShowMaxRub;
     if (isValid) {
-        setValue(value);
         return '';
     }
     return `От ${perShowMinRub} до ${perShowMaxRub} руб.`;

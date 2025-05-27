@@ -1,5 +1,6 @@
 'use strict';
 
+import { stopBalanceChecks } from './lowBalanceAlert';
 import { reAlert } from './re-alert';
 import { loadPath } from './router';
 
@@ -47,6 +48,7 @@ export class API {
 
         if (response.status === 401) {
             loadPath('/signin', { signInRedirectPath: location.pathname });
+            stopBalanceChecks();
         }
 
         if (response.status >= 500) {

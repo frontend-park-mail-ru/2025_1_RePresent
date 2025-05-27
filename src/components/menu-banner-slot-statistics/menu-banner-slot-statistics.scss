@@ -1,0 +1,35 @@
+.menu-banner-slot-statistics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-big);
+
+    h1 {
+        font-size: var(--font-large);
+    }
+
+    .options {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-big);
+    }
+
+    .no-data-msg {
+        margin-top: var(--margin-big);
+        font-size: var(--font-large);
+        text-align: center;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .aggregates {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-huge);
+    }
+
+    #chart.hidden {
+        display: none;
+    }
+}

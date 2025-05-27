@@ -6,6 +6,7 @@ import { loadPath } from '../../modules/router';
 import { InputField } from '../input-field/input-field';
 import { emailGetError, getPasswordRepeatGetError, organizationGetError, passwordGetError, roleGetError } from '../../modules/validation';
 import { InputSelect } from '../input-select/input-select';
+import { startBalanceChecks } from '../../modules/lowBalanceAlert';
 import { reAlert } from '../../modules/re-alert';
 
 /**
@@ -42,6 +43,8 @@ export class FormSignUp extends Form {
             type: 'success',
             lifetimeS: '5',
         });
+
+        startBalanceChecks();
     }
 
     /**

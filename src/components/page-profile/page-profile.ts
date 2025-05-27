@@ -15,6 +15,7 @@ import { Button } from '../button/button';
 import { UserAPI } from '../../api/userApi';
 import { loadPath } from '../../modules/router';
 import { dispatcher } from '../../modules/dispatcher';
+import { stopBalanceChecks } from '../../modules/lowBalanceAlert';
 import { reAlert } from '../../modules/re-alert';
 import { reConfirm } from '../../modules/re-confirm';
 
@@ -92,6 +93,8 @@ export class PageProfile extends Component {
             type: 'success',
             lifetimeS: '5',
         });
+
+        stopBalanceChecks();
     }
 
     /**
@@ -132,16 +135,18 @@ export class PageProfile extends Component {
         const logOutButton = new Button(privateSection);
         logOutButton.render({ label: 'Выйти из аккаунта', type: 'danger', onClick: this.onLogOutClick.bind(this) });
 
-        const userId = store.get<Profile>('profile').ID;
-        const adLinkField = new InputField(privateSection, {
-            label: 'Ссылка на показ рекламы',
-            name: 'ad-link',
-            placeholder: 'Ваша ссылка',
-            type: 'text',
-            default: `${location.origin}/api/v1/banner/uniq_link/${userId}`,
-            disabled: true,
-        });
-        adLinkField.render();
+        if (roleNum == 1) {
+            const userId = store.get<Profile>('profile').id;
+            const adLinkField = new InputField(privateSection, {
+                label: 'Тестовая ссылка на показ Вашей рекламы',
+                name: 'ad-link',
+                placeholder: 'Ваша ссылка',
+                type: 'text',
+                default: `${location.origin}/api/v1/banner/uniq_link/${userId}`,
+                disabled: true,
+            });
+            adLinkField.render();
+        }
 
         const reviewsButton = new Button(privateSection);
         reviewsButton.render({

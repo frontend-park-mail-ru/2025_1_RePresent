@@ -4,7 +4,7 @@ import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
 import { reAlert } from '../../modules/re-alert';
 import { store } from '../../modules/store';
-import { bannerDescriptionGetError, bannerLinkGetError, bannerTitleGetError } from '../../modules/validation';
+import { bannerDescriptionGetError, bannerLinkGetError, bannerTitleGetError, perShowGetError } from '../../modules/validation';
 import { Form, FormProps } from '../form/form';
 import { InputField } from '../input-field/input-field';
 import { InputSwitch } from '../input-switch/input-switch';
@@ -31,6 +31,7 @@ export class FormBannerEditorOptions extends Form {
 
         this.selectedBanner.title = inputs.nameInput.getValue();
         this.selectedBanner.link = inputs.linkInput.getValue();
+        this.selectedBanner.max_price = inputs.maxPrice.getValue();
         this.selectedBanner.description = inputs.textInput.getValue();
         this.selectedBanner.status = inputs.isActive.getValue() ? 1 : 0;
 
@@ -94,6 +95,14 @@ export class FormBannerEditorOptions extends Form {
                 placeholder: 'Введите текст',
                 default: selectedBanner.description,
                 getError: bannerDescriptionGetError,
+            }),
+            maxPrice: new InputField(root, {
+                type: 'text',
+                label: 'Максимальная стоимость показа объявления, руб.',
+                name: 'max-price',
+                placeholder: 'Введите стоимость',
+                default: selectedBanner.max_price,
+                getError: perShowGetError,
             }),
             isActive: new InputSwitch(root, {
                 name: 'is-active',

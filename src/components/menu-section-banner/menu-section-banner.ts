@@ -4,7 +4,9 @@ import { dispatcher } from '../../modules/dispatcher';
 import { Component } from '../../modules/component';
 import { MenuList, MenuListProps } from '../menu-list/menu-list';
 import { MenuBannerEditor } from '../menu-banner-editor/menu-banner-editor';
+import { MenuBannerSlotStatistics } from '../menu-banner-slot-statistics/menu-banner-slot-statistics';
 import { store } from '../../modules/store';
+import { Banner } from '../../api/bannerApi';
 
 /**
  * Раздел меню объявлений
@@ -58,6 +60,9 @@ export class MenuSectionBanner extends Component {
             case 'editor':
                 new MenuBannerEditor(menuContents).render();
                 break;
+            case 'statistics':
+                new MenuBannerSlotStatistics(menuContents).render({ type: 'banner' });
+                break;
             default:
                 break;
         }
@@ -84,18 +89,21 @@ export class MenuSectionBanner extends Component {
     render(): void {
         super.render();
 
-        const hasSelectedBanner = store.get<boolean>('selectedBanner');
-        if (!hasSelectedBanner) {
+        const selectedBanner = store.get<Banner>('selectedBanner');
+        if (!selectedBanner) {
             this.renderEmptyState();
             return;
         }
 
         const props: MenuListProps = {
-            items: [
-                { label: 'Редактор', menuName: 'editor' },
-                // { label: 'Статистика', menuName: 'statistics' },
-                // { label: 'Оплата', menuName: 'billing' },
-            ],
+            items: (selectedBanner.beingCreated) ?
+                [
+                    { label: 'Редактор', menuName: 'editor' },
+                ]
+                : [
+                    { label: 'Редактор', menuName: 'editor' },
+                    { label: 'Статистика', menuName: 'statistics' },
+                ],
         };
 
         new MenuList(this.rootElement).render(props);
