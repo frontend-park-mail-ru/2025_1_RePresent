@@ -74,6 +74,7 @@ async function renderPage(path: string): Promise<void> {
             return;
         }
         store.update({ key: 'profile', value: profile });
+        updateColorScheme(profile.role);
 
         if (pageInfo.roleRequired == 'advertiser' && profile.role != 1 ||
             pageInfo.roleRequired == 'platform' && profile.role != 2
@@ -102,3 +103,16 @@ async function renderPage(path: string): Promise<void> {
 window.addEventListener('popstate', () => {
     renderPage(location.pathname);
 });
+
+/**
+ * Обновить цветовую схему сайта
+ * @param {1 | 2} role - роль пользователя
+ */
+function updateColorScheme(role: 1 | 2): void {
+    if (role == 1) {
+        root.setAttribute('style', '');
+    }
+    if (role == 2) {
+        root.setAttribute('style', '--active-primary: var(--active-secondary); --active-primary-dark: var(--active-secondary-dark);');
+    }
+}

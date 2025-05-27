@@ -50,11 +50,15 @@ export class Navbar extends Component {
             return;
         }
 
+        const logoRole = this.rootElement.querySelector('.logo-text.role') as HTMLElement;
+
         if (profile.role == 1) {
+            logoRole.innerText = 'Рекламодатель';
             this.renderPageLinks([{ label: 'Мои объявления', path: '/my-banners' }]);
         }
 
         if (profile.role == 2) {
+            logoRole.innerText = 'Площадка';
             this.renderPageLinks([{ label: 'Мои слоты', path: '/my-slots' }]);
         }
     }
