@@ -79,10 +79,20 @@ export class MenuBannerSlotStatistics extends Component {
 
         const msInDay = 24 * 60 * 60 * 1000;
         let data = dataRaw.map(e => [Date.parse(e[0]) / msInDay, parseFloat(e[1])]) as [number, number][];
-        if (metric == 'ctr') {
-            data = data.map(e => [e[0], e[1] * 100]);
+        let dataFilled = [] as [number, number][];
+        let dataIdx = 0;
+        for (let dt = data[0][0]; dt < data[dataRaw.length - 1][0]; dt++) {
+            if (data[dataIdx][0] == dt) {
+                dataFilled.push(data[dataIdx]);
+                dataIdx++;
+            } else {
+                dataFilled.push([dt, 0]);
+            }
         }
-        const dataY = data.map(e => e[1]);
+        if (metric == 'ctr') {
+            dataFilled = dataFilled.map(e => [e[0], e[1] * 100]);
+        }
+        const dataY = dataFilled.map(e => e[1]);
         const rangeY = Math.max(...dataY) - Math.min(...dataY);
         const roundCoef = 100;
         const sum = Math.round(dataY.reduce((a, b) => a + b, 0) * roundCoef) / roundCoef;
@@ -114,13 +124,13 @@ export class MenuBannerSlotStatistics extends Component {
                 right: 100,
                 top: 50,
             },
-            data,
+            data: dataFilled,
             axisLabels: {
                 x: 'дата',
                 y: metricToYLabel[metric],
             },
             gridInterval: {
-                x: (data.length < 10) ? 1 : 5,
+                x: (dataFilled.length < 10) ? 1 : 5,
                 y: Math.max(1, 10 ** Math.floor(Math.log10(rangeY))),
             },
             dataLabelMap: {
