@@ -82,10 +82,6 @@ export class MenuBannerSlotStatistics extends Component {
         if (metric == 'ctr') {
             data = data.map(e => [e[0], e[1] * 100]);
         }
-        const dataXtoLabel = Object.fromEntries(data.map((e, i) => {
-            const date = new Date(e[0] * msInDay);
-            return [e[0], `${('0' + date.getDate()).slice(-2)}.${('0' + (date.getMonth() + 1)).slice(-2)}`];
-        }));
         const dataY = data.map(e => e[1]);
         const rangeY = Math.max(...dataY) - Math.min(...dataY);
         const roundCoef = 100;
@@ -128,7 +124,10 @@ export class MenuBannerSlotStatistics extends Component {
                 y: Math.max(1, 10 ** Math.floor(Math.log10(rangeY))),
             },
             dataLabelMap: {
-                x: (n: number) => dataXtoLabel[n],
+                x: (n: number) => {
+                    const date = new Date(n * msInDay);
+                    return `${('0' + date.getDate()).slice(-2)}.${('0' + (date.getMonth() + 1)).slice(-2)}`;
+                },
             },
         });
 
