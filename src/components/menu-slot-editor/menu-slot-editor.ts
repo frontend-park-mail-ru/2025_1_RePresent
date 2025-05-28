@@ -45,9 +45,9 @@ export class MenuSlotEditor extends Component {
         const format = slotFormats.filter(f => f.code == code)[0];
 
         const slotLink = `${API.API_ORIGIN}/adv/iframe/${slot.link}`;
-        const iframeHTML = `<iframe class="slot" style="border: none;" title="Slot preview" width="${format.width}" height="${format.height}" src="${slotLink}"></iframe>`;
-        previewContainer.innerHTML = iframeHTML;
-        this.linkField.inputElement.value = iframeHTML;
+        const iframeHTML = `<iframe class="slot" style="border: none;" title="Slot preview" width="${format.width}" height="${format.height}" src="${slotLink}{debugMode}"></iframe>`;
+        previewContainer.innerHTML = iframeHTML.replace('{debugMode}', '?debug=true');
+        this.linkField.inputElement.value = iframeHTML.replace('{debugMode}', '');
     }
 
     /**
