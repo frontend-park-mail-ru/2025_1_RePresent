@@ -90,8 +90,8 @@ export class MenuBannerEditor extends Component {
         new ImageUpload(previewSection).render(
             {
                 imgSrc: contentSrc,
-                imgAlt: 'изображение объявления',
-                btnLabel: 'Загрузить',
+                imgAlt: '',
+                btnLabel: 'Загрузить изображение',
                 uploadCallback: this.uploadFile.bind(this),
                 imgElement: this.rootElement.querySelector('.preview-container .card-image'),
             }
