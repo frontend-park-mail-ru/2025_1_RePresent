@@ -113,6 +113,7 @@ export class FormBannerEditorOptions extends Form {
     render(): void {
         const selectedBanner = store.get<Banner>('selectedBanner');
         this.selectedBanner = selectedBanner;
+        this.bannerPreview = selectedBanner;
 
         const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.onSubmit.bind(this), className: 'form-block' };
 
@@ -165,7 +166,5 @@ export class FormBannerEditorOptions extends Form {
         props.inputs.nameInput.inputElement.addEventListener('input', this.onInput.bind(this));
         props.inputs.linkInput.inputElement.addEventListener('input', this.onInput.bind(this));
         props.inputs.textInput.inputElement.addEventListener('input', this.onInput.bind(this));
-
-        this.onInput();
     }
 }
