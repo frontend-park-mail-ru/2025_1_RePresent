@@ -94,7 +94,7 @@ export class BannerAPI {
      * @returns {Promise<Response>} - ответ API
      */
     static async generateImage(bannerId: number): Promise<Response> {
-        return API.fetch(`/banner/generate/image${bannerId}`, {
+        return API.fetch(`/banner/generate/image/${bannerId}`, {
             method: 'POST',
         });
     }
@@ -105,7 +105,7 @@ export class BannerAPI {
      * @returns {Promise<APIresponse>} - ответ API
      */
     static async generateDescription(bannerId: number): Promise<APIresponse> {
-        const response = await API.fetch(`/banner/generate/description${bannerId}`, {
+        const response = await API.fetch(`/banner/generate/description/${bannerId}`, {
             method: 'POST',
         });
         return response.json();
