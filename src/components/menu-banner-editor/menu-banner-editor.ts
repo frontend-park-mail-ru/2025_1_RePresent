@@ -72,7 +72,7 @@ export class MenuBannerEditor extends Component {
         contentId = response.service.success;
         store.update({ key: 'fileId', value: contentId });
         reAlert({
-            message: 'Файл загружен',
+            message: 'Файл загружен. Не забудьте сохранить объявление',
             type: 'success',
             lifetimeS: '5',
         });

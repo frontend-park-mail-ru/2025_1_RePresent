@@ -62,7 +62,7 @@ export class FormBannerEditorOptions extends Form {
             }
             dispatcher.dispatch('banner-create');
             reAlert({
-                message: 'Объявление создано',
+                message: 'Объявление создано и появится на площадках в течение 3 минут',
                 type: 'success',
                 lifetimeS: '5',
             });
@@ -78,7 +78,7 @@ export class FormBannerEditorOptions extends Form {
             }
             dispatcher.dispatch('banner-update', this.selectedBanner.id);
             reAlert({
-                message: 'Объявление обновлено',
+                message: 'Объявление обновлено и изменится на площадках в течение 3 минут',
                 type: 'success',
                 lifetimeS: '5',
             });
