@@ -150,7 +150,8 @@ export class MenuBannerEditor extends Component {
         this.renderImageUpload();
 
         const optionsSection = this.rootElement.getElementsByClassName('options-section')[0] as HTMLElement;
-        new FormBannerEditorOptions(optionsSection).render();
+        this.bannerForm = new FormBannerEditorOptions(optionsSection);
+        this.bannerForm.render();
 
         this.renderDeleteButton();
 

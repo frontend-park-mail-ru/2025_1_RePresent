@@ -22,8 +22,6 @@ export class FormBannerEditorOptions extends Form {
      */
     constructor(parent: HTMLElement) {
         super(parent);
-
-        this.bannerPreview = {} as Banner;
     }
 
     /**
@@ -167,5 +165,7 @@ export class FormBannerEditorOptions extends Form {
         props.inputs.nameInput.inputElement.addEventListener('input', this.onInput);
         props.inputs.linkInput.inputElement.addEventListener('input', this.onInput);
         props.inputs.textInput.inputElement.addEventListener('input', this.onInput);
+
+        this.onInput();
     }
 }
