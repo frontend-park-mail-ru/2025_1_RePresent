@@ -80,14 +80,63 @@ export class MenuBannerEditor extends Component {
     }
 
     /**
+     * Сгенерировать изображение баннера
+     */
+    private async generateImage(): Promise<void> {
+        if (!this.bannerForm.submit()) {
+            reAlert({
+                message: 'Ошибка генерации изображения',
+                type: 'error',
+                lifetimeS: '5',
+            });
+            return;
+        }
+
+        reAlert({
+            message: 'Изображение генерируется. Это может занять до 30 секунд',
+            type: 'success',
+            lifetimeS: '5',
+        });
+
+        const response = await BannerAPI.generateImage(store.get<Banner>('selectedBanner').id);
+        if (!response.ok) {
+            reAlert({
+                message: 'Ошибка генерации изображения',
+                type: 'error',
+                lifetimeS: '5',
+            });
+            return;
+        }
+
+        const blob = await response.blob();
+        const file = new File([blob], 'generated', {
+            type: blob.type,
+            lastModified: Date.now(),
+        });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        const fileInput = document.getElementById('imageInput') as HTMLInputElement;
+        fileInput.files = dataTransfer.files;
+        const event = new Event('change', { bubbles: true });
+        fileInput.dispatchEvent(event);
+
+        reAlert({
+            message: 'Изображение сгенерировано. Не забудьте сохранить объявление',
+            type: 'success',
+            lifetimeS: '5',
+        });
+    }
+
+    /**
      * Отрисовка раздела загрузки изображения
      */
     private renderImageUpload(): void {
         const banner = store.get<Banner>('selectedBanner');
-        const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
+        const imageUploadRow = this.rootElement.getElementsByClassName('image-upload-row')[0] as HTMLElement;
         const contentSrc = banner.beingCreated ? '' : this.getContentSrcFromId(banner.content);
 
-        new ImageUpload(previewSection).render(
+        new ImageUpload(imageUploadRow).render(
             {
                 imgSrc: contentSrc,
                 imgAlt: '',
@@ -96,6 +145,12 @@ export class MenuBannerEditor extends Component {
                 imgElement: this.rootElement.querySelector('.preview-container .card-image'),
             }
         );
+
+        new Button(imageUploadRow).render({
+            type: 'neutral',
+            label: '<img class="icon-generate" src="/static/icons/wand-magic-sparkles-solid.svg" alt="🪄">',
+            onClick: this.generateImage.bind(this),
+        });
     }
 
     /**

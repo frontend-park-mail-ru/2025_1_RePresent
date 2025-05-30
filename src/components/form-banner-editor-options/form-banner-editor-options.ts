@@ -26,8 +26,9 @@ export class FormBannerEditorOptions extends Form {
 
     /**
      * Обработчик нажатия на кнопку отправки формы
+     * @returns {boolean} - успешна ли отправка
      */
-    private async onSubmit(): Promise<void> {
+    public async submit(): Promise<boolean> {
         const inputs = this.props.inputs;
 
         this.selectedBanner.title = inputs.nameInput.getValue();
@@ -47,7 +48,7 @@ export class FormBannerEditorOptions extends Form {
                 type: 'error',
                 lifetimeS: '5',
             });
-            return;
+            return false;
         }
 
         if (this.selectedBanner.beingCreated) {
@@ -58,7 +59,7 @@ export class FormBannerEditorOptions extends Form {
                     type: 'error',
                     lifetimeS: '5',
                 });
-                return;
+                return false;
             }
             dispatcher.dispatch('banner-create');
             reAlert({
@@ -74,7 +75,7 @@ export class FormBannerEditorOptions extends Form {
                     type: 'error',
                     lifetimeS: '5',
                 });
-                return;
+                return false;
             }
             dispatcher.dispatch('banner-update', this.selectedBanner.id);
             reAlert({
@@ -83,6 +84,41 @@ export class FormBannerEditorOptions extends Form {
                 lifetimeS: '5',
             });
         }
+
+        return true;
+    }
+
+    /**
+     * Сгенерировать описание баннера
+     */
+    private async generateDescription(): Promise<void> {
+        if (!this.submit()) {
+            reAlert({
+                message: 'Ошибка генерации описания',
+                type: 'error',
+                lifetimeS: '5',
+            });
+            return;
+        }
+
+        reAlert({
+            message: 'Описание генерируется. Это может занять до 30 секунд',
+            type: 'success',
+            lifetimeS: '5',
+        });
+
+        const response = await BannerAPI.generateDescription(this.selectedBanner.id);
+        if (response.service.error) {
+            reAlert({
+                message: 'Ошибка генерации описания',
+                type: 'error',
+                lifetimeS: '5',
+            });
+            return;
+        }
+
+        this.props.inputs.textInput.inputElement.value = response.service.success;
+        this.onInput();
     }
 
     /**
@@ -118,7 +154,7 @@ export class FormBannerEditorOptions extends Form {
         this.selectedBanner = selectedBanner;
         this.bannerPreview = selectedBanner;
 
-        const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.onSubmit.bind(this), className: 'form-block' };
+        const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.submit.bind(this), className: 'form-block' };
 
         super.renderRoot(props);
 
@@ -148,6 +184,11 @@ export class FormBannerEditorOptions extends Form {
                 placeholder: 'Введите текст',
                 default: selectedBanner.description,
                 getError: bannerDescriptionGetError,
+                button: {
+                    type: 'neutral',
+                    label: '<img class="icon-generate" src="/static/icons/wand-magic-sparkles-solid.svg" alt="🪄">',
+                    onClick: this.generateDescription.bind(this),
+                },
             }),
             maxPrice: new InputField(root, {
                 type: 'text',
