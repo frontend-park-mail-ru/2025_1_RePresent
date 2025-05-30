@@ -76,13 +76,12 @@ export class FormBannerEditorOptions extends Form {
                 });
                 return;
             }
-            dispatcher.dispatch('banner-create');
+            dispatcher.dispatch('banner-update', this.selectedBanner.id);
             reAlert({
                 message: 'Объявление обновлено',
                 type: 'success',
                 lifetimeS: '5',
             });
-            dispatcher.dispatch('banner-update', this.selectedBanner.id);
         }
     }
 
