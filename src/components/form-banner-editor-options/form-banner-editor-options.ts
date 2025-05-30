@@ -2,6 +2,7 @@
 
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
+import { Input } from '../../modules/input';
 import { reAlert } from '../../modules/re-alert';
 import { store } from '../../modules/store';
 import { bannerDescriptionGetError, bannerLinkGetError, bannerTitleGetError, perShowGetError } from '../../modules/validation';
@@ -30,6 +31,12 @@ export class FormBannerEditorOptions extends Form {
      */
     public async submit(): Promise<boolean> {
         const inputs = this.props.inputs;
+
+        const inputsArray = Object.values(inputs) as Input[];
+        const inputsValid = inputsArray.map(input => input.validate()).every(isValid => isValid === true);
+        if (!inputsValid) {
+            return false;
+        }
 
         this.selectedBanner.title = inputs.nameInput.getValue();
         this.selectedBanner.link = inputs.linkInput.getValue();
