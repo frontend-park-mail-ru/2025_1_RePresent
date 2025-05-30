@@ -162,9 +162,9 @@ export class FormBannerEditorOptions extends Form {
 
         super.renderFull(props);
 
-        props.inputs.nameInput.inputElement.addEventListener('input', this.onInput);
-        props.inputs.linkInput.inputElement.addEventListener('input', this.onInput);
-        props.inputs.textInput.inputElement.addEventListener('input', this.onInput);
+        props.inputs.nameInput.inputElement.addEventListener('input', this.onInput.bind(this));
+        props.inputs.linkInput.inputElement.addEventListener('input', this.onInput.bind(this));
+        props.inputs.textInput.inputElement.addEventListener('input', this.onInput.bind(this));
 
         this.onInput();
     }
