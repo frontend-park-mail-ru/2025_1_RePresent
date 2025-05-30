@@ -42,6 +42,11 @@ export class FormSlotEditorOptions extends Form {
         if (selectedSlot.beingCreated) {
             const response = await SlotAPI.create(selectedSlot);
             if (response.service.error) {
+                reAlert({
+                    message: 'Ошибка создания слота',
+                    type: 'error',
+                    lifetimeS: '5',
+                });
                 return;
             }
             selectedSlot = response.body;
@@ -55,6 +60,11 @@ export class FormSlotEditorOptions extends Form {
         } else {
             const response = await SlotAPI.update(selectedSlot);
             if (response.service.error) {
+                reAlert({
+                    message: 'Ошибка обновления слота',
+                    type: 'error',
+                    lifetimeS: '5',
+                });
                 return;
             }
             dispatcher.dispatch('slot-update', selectedSlot);

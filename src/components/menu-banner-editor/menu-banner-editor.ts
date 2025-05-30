@@ -17,25 +17,29 @@ import { reAlert } from '../../modules/re-alert';
  * Меню редактора объявления
  */
 export class MenuBannerEditor extends Component {
+    private bannerForm: FormBannerEditorOptions;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
         super(parent, 'menu-banner-editor/menu-banner-editor', {});
+
+        dispatcher.on('banner-form-input', this.renderPreview.bind(this));
     }
 
     /**
      * Отрисовка предпросмотра объявления
      */
     private renderPreview(): void {
-        const banner = store.get<Banner>('selectedBanner');
-        if (banner.beingCreated) {
-            return;
-        }
-        const previewContainer = this.rootElement.getElementsByClassName('preview-container')[0] as HTMLElement;
-        const iframeSrc = `${API.API_ORIGIN}/banner/iframe/${banner.id}`;
-        previewContainer.innerHTML = `<iframe class="banner" style="border: none; max-width: 90%;" title="Banner" width="300" height="300" src="${iframeSrc}"></iframe>`;
+        const banner = this.bannerForm.bannerPreview;
+
+        (<HTMLAnchorElement>this.rootElement.querySelector('.preview-container.redirect-link')).href = banner.link || 'https://example.com';
+        (<HTMLImageElement>this.rootElement.querySelector('.preview-container.card-image')).src = this.getContentSrcFromId(banner.content);
+        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container.card-link')).innerText = banner.link || 'https://example.com';
+        (<HTMLHeadingElement>this.rootElement.querySelector('.preview-container.card-title')).innerText = banner.title || 'Название';
+        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container.card-description')).innerText = banner.description || 'Текст';
     }
 
     /**
@@ -58,6 +62,11 @@ export class MenuBannerEditor extends Component {
 
         const response = await BannerAPI.upload(file);
         if (response.service.error) {
+            reAlert({
+                message: 'Ошибка загрузки файла',
+                type: 'error',
+                lifetimeS: '5',
+            });
             return contentSrc;
         }
 
@@ -85,6 +94,7 @@ export class MenuBannerEditor extends Component {
                 imgAlt: 'изображение объявления',
                 btnLabel: 'Загрузить',
                 uploadCallback: this.uploadFile.bind(this),
+                imgElement: this.rootElement.querySelector('.preview-container.card-image'),
             }
         );
     }

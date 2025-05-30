@@ -13,6 +13,7 @@ import { InputSwitch } from '../input-switch/input-switch';
  * Форма параметров объявления
  */
 export class FormBannerEditorOptions extends Form {
+    public bannerPreview: Banner;
     private selectedBanner: Banner;
 
     /**
@@ -21,6 +22,8 @@ export class FormBannerEditorOptions extends Form {
      */
     constructor(parent: HTMLElement) {
         super(parent);
+
+        this.bannerPreview = {} as Banner;
     }
 
     /**
@@ -50,12 +53,60 @@ export class FormBannerEditorOptions extends Form {
         }
 
         if (this.selectedBanner.beingCreated) {
-            await BannerAPI.create(this.selectedBanner);
+            const response = await BannerAPI.create(this.selectedBanner);
+            if (response.service.error) {
+                reAlert({
+                    message: 'Ошибка создания объявления',
+                    type: 'error',
+                    lifetimeS: '5',
+                });
+                return;
+            }
             dispatcher.dispatch('banner-create');
+            reAlert({
+                message: 'Объявление создано',
+                type: 'success',
+                lifetimeS: '5',
+            });
         } else {
-            await BannerAPI.update(this.selectedBanner);
+            const response = await BannerAPI.update(this.selectedBanner);
+            if (response.service.error) {
+                reAlert({
+                    message: 'Ошибка обновления объявления',
+                    type: 'error',
+                    lifetimeS: '5',
+                });
+                return;
+            }
+            dispatcher.dispatch('banner-create');
+            reAlert({
+                message: 'Объявление обновлено',
+                type: 'success',
+                lifetimeS: '5',
+            });
             dispatcher.dispatch('banner-update', this.selectedBanner.id);
         }
+    }
+
+    /**
+     * Обработчик ввода информации в форму
+     */
+    private onInput(): void {
+        const inputs = this.props.inputs;
+
+        this.bannerPreview = {
+            title: inputs.nameInput.getValue(),
+            link: inputs.linkInput.getValue(),
+            description: inputs.textInput.getValue(),
+            id: 0,
+            content: '',
+            max_price: '',
+            balance: 0,
+            status: 0,
+            owner: 0,
+        };
+
+        dispatcher.dispatch('banner-form-input');
     }
 
     /**
@@ -112,5 +163,9 @@ export class FormBannerEditorOptions extends Form {
         };
 
         super.renderFull(props);
+
+        props.inputs.nameInput.inputElement.addEventListener('input', this.onInput);
+        props.inputs.linkInput.inputElement.addEventListener('input', this.onInput);
+        props.inputs.textInput.inputElement.addEventListener('input', this.onInput);
     }
 }
