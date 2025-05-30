@@ -97,10 +97,10 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
         button {
             height: 100%;
-
-            .icon-generate {
-                height: 100%;
-            }
         }
+    }
+
+    .icon-generate {
+        height: 100%;
     }
 }
