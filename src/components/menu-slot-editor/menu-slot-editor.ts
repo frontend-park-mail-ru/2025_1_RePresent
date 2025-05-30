@@ -149,17 +149,15 @@ export class MenuSlotEditor extends Component {
             placeholder: 'Здесь появится ссылка',
             type: 'text',
             disabled: true,
-        });
-        this.linkField.render();
-
-        const linkCopyButton = new Button(linkCopy);
-        linkCopyButton.render({
-            type: 'neutral',
-            label: '<img class="icon-copy" src="/static/icons/copy-solid.svg" alt="📋">',
-            onClick: () => {
-                navigator.clipboard.writeText(<string>this.linkField.getValue());
+            button: {
+                type: 'neutral',
+                label: '<img class="icon-copy" src="/static/icons/copy-solid.svg" alt="📋">',
+                onClick: () => {
+                    navigator.clipboard.writeText(<string>this.linkField.getValue());
+                },
             },
         });
+        this.linkField.render();
 
         linkSection.insertAdjacentHTML('beforeend', '<h2>Предпросмотр</h2>');
         linkSection.insertAdjacentHTML('beforeend', '<div class="preview-container"></div>');
