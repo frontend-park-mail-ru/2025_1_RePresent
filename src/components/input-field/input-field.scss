@@ -1,0 +1,7 @@
+.input-field {
+    .input-row {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-medium);
+    }
+}
