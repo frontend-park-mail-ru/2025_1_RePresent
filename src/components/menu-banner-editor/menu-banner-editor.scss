@@ -89,13 +89,18 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         display: flex;
         flex-direction: row;
         gap: var(--margin-medium);
+        height: 2.5rem;
 
         .image-upload {
             width: 100%;
         }
 
-        .icon-generate {
+        button {
             height: 100%;
+
+            .icon-generate {
+                height: 100%;
+            }
         }
     }
 }
