@@ -60,7 +60,10 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
                 .card-title {
                     font-size: 1.5em;
-                    margin-bottom: 0.5em;
+                }
+
+                .card-description {
+                    margin-top: 0.5em;
                 }
             }
 
