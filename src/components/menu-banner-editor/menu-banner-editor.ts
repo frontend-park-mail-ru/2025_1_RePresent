@@ -35,11 +35,11 @@ export class MenuBannerEditor extends Component {
     private renderPreview(): void {
         const banner = this.bannerForm.bannerPreview;
 
-        (<HTMLAnchorElement>this.rootElement.querySelector('.preview-container.redirect-link')).href = banner.link || 'https://example.com';
-        (<HTMLImageElement>this.rootElement.querySelector('.preview-container.card-image')).src = this.getContentSrcFromId(banner.content);
-        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container.card-link')).innerText = banner.link || 'https://example.com';
-        (<HTMLHeadingElement>this.rootElement.querySelector('.preview-container.card-title')).innerText = banner.title || 'Название';
-        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container.card-description')).innerText = banner.description || 'Текст';
+        (<HTMLAnchorElement>this.rootElement.querySelector('.preview-container .redirect-link')).href = banner.link || 'https://example.com';
+        (<HTMLImageElement>this.rootElement.querySelector('.preview-container .card-image')).src = this.getContentSrcFromId(banner.content);
+        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container .card-link')).innerText = banner.link || 'https://example.com';
+        (<HTMLHeadingElement>this.rootElement.querySelector('.preview-container .card-title')).innerText = banner.title || 'Название';
+        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container .card-description')).innerText = banner.description || 'Текст';
     }
 
     /**
@@ -94,7 +94,7 @@ export class MenuBannerEditor extends Component {
                 imgAlt: 'изображение объявления',
                 btnLabel: 'Загрузить',
                 uploadCallback: this.uploadFile.bind(this),
-                imgElement: this.rootElement.querySelector('.preview-container.card-image'),
+                imgElement: this.rootElement.querySelector('.preview-container .card-image'),
             }
         );
     }
