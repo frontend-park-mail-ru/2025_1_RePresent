@@ -37,6 +37,8 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
             .card-image {
                 width: 100%;
                 height: 100%;
+                min-width: 0;
+                min-height: 0;
                 object-fit: cover;
             }
 
