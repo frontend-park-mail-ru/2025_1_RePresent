@@ -44,6 +44,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
                 * {
                     margin: 0;
+                    color: inherit;
                 }
 
                 .card-link {

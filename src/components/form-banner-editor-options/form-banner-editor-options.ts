@@ -92,6 +92,10 @@ export class FormBannerEditorOptions extends Form {
     private onInput(): void {
         const inputs = this.props.inputs;
 
+        inputs.nameInput.validate();
+        inputs.linkInput.validate();
+        inputs.textInput.validate();
+
         this.bannerPreview = {
             title: inputs.nameInput.getValue(),
             link: inputs.linkInput.getValue(),
