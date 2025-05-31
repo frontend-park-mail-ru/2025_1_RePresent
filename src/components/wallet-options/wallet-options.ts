@@ -121,6 +121,8 @@ export class WalletOptions extends Component {
         });
         this.amountInput.render();
 
-        this.renderAmount();
+        setTimeout(() => {
+            this.renderAmount();
+        }, 2000);
     }
 }
