@@ -90,11 +90,11 @@ export class BannerAPI {
 
     /**
      * Сгенерировать изображение баннера
-     * @param {number} bannerId - id баннера
+     * @param {string} title - название баннера
      * @returns {Promise<Response>} - ответ API
      */
-    static async generateImage(bannerId: number): Promise<Response> {
-        return API.fetch(`/banner/generate/image/${bannerId}`, {
+    static async generateImage(title: string): Promise<Response> {
+        return API.fetch(`/banner/generate/image?title=${title}`, {
             method: 'POST',
         });
     }

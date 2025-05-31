@@ -83,9 +83,10 @@ export class MenuBannerEditor extends Component {
      * Сгенерировать изображение баннера
      */
     private async generateImage(): Promise<void> {
-        if (!await this.bannerForm.submit()) {
+        const title = this.bannerForm.bannerPreview.title;
+        if (!title) {
             reAlert({
-                message: 'Заполните поля верно',
+                message: 'Заполните название верно',
                 type: 'error',
                 lifetimeS: '5',
             });
@@ -98,7 +99,7 @@ export class MenuBannerEditor extends Component {
             lifetimeS: '5',
         });
 
-        const response = await BannerAPI.generateImage(store.get<Banner>('selectedBanner').id);
+        const response = await BannerAPI.generateImage(title);
         if (!response.ok) {
             reAlert({
                 message: 'Ошибка генерации изображения',
