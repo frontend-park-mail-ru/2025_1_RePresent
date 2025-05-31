@@ -124,7 +124,7 @@ export class FormBannerEditorOptions extends Form {
             return;
         }
 
-        this.props.inputs.textInput.inputElement.value = response.service.success;
+        (<HTMLInputElement>document.querySelector('input#text')).value = response.service.success;
         this.onInput();
     }
 
