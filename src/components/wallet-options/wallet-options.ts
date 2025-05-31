@@ -79,10 +79,8 @@ export class WalletOptions extends Component {
         const key = crypto.randomUUID();
         const response = await PaymentAPI.withdraw({
             amount: topUpAmount,
-            currency: 'RUB',
             return_url: `${location.origin}/profile`,
             description: 'Списание со счета',
-            idempotence_key: key,
         });
 
         if (!response.confirmation_url) {

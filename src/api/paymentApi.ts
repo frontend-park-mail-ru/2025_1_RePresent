@@ -25,10 +25,8 @@ interface TopUpRequest {
  */
 interface WithdrawRequest {
     amount: string;
-    currency: string;
     return_url: string;
     description: string;
-    idempotence_key: string;
 }
 
 /**
