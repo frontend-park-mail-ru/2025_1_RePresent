@@ -83,7 +83,7 @@ export class MenuBannerEditor extends Component {
      * Сгенерировать изображение баннера
      */
     private async generateImage(): Promise<void> {
-        if (!this.bannerForm.submit()) {
+        if (!await this.bannerForm.submit()) {
             reAlert({
                 message: 'Ошибка генерации изображения',
                 type: 'error',
