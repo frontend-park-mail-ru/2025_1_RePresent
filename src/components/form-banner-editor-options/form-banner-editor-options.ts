@@ -2,7 +2,6 @@
 
 import { Banner, BannerAPI } from '../../api/bannerApi';
 import { dispatcher } from '../../modules/dispatcher';
-import { Input } from '../../modules/input';
 import { reAlert } from '../../modules/re-alert';
 import { store } from '../../modules/store';
 import { bannerDescriptionGetError, bannerLinkGetError, bannerTitleGetError, perShowGetError } from '../../modules/validation';
@@ -27,16 +26,9 @@ export class FormBannerEditorOptions extends Form {
 
     /**
      * Обработчик нажатия на кнопку отправки формы
-     * @returns {boolean} - успешна ли отправка
      */
-    public async submit(): Promise<boolean> {
+    private async onSubmit(): Promise<void> {
         const inputs = this.props.inputs;
-
-        const inputsArray = Object.values(inputs) as Input[];
-        const inputsValid = inputsArray.map(input => input.validate()).every(isValid => isValid === true);
-        if (!inputsValid) {
-            return false;
-        }
 
         this.selectedBanner.title = inputs.nameInput.getValue();
         this.selectedBanner.link = inputs.linkInput.getValue();
@@ -55,7 +47,7 @@ export class FormBannerEditorOptions extends Form {
                 type: 'error',
                 lifetimeS: '5',
             });
-            return false;
+            return;
         }
 
         if (this.selectedBanner.beingCreated) {
@@ -66,7 +58,7 @@ export class FormBannerEditorOptions extends Form {
                     type: 'error',
                     lifetimeS: '5',
                 });
-                return false;
+                return;
             }
             dispatcher.dispatch('banner-create');
             reAlert({
@@ -82,7 +74,7 @@ export class FormBannerEditorOptions extends Form {
                     type: 'error',
                     lifetimeS: '5',
                 });
-                return false;
+                return;
             }
             dispatcher.dispatch('banner-update', this.selectedBanner.id);
             reAlert({
@@ -91,8 +83,6 @@ export class FormBannerEditorOptions extends Form {
                 lifetimeS: '5',
             });
         }
-
-        return true;
     }
 
     /**
@@ -169,7 +159,7 @@ export class FormBannerEditorOptions extends Form {
         this.selectedBanner = selectedBanner;
         this.bannerPreview = selectedBanner;
 
-        const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.submit.bind(this), className: 'form-block' };
+        const props: FormProps = { inputs: {}, submitLabel: 'Сохранить', onSubmit: this.onSubmit.bind(this), className: 'form-block' };
 
         super.renderRoot(props);
 
