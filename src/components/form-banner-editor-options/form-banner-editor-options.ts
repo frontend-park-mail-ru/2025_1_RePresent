@@ -125,8 +125,10 @@ export class FormBannerEditorOptions extends Form {
         }
 
         setTimeout(() => {
+            const matchNoQuotes = response.service.success.match(/^["']?(.*?)["']?$/);
+            const description = matchNoQuotes ? matchNoQuotes[1] : response.service.success;
             const textInput = <HTMLInputElement>document.querySelector('input#text');
-            textInput.value = response.service.success;
+            textInput.value = description;
             const event = new Event('input', { bubbles: true });
             textInput.dispatchEvent(event);
         }, 2000);
