@@ -24,7 +24,7 @@ interface TopUpRequest {
  * Запрос списания со счета
  */
 interface WithdrawRequest {
-    amount: string;
+    amount: number;
     return_url: string;
     description: string;
 }

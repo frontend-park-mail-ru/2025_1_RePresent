@@ -75,8 +75,7 @@ export class WalletOptions extends Component {
             return;
         }
 
-        const topUpAmount = <string>this.amountInput.getValue();
-        const key = crypto.randomUUID();
+        const topUpAmount = +<string>this.amountInput.getValue();
         const response = await PaymentAPI.withdraw({
             amount: topUpAmount,
             return_url: `${location.origin}/profile`,
