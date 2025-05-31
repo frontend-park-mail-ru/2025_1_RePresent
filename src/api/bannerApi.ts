@@ -101,11 +101,11 @@ export class BannerAPI {
 
     /**
      * Сгенерировать описание баннера
-     * @param {number} bannerId - id баннера
+     * @param {string} title - название баннера
      * @returns {Promise<APIresponse>} - ответ API
      */
-    static async generateDescription(bannerId: number): Promise<APIresponse> {
-        const response = await API.fetch(`/banner/generate/description/${bannerId}`, {
+    static async generateDescription(title: string): Promise<APIresponse> {
+        const response = await API.fetch(`/banner/generate/description?title=${title}`, {
             method: 'POST',
         });
         return response.json();

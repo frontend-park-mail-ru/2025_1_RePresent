@@ -99,9 +99,11 @@ export class FormBannerEditorOptions extends Form {
      * Сгенерировать описание баннера
      */
     private async generateDescription(): Promise<void> {
-        if (!this.submit()) {
+        this.props.inputs.nameInput.validate();
+        const title = this.props.inputs.nameInput.getValue();
+        if (!title) {
             reAlert({
-                message: 'Заполните поля верно',
+                message: 'Заполните название верно',
                 type: 'error',
                 lifetimeS: '5',
             });
@@ -114,7 +116,7 @@ export class FormBannerEditorOptions extends Form {
             lifetimeS: '5',
         });
 
-        const response = await BannerAPI.generateDescription(this.selectedBanner.id);
+        const response = await BannerAPI.generateDescription(title);
         if (response.service.error) {
             reAlert({
                 message: 'Ошибка генерации описания',
