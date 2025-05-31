@@ -36,7 +36,7 @@ export class SlotAPI {
         if (!response.ok) {
             return [];
         }
-        return (await response.json())['body'];
+        return (await response.json())['body'] || [];
     }
 
     /**

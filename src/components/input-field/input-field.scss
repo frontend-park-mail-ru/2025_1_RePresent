@@ -1,0 +1,12 @@
+.input-field {
+    .input-row {
+        height: 2.5rem;
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-medium);
+
+        button {
+            height: 100%;
+        }
+    }
+}

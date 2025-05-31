@@ -1,6 +1,9 @@
 'use strict';
 
+import './input-field.scss';
+
 import { InputWithError, InputWithErrorProps } from '../../modules/input-with-error';
+import { Button, ButtonProps } from '../button/button';
 
 /**
  * Интерфейс для описания параметров поля ввода
@@ -12,6 +15,7 @@ interface InputFieldProps extends InputWithErrorProps {
     label?: string;
     default?: string;
     disabled?: boolean;
+    button?: ButtonProps;
 }
 
 /**
@@ -38,5 +42,10 @@ export class InputField extends InputWithError {
         super.render({ ...props, disabled });
 
         this.inputElement.value = props.default || '';
+
+        if (props.button) {
+            const inputRow = this.rootElement.querySelector('.input-row') as HTMLElement;
+            new Button(inputRow).render(props.button);
+        }
     }
 }

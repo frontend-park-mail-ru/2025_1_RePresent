@@ -21,9 +21,18 @@ interface TopUpRequest {
 }
 
 /**
- * Ответ пополнения счета
+ * Запрос списания со счета
  */
-interface TopUpResponse {
+interface WithdrawRequest {
+    amount: number;
+    return_url: string;
+    description: string;
+}
+
+/**
+ * Ответ транзакции
+ */
+interface TransactionResponse {
     confirmation_url: string;
 }
 
@@ -44,8 +53,21 @@ export class PaymentAPI {
      * @param {TopUpRequest} request - запрос
      * @returns {Promise<APIresponse>} - ответ API
      */
-    static async topUp(request: TopUpRequest): Promise<TopUpResponse> {
+    static async topUp(request: TopUpRequest): Promise<TransactionResponse> {
         const response = await API.fetch('/payment/transactions', {
+            method: 'POST',
+            body: JSON.stringify(request),
+        });
+        return response.json();
+    }
+
+    /**
+     * Снять со счета текущего пользователя
+     * @param {WithdrawRequest} request - запрос
+     * @returns {Promise<APIresponse>} - ответ API
+     */
+    static async withdraw(request: WithdrawRequest): Promise<TransactionResponse> {
+        const response = await API.fetch('/payment/withdraw', {
             method: 'POST',
             body: JSON.stringify(request),
         });

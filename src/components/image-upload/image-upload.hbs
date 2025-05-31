@@ -1,3 +1,5 @@
 <div class="image-upload">
-    <img class="image" src="{{imgSrc}}" alt="{{imgAlt}}">
+    {{#unless imgElement}}
+    <img class="image">
+    {{/unless}}
 </div>

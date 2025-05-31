@@ -71,11 +71,26 @@ export class WalletOptions extends Component {
      * Обработчик нажатия на кнопку снятия
      */
     private async onWithdrawClick(): Promise<void> {
-        reAlert({
-            message: 'Эта функция еще не реализована :(',
-            type: 'error',
-            lifetimeS: '5',
+        if (!this.amountInput.validate()) {
+            return;
+        }
+
+        const topUpAmount = +<string>this.amountInput.getValue();
+        const response = await PaymentAPI.withdraw({
+            amount: topUpAmount,
+            return_url: `${location.origin}/profile`,
+            description: 'Списание со счета',
         });
+
+        if (!response.confirmation_url) {
+            reAlert({
+                message: 'Ошибка списания со счета',
+                type: 'error',
+                lifetimeS: '5',
+            });
+            return;
+        }
+        location.href = response.confirmation_url;
     }
 
     /**
@@ -106,6 +121,8 @@ export class WalletOptions extends Component {
         });
         this.amountInput.render();
 
-        this.renderAmount();
+        setTimeout(() => {
+            this.renderAmount();
+        }, 2000);
     }
 }

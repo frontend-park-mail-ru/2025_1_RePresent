@@ -87,4 +87,27 @@ export class BannerAPI {
         });
         return response.json();
     }
+
+    /**
+     * Сгенерировать изображение баннера
+     * @param {string} title - название баннера
+     * @returns {Promise<Response>} - ответ API
+     */
+    static async generateImage(title: string): Promise<Response> {
+        return API.fetch(`/banner/generate/image?title=${title}`, {
+            method: 'POST',
+        });
+    }
+
+    /**
+     * Сгенерировать описание баннера
+     * @param {string} title - название баннера
+     * @returns {Promise<APIresponse>} - ответ API
+     */
+    static async generateDescription(title: string): Promise<APIresponse> {
+        const response = await API.fetch(`/banner/generate/description?title=${title}`, {
+            method: 'POST',
+        });
+        return response.json();
+    }
 }

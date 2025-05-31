@@ -2,6 +2,12 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
 
 .menu-banner-editor {
     .preview-section {
+        --font-small: 16px;
+        --light: #FCFCFC;
+        --light-gray: #CCC;
+        --dark-gray: #777;
+        --dark: #1A1A1A;
+
         flex: 1 0 15rem;
         display: flex;
         flex-direction: column;
@@ -10,9 +16,91 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         @media (max-width: $mobile-max-width) {
             width: 100%;
         }
+
+        .redirect-link {
+            max-width: 90%;
+            width: 300px;
+            height: 300px;
+            text-decoration: none;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--light);
+            border-radius: 0.5em;
+            overflow: hidden;
+            font-size: var(--font-small);
+
+            .card-image {
+                width: 100%;
+                height: 100%;
+                min-width: 0;
+                min-height: 0;
+                object-fit: cover;
+            }
+
+            .card-body {
+                padding: 1.5em 1em;
+                color: var(--dark);
+                background-color: var(--light);
+
+                * {
+                    margin: 0;
+                    font-family: Arial, sans-serif;
+                    line-height: 1.2;
+                    color: inherit;
+                }
+
+                .card-link {
+                    margin-bottom: 1em;
+                    color: var(--dark-gray);
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
+                .card-title {
+                    font-size: 1.5em;
+                }
+
+                .card-description {
+                    margin-top: 0.5em;
+                }
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .card-body {
+                    color: var(--light);
+                    background-color: var(--dark);
+
+                    .card-link {
+                        margin-bottom: 1em;
+                        color: var(--light-gray);
+                    }
+                }
+            }
+        }
     }
 
-    .image-upload {
-        width: 10rem;
+    .image-upload-row {
+        display: flex;
+        flex-direction: row;
+        gap: var(--margin-medium);
+        height: 2.5rem;
+
+        .image-upload {
+            width: 100%;
+        }
+
+        button {
+            height: 100%;
+        }
+    }
+
+    .icon-generate {
+        height: 100%;
     }
 }

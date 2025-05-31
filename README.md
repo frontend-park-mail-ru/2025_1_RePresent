@@ -22,7 +22,23 @@
 ```bash
 git clone https://github.com/frontend-park-mail-ru/2025_1_RePresent
 cd ./2025_1_RePresent
+
+# С помощью Docker
+
 docker compose up -d
+
+# Либо вручную
+
+# Установить зависимости
+npm install
+
+# Использовать .env файл
+export $(cat .env)
+# или задать переменные в консоли
+export ORIGIN=https://re-target.ru PRODUCTION=true
+
+# Запустить сборку
+npm run build
 ```
 
 ## Ссылки:
@@ -31,4 +47,4 @@ docker compose up -d
 
 [Figma](https://www.figma.com/design/HHsrThhfky5yVolIUAWnUD/ReTarget?node-id=0-1&t=YSXfSl5ah6THeQCT-1)
 
-[Деплой](http://re-target.ru)
+[Деплой](https://re-target.ru)

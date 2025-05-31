@@ -17,25 +17,28 @@ import { reAlert } from '../../modules/re-alert';
  * Меню редактора объявления
  */
 export class MenuBannerEditor extends Component {
+    private bannerForm: FormBannerEditorOptions;
+
     /**
      * Конструктор компонента
      * @param {HTMLElement} parent - родительский узел компонента
      */
     constructor(parent: HTMLElement) {
         super(parent, 'menu-banner-editor/menu-banner-editor', {});
+
+        dispatcher.on('banner-form-input', this.renderPreview.bind(this));
     }
 
     /**
      * Отрисовка предпросмотра объявления
      */
     private renderPreview(): void {
-        const banner = store.get<Banner>('selectedBanner');
-        if (banner.beingCreated) {
-            return;
-        }
-        const previewContainer = this.rootElement.getElementsByClassName('preview-container')[0] as HTMLElement;
-        const iframeSrc = `${API.API_ORIGIN}/banner/iframe/${banner.id}`;
-        previewContainer.innerHTML = `<iframe class="banner" style="border: none; max-width: 90%;" title="Banner" width="300" height="300" src="${iframeSrc}"></iframe>`;
+        const banner = this.bannerForm.bannerPreview;
+
+        (<HTMLAnchorElement>this.rootElement.querySelector('.preview-container .redirect-link')).href = banner.link || 'https://example.com';
+        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container .card-link')).innerText = banner.link || 'https://example.com';
+        (<HTMLHeadingElement>this.rootElement.querySelector('.preview-container .card-title')).innerText = banner.title || 'Название';
+        (<HTMLParagraphElement>this.rootElement.querySelector('.preview-container .card-description')).innerText = banner.description || 'Текст';
     }
 
     /**
@@ -58,13 +61,18 @@ export class MenuBannerEditor extends Component {
 
         const response = await BannerAPI.upload(file);
         if (response.service.error) {
+            reAlert({
+                message: 'Ошибка загрузки файла',
+                type: 'error',
+                lifetimeS: '5',
+            });
             return contentSrc;
         }
 
         contentId = response.service.success;
         store.update({ key: 'fileId', value: contentId });
         reAlert({
-            message: 'Файл загружен',
+            message: 'Файл загружен. Не забудьте сохранить объявление',
             type: 'success',
             lifetimeS: '5',
         });
@@ -72,21 +80,78 @@ export class MenuBannerEditor extends Component {
     }
 
     /**
+     * Сгенерировать изображение баннера
+     */
+    private async generateImage(): Promise<void> {
+        const title = this.bannerForm.bannerPreview.title;
+        if (!title) {
+            reAlert({
+                message: 'Заполните название верно',
+                type: 'error',
+                lifetimeS: '5',
+            });
+            return;
+        }
+
+        reAlert({
+            message: 'Изображение генерируется. Это может занять до 30 секунд',
+            type: 'success',
+            lifetimeS: '5',
+        });
+
+        const response = await BannerAPI.generateImage(title);
+        if (!response.ok) {
+            reAlert({
+                message: 'Ошибка генерации изображения',
+                type: 'error',
+                lifetimeS: '5',
+            });
+            return;
+        }
+
+        const blob = await response.blob();
+        const file = new File([blob], 'generated', {
+            type: blob.type,
+            lastModified: Date.now(),
+        });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        const fileInput = document.getElementById('imageInput') as HTMLInputElement;
+        fileInput.files = dataTransfer.files;
+        const event = new Event('change', { bubbles: true });
+        fileInput.dispatchEvent(event);
+
+        reAlert({
+            message: 'Изображение сгенерировано. Не забудьте сохранить объявление',
+            type: 'success',
+            lifetimeS: '5',
+        });
+    }
+
+    /**
      * Отрисовка раздела загрузки изображения
      */
     private renderImageUpload(): void {
         const banner = store.get<Banner>('selectedBanner');
-        const previewSection = this.rootElement.getElementsByClassName('preview-section')[0] as HTMLElement;
+        const imageUploadRow = this.rootElement.getElementsByClassName('image-upload-row')[0] as HTMLElement;
         const contentSrc = banner.beingCreated ? '' : this.getContentSrcFromId(banner.content);
 
-        new ImageUpload(previewSection).render(
+        new ImageUpload(imageUploadRow).render(
             {
                 imgSrc: contentSrc,
-                imgAlt: 'изображение объявления',
-                btnLabel: 'Загрузить',
+                imgAlt: '',
+                btnLabel: 'Загрузить изображение',
                 uploadCallback: this.uploadFile.bind(this),
+                imgElement: this.rootElement.querySelector('.preview-container .card-image'),
             }
         );
+
+        new Button(imageUploadRow).render({
+            type: 'neutral',
+            label: '<img class="icon-generate" src="/static/icons/wand-magic-sparkles-solid.svg" alt="🪄">',
+            onClick: this.generateImage.bind(this),
+        });
     }
 
     /**
@@ -140,7 +205,8 @@ export class MenuBannerEditor extends Component {
         this.renderImageUpload();
 
         const optionsSection = this.rootElement.getElementsByClassName('options-section')[0] as HTMLElement;
-        new FormBannerEditorOptions(optionsSection).render();
+        this.bannerForm = new FormBannerEditorOptions(optionsSection);
+        this.bannerForm.render();
 
         this.renderDeleteButton();
 

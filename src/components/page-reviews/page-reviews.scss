@@ -18,6 +18,7 @@
             padding: var(--margin-big);
             background-color: var(--bg-primary);
             border-radius: var(--corner-small);
+            border: var(--border-width) solid var(--bg-secondary-dark);
 
             .header-bar {
                 width: 100%;

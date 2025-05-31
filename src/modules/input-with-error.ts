@@ -88,6 +88,6 @@ export class InputWithError extends Input {
 
         this.errorElement = this.rootElement.querySelector('.error-msg') as HTMLElement;
         this.inputElement = this.rootElement.querySelector('#' + props.name) as HTMLInputElement;
-        this.inputElement.onblur = this.validateIfChanged.bind(this);
+        this.inputElement.oninput = this.validateIfChanged.bind(this);
     }
 }

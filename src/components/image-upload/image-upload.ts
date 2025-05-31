@@ -23,6 +23,7 @@ interface ImageUploadProps {
     imgAlt: string;
     btnLabel: string;
     uploadCallback: UploadCallback;
+    imgElement?: HTMLImageElement;
 }
 
 /**
@@ -65,7 +66,9 @@ export class ImageUpload extends Component {
         );
         inputFile.render();
 
-        const image = this.rootElement.getElementsByClassName('image')[0] as HTMLImageElement;
+        const image = props.imgElement || this.rootElement.getElementsByClassName('image')[0] as HTMLImageElement;
+        image.src = props.imgSrc;
+        image.alt = props.imgAlt;
         image.onerror = () => {
             image.onerror = null;
             image.src = API.PLACEHOLDER_IMAGE_PATH;

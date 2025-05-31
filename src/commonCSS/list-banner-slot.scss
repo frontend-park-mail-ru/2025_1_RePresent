@@ -22,6 +22,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     padding: var(--margin-medium);
     background-color: var(--bg-primary);
     border-radius: var(--corner-small);
+    border: var(--border-width) solid var(--bg-secondary-dark);
 
     @media (max-width: $mobile-max-width) {
         width: 100%;

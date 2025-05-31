@@ -11,6 +11,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
     @media (max-width: $mobile-max-width) {
         background-color: var(--bg-primary);
         border-radius: var(--corner-small);
+        border: var(--border-width) solid var(--bg-secondary-dark);
     }
 
     .pages-section,
@@ -26,7 +27,12 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         flex-shrink: 0;
         background-color: var(--bg-primary);
         border-radius: var(--corner-small);
+        border: var(--border-width) solid var(--bg-secondary-dark);
         overflow: hidden;
+
+        @media (max-width: $mobile-max-width) {
+            border: none;
+        }
     }
 
     .logo-box {
@@ -34,8 +40,9 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         height: 100%;
         background-color: var(--active-primary);
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: start;
         user-select: none;
         cursor: pointer;
 
@@ -44,12 +51,23 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
             font-weight: bold;
             color: white;
 
+            &.desktop {
+                line-height: 2.5rem;
+            }
+
+            &.role {
+                font-size: var(--font-small);
+                line-height: 1rem;
+            }
+
             &.mobile {
                 display: none;
             }
 
             @media (max-width: $mobile-max-width) {
-                &.desktop {
+
+                &.desktop,
+                &.role {
                     display: none;
                 }
 
@@ -84,6 +102,7 @@ $mobile-max-width: ENV_MOBILE_MAX_WIDTH_PXpx;
         width: calc(var(--navbar-height) * 0.75);
         aspect-ratio: 1;
         border-radius: 100%;
+        object-fit: cover;
     }
 
     @media (max-width: $mobile-max-width) {
