@@ -92,9 +92,9 @@ export class FormSlotEditorOptions extends Form {
         props.inputs = {
             name: new InputField(root, {
                 type: 'text',
-                label: 'Название',
+                label: 'Что Вы хотите размещать?',
                 name: 'name',
-                placeholder: 'Введите название',
+                placeholder: 'Мягкие игрушки, подарки',
                 default: selectedSlot.slot_name,
                 getError: bannerTitleGetError,
             }),

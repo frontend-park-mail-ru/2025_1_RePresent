@@ -178,9 +178,9 @@ export class FormBannerEditorOptions extends Form {
         props.inputs = {
             nameInput: new InputField(root, {
                 type: 'text',
-                label: 'Название',
+                label: 'Что Вы хотите рекламировать?',
                 name: 'name',
-                placeholder: 'Введите название',
+                placeholder: 'Мягкие игрушки',
                 default: selectedBanner.title,
                 getError: bannerTitleGetError,
             }),
@@ -194,9 +194,9 @@ export class FormBannerEditorOptions extends Form {
             }),
             textInput: new InputField(root, { // TODO make textarea input
                 type: 'text',
-                label: 'Текст',
+                label: 'Опишите подробнее',
                 name: 'text',
-                placeholder: 'Введите текст',
+                placeholder: 'Теплые объятия и радостный смех',
                 default: selectedBanner.description,
                 getError: bannerDescriptionGetError,
                 button: {
