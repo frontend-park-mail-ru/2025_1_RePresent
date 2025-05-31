@@ -85,7 +85,7 @@ export class MenuBannerEditor extends Component {
     private async generateImage(): Promise<void> {
         if (!await this.bannerForm.submit()) {
             reAlert({
-                message: 'Ошибка генерации изображения',
+                message: 'Заполните поля верно',
                 type: 'error',
                 lifetimeS: '5',
             });

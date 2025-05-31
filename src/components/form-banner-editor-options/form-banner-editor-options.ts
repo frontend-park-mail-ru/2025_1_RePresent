@@ -101,7 +101,7 @@ export class FormBannerEditorOptions extends Form {
     private async generateDescription(): Promise<void> {
         if (!this.submit()) {
             reAlert({
-                message: 'Ошибка генерации описания',
+                message: 'Заполните поля верно',
                 type: 'error',
                 lifetimeS: '5',
             });
