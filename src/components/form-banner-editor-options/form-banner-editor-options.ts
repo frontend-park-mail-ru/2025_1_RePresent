@@ -124,8 +124,10 @@ export class FormBannerEditorOptions extends Form {
             return;
         }
 
-        (<HTMLInputElement>document.querySelector('input#text')).value = response.service.success;
-        this.onInput();
+        setTimeout(() => {
+            (<HTMLInputElement>document.querySelector('input#text')).value = response.service.success;
+            this.onInput();
+        }, 2000);
     }
 
     /**
