@@ -125,8 +125,10 @@ export class FormBannerEditorOptions extends Form {
         }
 
         setTimeout(() => {
-            (<HTMLInputElement>document.querySelector('input#text')).value = response.service.success;
-            this.onInput();
+            const textInput = <HTMLInputElement>document.querySelector('input#text');
+            textInput.value = response.service.success;
+            const event = new Event('input', { bubbles: true });
+            textInput.dispatchEvent(event);
         }, 2000);
     }
 
