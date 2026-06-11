@@ -107,5 +107,3 @@ npm run build
 [Бэкенд проекта](https://github.com/go-park-mail-ru/2025_1_RePresent)
 
 [Figma](https://www.figma.com/design/HHsrThhfky5yVolIUAWnUD/ReTarget?node-id=0-1&t=YSXfSl5ah6THeQCT-1)
-
-[Деплой (неактивен)](https://re-target.ru)
